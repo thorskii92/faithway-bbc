@@ -49,6 +49,9 @@ const COORD_BY_PLACE = {
   Zanzibar: [-6.16, 39.2],
 };
 const NO_PHOTO = new Set([20, 151]);
+// cards the user asked not to flag on the site (2026-11-08): Nguyen Ba Qui (21) and the cards without photos.
+// Their notes stay in missionaries.csv for fixing the Canva cards.
+const NO_FLAG = new Set([20, 21, 151]);
 const EXCLUDE = new Set([150, 154, 155]); // duplicate design, photo-only cards
 
 const rows = parseCSV(readFileSync(csvPath, 'utf8')).slice(1).filter((r) => r.length > 1);
@@ -81,7 +84,7 @@ for (const [card, country, iso, place, family, missionary, affiliation, issue] o
   const known = missionary && missionary !== '(unknown)';
   out.push({
     card: n, country, iso, mapName: f.properties.name, place: place || country,
-    family, name: known ? missionary : family, aff: affiliation, issue: scrub(issue || ''),
+    family, name: known ? missionary : family, aff: affiliation, issue: NO_FLAG.has(n) ? '' : scrub(issue || ''),
     region: regionOf(iso), pt: pt.map((v) => +v.toFixed(1)),
     sprite: NO_PHOTO.has(n) ? -1 : spriteIds.indexOf(n),
   });
