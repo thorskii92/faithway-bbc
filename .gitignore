@@ -1,0 +1,11 @@
+# PRIVACY: raw missionary material (includes RAN/CRAN, China and India missionaries). Never commit.
+MISSION/
+
+# local tooling output
+.playwright-mcp/
+node_modules/
+
+# original photos stay local; the site uses resized copies in docs/img
+Gallery/
+# working copy of the preview (the published site lives in docs/)
+prototype/

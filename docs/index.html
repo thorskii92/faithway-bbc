@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Palawan Faithway Bible Baptist Church, Inc. Purok Matapat, San Jose, Puerto Princesa City. Passion for God. Compassion to People.">
+<link rel="icon" href="logo.jpg">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Faithway Bible Baptist Church</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@400;500;600&display=swap">
+<style>
+/* Layout: one long scroll, Palawan sea to sand. Deep-blue hero, paper body, cream "printed" moments (invitation, covenant, letters). */
+:root {
+  --deep: #086288;
+  --deep-2: #05445F;
+  --mid: #4D8DBA;
+  --sky: #97D7FF;
+  --cream: #FFEFC4;
+  --ink: #13293D;
+  --muted: #4B6275;
+  --paper: #FFFCF5;
+  --line: #DCE5EC;
+  --ocean: #EEF7FD;
+  --land: #D6E5F0;
+  --land-served: #9FC5E0;
+  --home: #F3C463; /* the Philippines, our home field */
+  --bow: #FFA81E;
+  --flag: #C2410C; /* cards that need correcting */ /* the hover arc: one bright warm accent against the blue map */
+  --white: #FFFFFF;
+  --f-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --f-body: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --gutter-l: max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r: max(16px, env(safe-area-inset-right, 0px));
+  --radius: 14px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body { background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.65; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 30; background: var(--paper); }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 600; line-height: 1.1; text-wrap: balance; margin: 0; color: var(--deep-2); }
+p { margin: 0; }
+a { color: var(--deep); }
+:focus-visible { outline: 3px solid var(--mid); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1200px; margin-inline: auto; padding-left: var(--gutter-l); padding-right: var(--gutter-r); }
+.eyebrow { font-size: .74rem; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--mid); }
+.section { padding-block: clamp(64px, 9vw, 120px); }
+.section__head { display: grid; gap: 12px; margin-bottom: 40px; max-width: 640px; }
+.section__head h2 { font-size: clamp(2.2rem, 4.4vw, 3.4rem); }
+.section__head p { color: var(--muted); }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 22px; border-radius: 999px; font: 600 .9rem/1 var(--f-body); letter-spacing: .02em; text-decoration: none; border: 1.5px solid transparent; cursor: pointer; transition: transform .2s, background .2s; }
+.btn:hover { transform: translateY(-2px); }
+.btn--cream { background: var(--cream); color: var(--deep-2); }
+.btn--ghost { border-color: rgba(255,255,255,.55); color: var(--white); background: transparent; }
+.btn--deep { background: var(--deep); color: var(--white); }
+
+/* sample ribbon */
+.ribbon { background: var(--cream); color: var(--deep-2); font-size: .8rem; text-align: center; padding: 8px 16px; border-bottom: 1px solid #F0DFAE; }
+
+/* header */
+.header { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: rgba(255,252,245,.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.header__in { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 68px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--deep-2); min-width: 0; }
+.brand__logo { width: 52px; height: 52px; object-fit: cover; object-position: 50% 22%; mix-blend-mode: multiply; flex: none; }
+.brand__name { font-family: var(--f-display); font-size: 1.35rem; font-weight: 600; line-height: 1; }
+.brand__name small { display: block; font-family: var(--f-body); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-top: 4px; }
+.nav { display: flex; gap: 4px; }
+.nav a { text-decoration: none; color: var(--ink); font-size: .86rem; font-weight: 500; padding: 8px 12px; border-radius: 999px; }
+.nav a:hover { background: var(--ocean); color: var(--deep); }
+@media (max-width: 760px) { .nav { display: none; } }
+
+/* hero */
+.hero { position: relative; overflow: hidden; color: var(--white); background:
+  radial-gradient(ellipse 60% 70% at 85% 10%, rgba(151,215,255,.35), transparent 60%),
+  linear-gradient(175deg, var(--deep-2) 0%, var(--deep) 55%, #2C7DB0 100%); }
+.hero__in { position: relative; z-index: 1; display: grid; grid-template-columns: 1.25fr .75fr; gap: 48px; align-items: end; padding-block: clamp(72px, 10vw, 128px) clamp(110px, 12vw, 160px); }
+.hero .eyebrow { color: var(--sky); }
+.hero h1 { color: var(--white); font-size: clamp(2.8rem, 7vw, 5.6rem); font-weight: 500; margin-top: 18px; letter-spacing: -.01em; }
+.hero h1 em { font-style: italic; color: var(--cream); }
+.hero__tag { font-family: var(--f-display); font-style: italic; font-size: clamp(1.25rem, 2.2vw, 1.6rem); color: var(--sky); margin-top: 18px; }
+.hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+.verse { border-left: 1px solid rgba(255,239,196,.5); padding-left: 24px; }
+.verse p { font-family: var(--f-display); font-size: 1.45rem; line-height: 1.35; font-style: italic; color: var(--cream); }
+.verse cite { display: block; margin-top: 12px; font-style: normal; font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--sky); }
+.hero__photo { position: absolute; inset: 0; background: url(img/church-sanctuary.jpg) center 40% / cover no-repeat; opacity: .3; pointer-events: none; }
+.hero__creed { margin-top: 14px; font: 600 .74rem/1.6 var(--f-body); letter-spacing: .16em; text-transform: uppercase; color: var(--home); }
+.hero__creed i { font-style: normal; opacity: .7; padding: 0 .35em; }
+.creed { list-style: none; margin: clamp(48px, 7vw, 80px) 0 0; padding: 28px 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-block: 1px solid var(--line); text-align: center; }
+.creed li { display: grid; gap: 2px; font: 500 .72rem/1.3 var(--f-body); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); padding: 4px 12px; border-left: 1px solid var(--line); }
+.creed li:first-child { border-left: 0; }
+.creed span { font: 600 clamp(1.4rem, 2.6vw, 2rem)/1.1 var(--f-display); letter-spacing: 0; text-transform: none; color: var(--deep-2); }
+@media (max-width: 640px) { .creed { grid-template-columns: 1fr 1fr; row-gap: 20px; } .creed li:nth-child(3) { border-left: 0; } }
+.visit__photo { margin: 0 0 40px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 30px 60px -40px rgba(5,68,95,.5); }
+.visit__photo img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 30%; }
+.hero__wave { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: clamp(50px, 7vw, 90px); display: block; }
+@media (max-width: 860px) { .hero__in { grid-template-columns: 1fr; align-items: start; } }
+
+/* service strip */
+.services { margin-top: -48px; position: relative; z-index: 2; }
+.services__card { background: var(--white); border-radius: var(--radius); box-shadow: 0 20px 50px -24px rgba(5,68,95,.35); display: grid; grid-template-columns: repeat(4, 1fr); }
+.svc { padding: 22px 24px; border-left: 1px solid var(--line); min-width: 0; }
+.svc:first-child { border-left: 0; }
+.svc__day { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mid); font-weight: 600; }
+.svc__name { font-family: var(--f-display); font-size: 1.3rem; font-weight: 600; color: var(--deep-2); margin-top: 4px; }
+.svc__time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: .9rem; }
+@media (max-width: 860px) { .services__card { grid-template-columns: 1fr 1fr; } .svc:nth-child(3) { border-left: 0; } .svc:nth-child(n+3) { border-top: 1px solid var(--line); } }
+
+/* updates */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.chip { font: 500 .82rem/1 var(--f-body); padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); color: var(--ink); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--deep); border-color: var(--deep); color: var(--white); }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+@media (max-width: 960px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 600px) { .cards { grid-template-columns: 1fr; } }
+.card { display: flex; flex-direction: column; text-decoration: none; color: inherit; background: var(--white); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); transition: transform .3s, box-shadow .3s; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 24px 40px -28px rgba(5,68,95,.45); }
+.card__body { padding: 20px 22px 24px; display: grid; gap: 8px; }
+.card__meta { display: flex; gap: 10px; align-items: center; font-size: .78rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.card h3 { font-size: 1.55rem; }
+.card__sum { color: var(--muted); font-size: .92rem; }
+.card__more { margin-top: 6px; font-size: .82rem; font-weight: 600; color: var(--deep); }
+.tag { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; padding: 4px 9px; border-radius: 999px; background: var(--ocean); color: var(--deep); }
+.tag--up { background: var(--cream); color: #7A5A0B; }
+
+/* cover art */
+.cover { position: relative; aspect-ratio: 16 / 10; overflow: hidden; display: grid; place-items: center; color: var(--white); max-width: 100%; }
+.cover svg.big { position: absolute; width: 70%; right: -12%; bottom: -18%; opacity: .16; }
+.cover__badge { position: relative; display: grid; place-items: center; gap: 8px; text-align: center; }
+.cover__badge svg { width: 44px; height: 44px; }
+.cover__badge span { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 600; opacity: .9; }
+.cover--cantata { background: linear-gradient(140deg, var(--deep-2), var(--deep) 60%, var(--mid)); }
+.cover--anniversary { background: linear-gradient(140deg, #B98A2E, #D9B25F 55%, var(--cream)); color: var(--deep-2); }
+.cover--camp { background: linear-gradient(140deg, #1F6E6A, #3E9A8F 60%, var(--sky)); }
+.cover--family { background: linear-gradient(140deg, var(--mid), var(--sky)); color: var(--deep-2); }
+.cover--saturation { background: linear-gradient(140deg, var(--deep), #3C78A6 60%, #7FB6DA); }
+.cover--extension-class { background: linear-gradient(140deg, #3B4F7A, #5C77A8 60%, var(--sky)); }
+
+/* invitations */
+.invites { background: var(--deep-2); color: var(--white); }
+.invites .section__head h2 { color: var(--white); }
+.invites .section__head p { color: var(--sky); }
+.invite-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; }
+@media (max-width: 760px) { .invite-row { grid-template-columns: 1fr; } }
+.invite { background: var(--cream); color: var(--deep-2); border-radius: 4px; padding: 10px; text-decoration: none; transition: transform .3s; }
+.invite:hover { transform: rotate(-.6deg) translateY(-3px); }
+.invite__in { border: 1px solid rgba(5,68,95,.35); outline: 1px solid rgba(5,68,95,.35); outline-offset: -7px; padding: 40px 28px; text-align: center; display: grid; gap: 10px; }
+.invite__pre { font-size: .7rem; letter-spacing: .26em; text-transform: uppercase; color: var(--deep); }
+.invite h3 { font-size: clamp(1.9rem, 3.4vw, 2.6rem); font-weight: 500; }
+.invite__date { font-family: var(--f-display); font-style: italic; font-size: 1.25rem; }
+.invite__place { font-size: .85rem; color: var(--muted); }
+.flourish { width: 120px; height: 14px; margin: 4px auto; color: var(--deep); }
+
+/* about */
+.mv { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 5vw, 72px); }
+@media (max-width: 760px) { .mv { grid-template-columns: 1fr; } }
+.mv__item { display: grid; gap: 14px; align-content: start; }
+.mv__item h3 { font-size: clamp(1.9rem, 3vw, 2.5rem); font-style: italic; font-weight: 500; }
+.mv__item p { color: var(--muted); max-width: 56ch; }
+.covenant { margin-top: clamp(56px, 8vw, 96px); background: var(--cream); border-radius: 4px; padding: clamp(28px, 5vw, 64px); position: relative; box-shadow: 0 30px 60px -40px rgba(5,68,95,.4); }
+.covenant h3 { font-size: clamp(2rem, 3.6vw, 2.8rem); text-align: center; }
+.covenant .eyebrow { text-align: center; display: block; margin-bottom: 10px; color: var(--deep); }
+.covenant__text { font-family: var(--f-display); font-size: 1.28rem; line-height: 1.6; max-width: 62ch; margin: 24px auto 0; display: grid; gap: 16px; color: #2A3A48; }
+.covenant > .covenant__text > p:first-child::first-letter { float: left; font-size: 3.6em; line-height: .8; padding: 6px 10px 0 0; color: var(--deep); font-weight: 600; }
+.covenant details summary { list-style: none; cursor: pointer; text-align: center; margin-top: 24px; font: 600 .85rem var(--f-body); color: var(--deep); }
+.covenant details summary::-webkit-details-marker { display: none; }
+.covenant details[open] summary { display: none; }
+
+/* missions */
+.missions { background: linear-gradient(180deg, var(--paper), var(--ocean)); }
+.stats { display: flex; flex-wrap: wrap; gap: 36px; margin-top: 8px; }
+.stat b { display: block; font-family: var(--f-display); font-size: 2.6rem; font-weight: 600; color: var(--deep); line-height: 1; font-variant-numeric: tabular-nums; }
+.stat span { font-size: .78rem; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+.wrap--wide { max-width: 1440px; }
+.board-tools { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+.board-tools input { width: min(320px, 100%); font: 400 .9rem var(--f-body); padding: 11px 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); color: var(--ink); }
+.board-tools .chips { margin: 0; gap: 6px; }
+.board-tools .chip { padding: 8px 14px; font-size: .76rem; }
+.board { position: relative; isolation: isolate; display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); grid-auto-rows: var(--rowh, 100px); gap: 8px 4px; grid-auto-flow: row dense; }
+.board__map { grid-column: 1 / -1; grid-row: 1 / span 3; background: var(--ocean); border-radius: 18px; position: relative; display: flex; padding: 10px; min-width: 0; box-shadow: inset 0 0 0 1px var(--line); margin: 0 6px; }
+.board__map svg { display: block; width: 100%; height: 100%; }
+.country { fill: var(--land); stroke: var(--white); stroke-width: .5; transition: fill .3s; }
+.country.is-served { fill: var(--land-served); }
+.country.is-home { fill: var(--home); stroke: var(--deep-2); stroke-width: .7; }
+.country.is-lit { fill: var(--deep); }
+.home-ring { fill: none; stroke: var(--deep-2); stroke-width: 1; animation: homeRing 2.4s ease-out infinite; }
+@keyframes homeRing { from { r: 5; opacity: .7; } to { r: 22; opacity: 0; } }
+.home-dot { fill: var(--deep-2); stroke: var(--home); stroke-width: 2; }
+.pin { fill: var(--deep); stroke: var(--white); stroke-width: 1.2; }
+.pin-ring { fill: none; stroke: var(--deep); stroke-width: 1.5; opacity: 0; }
+.pin-ring.is-on { animation: ring 1.6s ease-out infinite; }
+@keyframes ring { from { r: 4; opacity: .9; } to { r: 18; opacity: 0; } }
+.map__legend { position: absolute; left: 16px; bottom: 12px; display: flex; gap: 14px; flex-wrap: wrap; font-size: .7rem; color: var(--muted); background: rgba(255,255,255,.85); padding: 5px 12px; border-radius: 999px; }
+.map__legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+.tile { all: unset; cursor: pointer; display: grid; justify-items: center; align-content: start; gap: 5px; text-align: center; padding-top: 6px; border-radius: 10px; position: relative; min-width: 0; }
+.tile__photo { width: 58px; height: 58px; border-radius: 50%; overflow: hidden; display: block; transition: transform .32s cubic-bezier(.3,1.5,.5,1), box-shadow .3s, opacity .3s, filter .3s; box-shadow: 0 0 0 2px var(--white), 0 0 0 3px var(--line); }
+.tile__photo svg { width: 100%; height: 100%; display: block; }
+.tile__name, .tile__place { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; transition: opacity .2s; }
+.tile__name { font-size: .68rem; font-weight: 600; color: var(--ink); }
+.tile__place { font-size: .62rem; color: var(--muted); margin-top: -3px; }
+.board.has-active .tile:not(.is-active) .tile__photo { opacity: .55; filter: saturate(.5); }
+.tile.is-active { z-index: 7; }
+.tile.is-active .tile__photo { transform: scale(1.45); box-shadow: 0 0 0 3px var(--white), 0 0 0 5px var(--mid), 0 16px 28px -10px rgba(5,68,95,.55); }
+.tile.is-active .tile__name, .tile.is-active .tile__place { opacity: 0; }
+.tile:focus-visible { outline: none; }
+.tile:focus-visible .tile__photo { outline: 3px solid var(--mid); outline-offset: 3px; }
+.tile__photo.has-img { background-image: url(thumbs.jpg); background-size: 1600% 1000%; background-color: var(--cream); }
+.person__photo.has-img { background-image: url(thumbs.jpg); background-size: 1600% 1000%; }
+.tile__flag { position: absolute; top: 2px; left: calc(50% + 16px); width: 18px; height: 18px; border-radius: 50%; background: var(--flag); color: var(--white); font: 700 11px/18px var(--f-body); text-align: center; box-shadow: 0 0 0 2px var(--white); z-index: 1; transition: opacity .2s; }
+.tile.is-active .tile__flag { opacity: 0; }
+.callout .flagnote { display: block; color: #FFC9A8; }
+.review { margin-top: 28px; border-left: 4px solid var(--flag); background: #FFF1E8; border-radius: 8px; padding: 14px 18px; display: grid; gap: 4px; max-width: 80ch; }
+.review b { color: var(--flag); font-size: .85rem; letter-spacing: .04em; }
+.review p { color: var(--ink); font-size: .92rem; }
+/* missionary card (our design) */
+.mcard { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 560px; border-radius: 18px; overflow: hidden; background: var(--cream); box-shadow: 0 30px 60px -35px rgba(5,68,95,.55); container-type: inline-size; }
+.mcard__art { position: relative; overflow: hidden; aspect-ratio: 4 / 3; max-width: 100%; background: radial-gradient(circle at 30% 18%, rgba(151,215,255,.35), transparent 60%), linear-gradient(165deg, var(--deep-2), var(--deep) 70%, #2C7DB0); }
+.mcard__land { position: absolute; left: 6%; top: 5%; width: 88%; height: 72%; }
+.mcard__land path { fill: rgba(151,215,255,.14); stroke: rgba(151,215,255,.5); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+.mcard__text { position: relative; }
+.mcard__loc { position: absolute; top: 24px; right: 26px; width: 22%; aspect-ratio: 1; max-width: 96px; }
+.mcard__loc path { fill: var(--sky); stroke: var(--deep); stroke-width: 1px; vector-effect: non-scaling-stroke; opacity: .9; }
+.mcard__dot { fill: var(--bow); }
+.mcard__ring { fill: none; stroke: var(--bow); stroke-width: 1.5px; vector-effect: non-scaling-stroke; }
+.mcard__photo { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.mcard__noimg { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; color: var(--sky); font: 500 .85rem var(--f-body); letter-spacing: .08em; }
+.mcard__text { padding: 28px 30px 10px; display: flex; flex-direction: column; justify-content: center; gap: 6px; min-width: 0; }
+.mcard__eyebrow { font: 600 .66rem/1.2 var(--f-body); letter-spacing: .22em; text-transform: uppercase; color: var(--deep); }
+.mcard__country { font: 600 clamp(1.7rem, 7.2cqi, 3.2rem)/1 var(--f-display); text-transform: uppercase; letter-spacing: .03em; color: var(--deep-2); overflow-wrap: anywhere; }
+.mcard__place { font: italic 500 1.1rem/1.2 var(--f-display); color: var(--muted); }
+.mcard__rule { width: 52px; height: 2px; background: var(--bow); margin: 10px 0 8px; }
+.mcard__family { font: 600 clamp(1.4rem, 5.2cqi, 2.3rem)/1.05 var(--f-display); color: var(--deep-2); }
+.mcard__name { font: 600 .74rem/1.3 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--ink); }
+.mcard__support { margin-top: 10px; font-size: .8rem; line-height: 1.35; color: var(--ink); }
+.mcard__support span { display: block; font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
+.mcard__foot { display: flex; align-items: center; gap: 8px; padding: 6px 30px 20px; font-size: .66rem; color: var(--muted); letter-spacing: .04em; }
+.mcard__foot img { width: 30px; height: 30px; object-fit: cover; object-position: 50% 22%; mix-blend-mode: multiply; }
+.mcard__no { margin-left: auto; font-variant-numeric: tabular-nums; }
+@media (max-width: 600px) { .mcard { grid-template-columns: 1fr; grid-template-rows: auto; aspect-ratio: auto; } .mcard__art { grid-row: auto; aspect-ratio: 4 / 3; } .mcard__foot { grid-column: 1; } }
+.cardimg { margin: 0; border-radius: 10px; overflow: hidden; box-shadow: 0 24px 50px -30px rgba(5,68,95,.5); background: var(--cream); }
+.cardimg img { display: block; width: 100%; height: auto; }
+.cardimg figcaption { font-size: .75rem; color: var(--muted); padding: 8px 12px; background: var(--white); }
+.board__empty { grid-column: 1 / -1; padding: 24px; text-align: center; color: var(--muted); font-size: .9rem; }
+.overlay { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 5; }
+.overlay path { fill: none; stroke-linecap: round; }
+.overlay #line { stroke: var(--bow); }
+.overlay #lineGlow { stroke: var(--white); opacity: .9; }
+.callout { position: absolute; z-index: 8; pointer-events: none; background: var(--deep-2); color: var(--white); padding: 8px 12px; border-radius: 10px; font-size: .78rem; line-height: 1.3; transform: translate(-50%, calc(-100% - 14px)); white-space: nowrap; box-shadow: 0 10px 24px -10px rgba(5,68,95,.6); }
+.callout b { display: block; font-weight: 600; }
+.callout span { color: var(--sky); }
+.callout em { display: none; font-style: normal; color: var(--cream); margin-top: 3px; }
+.callout.is-touch em { display: block; }
+.board__hint { margin-top: 14px; font-size: .82rem; color: var(--muted); }
+
+/* visit */
+.visit { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+@media (max-width: 760px) { .visit { grid-template-columns: 1fr; } }
+.visit__item { display: grid; gap: 6px; align-content: start; padding-top: 18px; border-top: 2px solid var(--deep); }
+.visit__item h3 { font-size: 1.5rem; }
+.visit__item p { color: var(--muted); }
+
+/* footer */
+.footer { background: var(--deep-2); color: var(--sky); padding-block: 48px; font-size: .85rem; }
+.footer__in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; }
+.footer b { font-family: var(--f-display); font-size: 1.4rem; color: var(--white); font-weight: 500; display: block; }
+
+/* detail sheet */
+.sheet { position: fixed; inset: 0; z-index: 40; background: var(--paper); overflow-y: auto; overscroll-behavior: contain; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); animation: sheetIn .35s ease; }
+@keyframes sheetIn { from { opacity: 0; transform: translateY(16px); } }
+.sheet__bar { position: sticky; top: 0; z-index: 2; background: rgba(255,252,245,.94); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.sheet__bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 60px; gap: 12px; }
+.back { all: unset; cursor: pointer; font-weight: 600; font-size: .88rem; color: var(--deep); display: inline-flex; gap: 8px; align-items: center; padding: 8px 4px; }
+.sheet__crumb { font-size: .78rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.detail { padding-block: 40px 96px; }
+.detail__hero { border-radius: var(--radius); overflow: hidden; }
+.detail__hero .cover { aspect-ratio: 21 / 8; }
+.detail__grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 48px; margin-top: 40px; }
+@media (max-width: 900px) { .detail__grid { grid-template-columns: 1fr; } }
+.detail h1 { font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 500; }
+.prose { display: grid; gap: 16px; margin-top: 20px; max-width: 64ch; color: #2A3A48; }
+.facts { display: grid; gap: 16px; align-content: start; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.facts dt { font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mid); font-weight: 600; }
+.facts dd { margin: 2px 0 0; font-weight: 500; }
+.gallery { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 28px; }
+.gallery .cover { aspect-ratio: 1; border-radius: 10px; }
+.gallery .cover svg.big { width: 90%; }
+.person { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; align-items: center; }
+@media (max-width: 700px) { .person { grid-template-columns: 1fr; justify-items: start; gap: 24px; } }
+.person__photo { width: 220px; height: 220px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 6px var(--white), 0 0 0 7px var(--line), 0 30px 50px -30px rgba(5,68,95,.6); max-width: 100%; }
+.person__photo svg { width: 100%; height: 100%; display: block; }
+.minimap { border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: var(--ocean); }
+.minimap svg { display: block; width: 100%; height: auto; }
+.letters { display: grid; gap: 10px; margin-top: 20px; }
+.letter-btn { all: unset; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); transition: border-color .2s, background .2s; }
+.letter-btn:hover, .letter-btn[aria-current="true"] { border-color: var(--mid); background: var(--ocean); }
+.letter-btn b { font-family: var(--f-display); font-size: 1.25rem; font-weight: 600; color: var(--deep-2); display: block; }
+.letter-btn small { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; }
+.letter-btn .kind { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: var(--deep); background: var(--cream); padding: 4px 8px; border-radius: 999px; white-space: nowrap; }
+.reader { margin-top: 28px; background: var(--cream); border-radius: 4px; padding: clamp(24px, 5vw, 56px); box-shadow: 0 30px 60px -40px rgba(5,68,95,.45); }
+.reader__head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid rgba(5,68,95,.25); padding-bottom: 14px; }
+.reader h3 { font-size: 2rem; }
+.reader__body { font-family: var(--f-display); font-size: 1.25rem; line-height: 1.65; display: grid; gap: 14px; margin-top: 20px; max-width: 62ch; color: #2A3A48; }
+.reader__nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 28px; }
+.reader__nav button { all: unset; cursor: pointer; font-size: .85rem; font-weight: 600; color: var(--deep); }
+.reader__nav button[disabled] { opacity: .35; cursor: default; }
+.scan { margin-top: 20px; border: 1px dashed rgba(5,68,95,.35); border-radius: 6px; padding: 18px; font-size: .85rem; color: var(--muted); font-family: var(--f-body); }
+
+/* reveal on scroll: content is visible at rest; supporting browsers ease it in */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal { animation: rise linear both; animation-timeline: view(); animation-range: entry 0% entry 40%; }
+    @keyframes rise { from { opacity: .2; transform: translateY(28px); } }
+  }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+
+<div class="ribbon">Design preview · events, mission/vision text and letters are <b>sample content</b>. The missionaries are real, taken from the FBBC cards</div>
+
+<header class="header">
+  <div class="wrap header__in">
+    <a class="brand" href="#top" aria-label="Faithway Bible Baptist Church, home">
+      <img class="brand__logo" src="logo.jpg" alt="">
+      <span class="brand__name">Faithway<small>Bible Baptist Church</small></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#updates">Updates</a><a href="#invited">Invitations</a><a href="#about">About</a><a href="#missions">Missions</a><a href="#visit">Visit</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="hero__photo" aria-hidden="true"></div>
+    <div class="wrap hero__in">
+      <div>
+        <div class="eyebrow">Palawan · Established 2013</div>
+        <h1>Faithway <em>Bible Baptist</em> Church</h1>
+        <p class="hero__tag">Passion for God. Compassion to People.</p>
+        <p class="hero__creed">Sound Preaching <i>•</i> Independent <i>•</i> Hymnal <i>•</i> King James Bible</p>
+        <div class="hero__ctas">
+          <a class="btn btn--cream" href="#updates">See latest updates</a>
+          <a class="btn btn--ghost" href="#missions">Our missionaries</a>
+        </div>
+      </div>
+      <blockquote class="verse">
+        <p>“Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost.”</p>
+        <cite>Matthew 28:19</cite>
+      </blockquote>
+    </div>
+    <svg class="hero__wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 52c160-30 320-30 480 0s320 30 480 0 320-30 480 0v38H0z" fill="#97D7FF" opacity=".25"/>
+      <path d="M0 64c180-26 360-26 540 0s360 26 540 0 270-20 360-10v36H0z" fill="#FFFCF5"/>
+    </svg>
+  </section>
+
+  <div class="wrap services">
+    <div class="services__card" aria-label="Schedule of services">
+      <div class="svc"><div class="svc__day">Sunday</div><div class="svc__name">Morning Service</div><div class="svc__time">8:30 AM</div></div>
+      <div class="svc"><div class="svc__day">Sunday</div><div class="svc__name">Afternoon Service</div><div class="svc__time">4:00 PM</div></div>
+      <div class="svc"><div class="svc__day">Wednesday</div><div class="svc__name">Midweek Prayer Meeting</div><div class="svc__time">6:00 PM</div></div>
+      <div class="svc"><div class="svc__day">Saturday</div><div class="svc__name">Prayer Meeting</div><div class="svc__time">7:00 AM</div></div>
+    </div>
+  </div>
+
+  <section class="section" id="updates">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="eyebrow">Latest updates</span>
+        <h2>What's happening at Faithway</h2>
+        <p>Cantatas, anniversaries, camps, family days, saturation and extension class activities. Open any card for photos and details.</p>
+      </div>
+      <div class="chips" id="eventChips" role="group" aria-label="Filter updates by category"></div>
+      <div class="cards" id="eventCards"></div>
+    </div>
+  </section>
+
+  <section class="section invites" id="invited">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="eyebrow" style="color:var(--cream)">You're invited</span>
+        <h2>Come and celebrate with us</h2>
+        <p>Upcoming events with an invitation appear here. Share them with family and friends.</p>
+      </div>
+      <div class="invite-row" id="inviteRow"></div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="eyebrow">Who we are</span>
+        <h2>Our mission and vision</h2>
+      </div>
+      <div class="mv">
+        <div class="mv__item reveal">
+          <span class="eyebrow">Mission</span>
+          <h3>Passion for God</h3>
+          <p>Sample text: To glorify God by preaching the Gospel of Jesus Christ, making disciples through the teaching of His Word, and sending workers to every nation.</p>
+        </div>
+        <div class="mv__item reveal">
+          <span class="eyebrow">Vision</span>
+          <h3>Compassion to People</h3>
+          <p>Sample text: A Bible-believing, Christ-centered church family in Palawan that reaches every home with the Gospel and supports missionaries to the ends of the earth.</p>
+        </div>
+      </div>
+
+      <ul class="creed reveal" aria-label="What we hold to">
+        <li><span>Sound</span>Preaching</li>
+        <li><span>Independent</span>Baptist</li>
+        <li><span>Hymnal</span>Singing</li>
+        <li><span>King James</span>Bible</li>
+      </ul>
+
+      <article class="covenant reveal" id="covenant" aria-labelledby="covTitle">
+        <span class="eyebrow">Placeholder · traditional Baptist church covenant</span>
+        <h3 id="covTitle">Church Covenant</h3>
+        <div class="covenant__text">
+          <p>Having been led, as we believe, by the Spirit of God, to receive the Lord Jesus Christ as our Saviour, and on the profession of our faith, having been baptized in the name of the Father, and of the Son, and of the Holy Ghost, we do now, in the presence of God and this assembly, most solemnly and joyfully enter into covenant with one another as one body in Christ.</p>
+          <details>
+            <summary>Read the full covenant ↓</summary>
+            <div class="covenant__text" style="margin-top:16px">
+              <p>We engage, therefore, by the aid of the Holy Spirit, to walk together in Christian love; to strive for the advancement of this church in knowledge, holiness and comfort; to promote its prosperity and spirituality; to sustain its worship, ordinances, discipline and doctrines; to contribute cheerfully and regularly to the support of the ministry, the expenses of the church, the relief of the poor, and the spread of the Gospel through all nations.</p>
+              <p>We also engage to maintain family and secret devotions; to religiously educate our children; to seek the salvation of our kindred and acquaintances; to walk circumspectly in the world; to be just in our dealings, faithful in our engagements, and exemplary in our deportment.</p>
+              <p>We further engage to watch over one another in brotherly love; to remember each other in prayer; to aid each other in sickness and distress; to cultivate Christian sympathy in feeling and courtesy in speech; to be slow to take offence, but always ready for reconciliation, and mindful of the rules of our Saviour to secure it without delay.</p>
+            </div>
+          </details>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section missions" id="missions">
+    <div class="wrap wrap--wide">
+      <div class="section__head reveal" style="max-width:none">
+        <span class="eyebrow">Missions board</span>
+        <h2>To the ends of the earth</h2>
+        <p>Hover over a missionary (or tap on a phone) to see where they serve. Click to read their prayer letters.</p>
+        <div class="stats"><div class="stat"><b id="statM">0</b><span>Missionaries</span></div><div class="stat"><b id="statC">0</b><span>Countries</span></div><div class="stat"><b id="statR">4</b><span>Continents</span></div></div>
+      </div>
+
+      <div class="board-tools">
+        <div class="chips" id="regionChips" role="group" aria-label="Filter by region"></div>
+        <input id="mSearch" type="search" placeholder="Search by name or country" aria-label="Search missionaries" autocomplete="off">
+      </div>
+      <div class="board" id="board">
+        <div class="board__map" id="boardMap">
+          <svg id="worldMap" role="img" aria-label="World map showing where our missionaries serve"></svg>
+          <div class="map__legend"><span><i style="background:var(--home);box-shadow:inset 0 0 0 1px var(--deep-2)"></i>Philippines · Faithway, Palawan</span><span><i style="background:var(--land-served)"></i>Countries we support</span><span><i style="background:var(--deep)"></i>Selected field</span></div>
+        </div>
+        <svg class="overlay" id="overlay" aria-hidden="true">
+          <path id="lineGlow" stroke-width="8"/>
+          <path id="line" stroke-width="3.5"/>
+        </svg>
+        <div class="callout" id="callout" hidden></div>
+      </div>
+      <p class="board__hint">Real missionary list from the FBBC missionary cards. Photos are cropped from each card for now. A <b style="color:var(--flag)">!</b> marks a card that needs correcting; use the “Needs review” filter to see them all.</p>
+    </div>
+  </section>
+
+  <section class="section" id="visit">
+    <div class="wrap">
+      <div class="section__head reveal"><span class="eyebrow">Visit us</span><h2>You are welcome here</h2></div>
+      <figure class="visit__photo reveal">
+        <img src="img/church-front.jpg" alt="The Faithway church family gathered in front of the church, under the sign 'Welcome to Faithway Bible Baptist Church'" width="1400" height="1050" loading="lazy">
+      </figure>
+      <div class="visit">
+        <div class="visit__item"><span class="eyebrow">Where</span><h3>Purok Matapat, San Jose</h3><p>Puerto Princesa City, Palawan, Philippines</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=Faithway+Bible+Baptist+Church+Purok+Matapat+San+Jose+Puerto+Princesa+City" target="_blank" rel="noopener">Open in Google Maps →</a></p></div>
+        <div class="visit__item"><span class="eyebrow">When</span><h3>Every Sunday</h3><p>Morning service 8:30 AM and afternoon service 4:00 PM. Midweek prayer meeting Wednesday 6:00 PM, prayer meeting Saturday 7:00 AM.</p></div>
+        <div class="visit__item"><span class="eyebrow">Connect</span><h3>Facebook &amp; email</h3><p>Church Facebook page, email and phone to be supplied.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap footer__in">
+    <div><b>Palawan Faithway Bible Baptist Church, Inc.</b>Purok Matapat, San Jose, Puerto Princesa City · Est. 2013<br>Sound Preaching · Independent · Hymnal · King James Bible</div>
+    <div>© 2026 · Design preview</div>
+  </div>
+</footer>
+
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle"></div>
+
+<script src="map.js"></script>
+<script src="missionaries.js" charset="utf-8"></script>
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const fmt = (d, o) => new Intl.DateTimeFormat('en-PH', o || { month: 'long', day: 'numeric', year: 'numeric' }).format(new Date(d + 'T12:00:00'));
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+
+  /* ---------- icons ---------- */
+  const ICON = {
+    cantata: '<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+    anniversary: '<path d="M4 21h16M5 21v-7h14v7M5 17c2.3 1.3 4.7 1.3 7 0s4.7-1.3 7 0M12 14V9"/><path d="M12 3.5c1.2 1.2 1.2 3 0 3.6-1.2-.6-1.2-2.4 0-3.6z"/>',
+    camp: '<path d="M3 20 12 4l9 16H3zM12 4v16M9 20l3-5 3 5"/>',
+    family: '<path d="M3 11 12 4l9 7v9H3z"/><path d="M12 17.5s-3.2-2-3.2-4a1.7 1.7 0 0 1 3.2-.8 1.7 1.7 0 0 1 3.2.8c0 2-3.2 4-3.2 4z"/>',
+    saturation: '<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+    'extension-class': '<path d="M2 5h7a3 3 0 0 1 3 3v12a2 2 0 0 0-2-2H2zM22 5h-7a3 3 0 0 0-3 3v12a2 2 0 0 1 2-2h8z"/>'
+  };
+  const LABEL = { cantata: 'Cantata', anniversary: 'Anniversary', camp: 'Camp', family: 'Family', saturation: 'Saturation', 'extension-class': 'Extension Class' };
+  const icon = (k, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]}</svg>`;
+  const cover = (k) => `<div class="cover cover--${k}">${icon(k, 'big')}<div class="cover__badge">${icon(k)}<span>${LABEL[k]}</span></div></div>`;
+
+  /* ---------- sample events ---------- */
+  const EVENTS = [
+    { id: 'christmas-cantata', cat: 'cantata', title: 'Christmas Cantata 2026', date: '2026-12-20', time: '6:00 PM', place: 'FBBC Main Sanctuary', invite: true,
+      sum: 'An evening of carols and the Christmas story told in song by our choir and children.' },
+    { id: 'anniversary-13', cat: 'anniversary', title: '13th Church Anniversary', date: '2026-11-29', time: '9:00 AM', place: 'FBBC Main Sanctuary', invite: true,
+      sum: 'Thirteen years of God’s faithfulness since 2013. Thanksgiving service and fellowship lunch.' },
+    { id: 'saturation-nov', cat: 'saturation', title: 'Barangay Saturation Day', date: '2026-11-01', time: '7:00 AM', place: 'Sample barangay',
+      sum: 'Teams went house to house sharing the Gospel and inviting families to church.' },
+    { id: 'family-day', cat: 'family', title: 'Church Family Day', date: '2026-10-25', time: '8:00 AM', place: 'Sample beach resort',
+      sum: 'Games, a picnic by the sea, and a short devotion for the whole church family.' },
+    { id: 'extension-grad', cat: 'extension-class', title: 'Extension Class Recognition', date: '2026-09-13', time: '2:00 PM', place: 'Extension class site',
+      sum: 'Celebrating the students who completed this term’s Bible lessons.' },
+    { id: 'youth-camp', cat: 'camp', title: 'Summer Youth Camp', date: '2026-04-21', time: '3 days', place: 'Sample campsite',
+      sum: 'Three days of preaching, worship and outdoor activities for our young people.' }
+  ];
+  const isUp = (e) => new Date(e.date + 'T23:59:00') >= today;
+  EVENTS.sort((a, b) => {
+    const ua = isUp(a), ub = isUp(b);
+    if (ua !== ub) return ua ? -1 : 1;
+    return ua ? a.date.localeCompare(b.date) : b.date.localeCompare(a.date);
+  });
+
+  let evFilter = 'all';
+  function renderChips() {
+    const cats = ['all', ...Object.keys(LABEL)];
+    $('#eventChips').innerHTML = cats.map((c) => `<button class="chip" type="button" data-cat="${c}" aria-pressed="${c === evFilter}">${c === 'all' ? 'All' : LABEL[c]}</button>`).join('');
+  }
+  function renderCards() {
+    const list = EVENTS.filter((e) => evFilter === 'all' || e.cat === evFilter);
+    $('#eventCards').innerHTML = list.map((e) => `
+      <a class="card reveal" href="#e-${e.id}">
+        ${cover(e.cat)}
+        <div class="card__body">
+          <div class="card__meta">${isUp(e) ? '<span class="tag tag--up">Upcoming</span>' : `<span class="tag">${LABEL[e.cat]}</span>`}<span>${fmt(e.date, { month: 'short', day: 'numeric', year: 'numeric' })}</span></div>
+          <h3>${esc(e.title)}</h3>
+          <p class="card__sum">${esc(e.sum)}</p>
+          <span class="card__more">View details →</span>
+        </div>
+      </a>`).join('') || '<p class="card__sum">No updates in this category yet.</p>';
+  }
+  $('#eventChips').addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-cat]'); if (!b) return;
+    evFilter = b.dataset.cat; renderChips(); renderCards();
+  });
+  renderChips(); renderCards();
+
+  const flourish = '<svg class="flourish" viewBox="0 0 120 14" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 7h48M72 7h48"/><path d="M60 1l6 6-6 6-6-6z"/></svg>';
+  $('#inviteRow').innerHTML = EVENTS.filter((e) => e.invite && isUp(e)).map((e) => `
+    <a class="invite reveal" href="#e-${e.id}"><div class="invite__in">
+      <span class="invite__pre">You are cordially invited to our</span>
+      <h3>${esc(e.title)}</h3>${flourish}
+      <span class="invite__date">${fmt(e.date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })} · ${e.time}</span>
+      <span class="invite__place">${esc(e.place)}</span>
+    </div></a>`).join('');
+
+  /* ---------- map ---------- */
+  const NS = 'http://www.w3.org/2000/svg';
+  const map = $('#worldMap');
+  map.setAttribute('viewBox', `0 0 ${WORLD.w} ${WORLD.h}`);
+  const byName = new Map();
+  map.innerHTML = `<g id="landG">${WORLD.countries.map((c, i) => { byName.set(c.n, i); return `<path class="country" data-c="${i}" d="${c.d}"><title>${esc(c.n)}</title></path>`; }).join('')}</g><g id="pins"></g>`;
+
+  /* ---------- missionaries (generated from MISSION/missionaries.csv) ---------- */
+  const REGIONS = ['Asia & Pacific', 'Africa', 'Americas', 'Europe & Middle East'];
+  const REVIEW = 'Needs review';
+  const TINTS = [['#FFEFC4', '#C9A04A'], ['#DCE8F1', '#4D8DBA'], ['#E3F1EC', '#4E9A8C']];
+  const M = MISSIONARIES.map((d, i) => ({ ...d, id: i + 1, ci: byName.get(d.mapName), short: d.family.replace(/^The /, ''), tint: TINTS[i % 3] }));
+  const served = new Set(M.map((m) => m.ci));
+  served.forEach((ci) => map.querySelector(`[data-c="${ci}"]`).classList.add('is-served'));
+  /* home: the Philippines is highlighted, and Palawan gets a pulsing "home church" marker */
+  map.querySelector(`[data-c="${byName.get('Philippines')}"]`).classList.add('is-home');
+  const [hx, hy] = WORLD.pts.palawan;
+  map.insertAdjacentHTML('beforeend', `<g class="home" aria-hidden="true"><circle class="home-ring" cx="${hx}" cy="${hy}" r="5"/><circle class="home-dot" cx="${hx}" cy="${hy}" r="4.2"/></g>`);
+  $('#pins').innerHTML = M.map((m) => `<circle class="pin-ring" data-p="${m.id}" cx="${m.pt[0]}" cy="${m.pt[1]}" r="4"/><circle class="pin" cx="${m.pt[0]}" cy="${m.pt[1]}" r="2"/>`).join('');
+  $('#statM').textContent = M.length; $('#statC').textContent = served.size; $('#statR').textContent = 6;
+
+  const silhouette = (t) => `<svg viewBox="0 0 100 100" aria-hidden="true"><rect width="100" height="100" fill="${t[0]}"/><circle cx="50" cy="40" r="17" fill="${t[1]}" opacity=".75"/><path d="M16 100c0-22 15-35 34-35s34 13 34 35z" fill="${t[1]}" opacity=".75"/></svg>`;
+  /* photos come from one sprite sheet (16 x 10 grid of 120px crops) */
+  const photoAttr = (m) => m.sprite < 0 ? '' : ` style="background-position:${((m.sprite % 16) / 15 * 100).toFixed(3)}% ${(Math.floor(m.sprite / 16) / 9 * 100).toFixed(3)}%"`;
+  const photoInner = (m) => m.sprite < 0 ? silhouette(m.tint) : '';
+  const photoCls = (m) => m.sprite < 0 ? '' : ' has-img';
+
+/* ---------- board state ---------- */
+  const board = $('#board'), mapBox = $('#boardMap'), line = $('#line'), glow = $('#lineGlow'), callout = $('#callout');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const SCALE = 1.45;
+  let active = null, lastPointer = 'mouse', region = 'All', query = '';
+
+  /* Symmetric placement for any number of photos.
+     The grid uses half-width sub-columns (each photo spans 2) so a partial row can sit exactly centered.
+     Fill order: sides of the map in mirrored pairs → full rows above → rows below, last row centered. */
+  function layout() {
+    const tiles = [...board.querySelectorAll('.tile')], n = tiles.length;
+    const w = board.clientWidth, gapX = 4, gapY = 8, rowH = 100;
+    const cols = Math.max(4, Math.floor((w + gapX) / (78 + gapX)));
+    const side = cols >= 16 ? 3 : cols >= 12 ? 2 : 0;
+    const mapCols = cols - side * 2, colW = (w - gapX * (cols - 1)) / cols;
+    const mapH = (mapCols * colW + gapX * (mapCols - 1) - 32) * WORLD.h / WORLD.w + 20;
+    const mapRows = Math.max(2, Math.round((mapH + gapY) / (rowH + gapY)));
+
+    let inSides = Math.min(n, mapRows * side * 2);
+    if (inSides % 2) inSides -= 1;
+    const topRows = side ? Math.min(2, Math.floor((n - inSides) / cols)) : 0;
+    const below = n - inSides - topRows * cols;
+
+    board.style.setProperty('--cols', cols * 2);
+    board.style.setProperty('--rowh', rowH + 'px');
+    mapBox.style.gridColumn = `${side * 2 + 1} / span ${mapCols * 2}`;
+    mapBox.style.gridRow = `${topRows + 1} / span ${mapRows}`;
+
+    let i = 0;
+    const put = (col, row) => { const t = tiles[i++]; t.style.gridColumn = `${col * 2 - 1} / span 2`; t.style.gridRow = String(row); };
+    const putSub = (sub, row) => { const t = tiles[i++]; t.style.gridColumn = `${sub} / span 2`; t.style.gridRow = String(row); };
+
+    for (let r = 1; r <= topRows; r++) for (let c = 1; c <= cols; c++) put(c, r);
+
+    let left = inSides;
+    for (let r = 0; left > 0; r++) {
+      const row = topRows + 1 + r, k = Math.min(side, left / 2);
+      for (let c = side - k + 1; c <= side; c++) put(c, row);              // left side, hugging the map
+      for (let c = cols - side + 1; c <= cols - side + k; c++) put(c, row); // right side, mirrored
+      left -= k * 2;
+    }
+
+    const startRow = topRows + mapRows + 1;
+    for (let j = 0; j < below; j++) {
+      const r = Math.floor(j / cols), inRow = Math.min(cols, below - r * cols), p = j % cols;
+      putSub(cols - inRow + 1 + p * 2, startRow + r);
+    }
+  }
+
+  const regions = ['All', ...REGIONS, REVIEW];
+  function renderRegions() { $('#regionChips').innerHTML = regions.map((r) => `<button class="chip" type="button" data-r="${r}" aria-pressed="${r === region}">${r === REVIEW ? `⚑ ${r} (${M.filter((m) => m.issue).length})` : r}</button>`).join(''); }
+  function renderWall() {
+    clearLine();
+    const q = query.trim().toLowerCase();
+    const list = M.filter((m) => (region === 'All' || (region === REVIEW ? m.issue : m.region === region)) && (!q || [m.name, m.family, m.place, m.country].join(' ').toLowerCase().includes(q)));
+    board.querySelectorAll('.tile, .board__empty').forEach((n) => n.remove());
+    board.insertAdjacentHTML('beforeend', list.map((m) => `<button class="tile${m.issue ? ' is-flagged' : ''}" type="button" data-m="${m.id}" aria-label="${esc(m.family)}, serving in ${esc(m.place)}${m.issue ? ' (card needs review)' : ''}. Open profile.">
+      <span class="tile__photo${photoCls(m)}"${photoAttr(m)}>${photoInner(m)}</span>${m.issue ? '<span class="tile__flag" aria-hidden="true">!</span>' : ''}
+      <span class="tile__name">${esc(m.short)}</span><span class="tile__place">${esc(m.country)}</span></button>`).join('') || '<p class="board__empty">No missionaries match that search.</p>');
+    layout();
+  }
+  $('#regionChips').addEventListener('click', (e) => { const b = e.target.closest('[data-r]'); if (!b) return; region = b.dataset.r; renderRegions(); renderWall(); });
+  $('#mSearch').addEventListener('input', (e) => { query = e.target.value; renderWall(); });
+
+  /* ---------- rainbow line ---------- */
+  function endPoint(m) {
+    const s = map.getBoundingClientRect(), b = board.getBoundingClientRect();
+    const k = Math.min(s.width / WORLD.w, s.height / WORLD.h);
+    return [s.left - b.left + (s.width - WORLD.w * k) / 2 + m.pt[0] * k, s.top - b.top + (s.height - WORLD.h * k) / 2 + m.pt[1] * k];
+  }
+  function geometry(tile, m) {
+    const b = board.getBoundingClientRect(), ph = tile.querySelector('.tile__photo'), r = ph.getBoundingClientRect();
+    const cx = r.left - b.left + r.width / 2, cy = r.top - b.top + r.height / 2;
+    const rad = ph.offsetWidth * SCALE / 2 + 5;
+    const [ex, ey] = endPoint(m);
+    const dx = ex - cx, dy = ey - cy, dist = Math.hypot(dx, dy) || 1;
+    const sx = cx + dx / dist * rad, sy = cy + dy / dist * rad;
+    let nx = -dy / dist, ny = dx / dist;
+    if (ny > 0) { nx = -nx; ny = -ny; }
+    const bend = Math.min(180, dist * .3);
+    const qx = (sx + ex) / 2 + nx * bend, qy = (sy + ey) / 2 + ny * bend;
+    return { d: `M${sx.toFixed(1)} ${sy.toFixed(1)} Q${qx.toFixed(1)} ${qy.toFixed(1)} ${ex.toFixed(1)} ${ey.toFixed(1)}`, sx, sy, ex, ey };
+  }
+  function draw(tile, m, animate) {
+    const g = geometry(tile, m);
+    const anim = animate && !reduce.matches;
+    [glow, line].forEach((p) => {
+      p.setAttribute('d', g.d);
+      const len = p.getTotalLength();
+      p.style.transition = 'none'; p.style.strokeDasharray = len; p.style.strokeDashoffset = anim ? len : 0;
+    });
+    if (anim) requestAnimationFrame(() => requestAnimationFrame(() => [glow, line].forEach((p) => { p.style.transition = 'stroke-dashoffset .6s cubic-bezier(.4,0,.2,1)'; p.style.strokeDashoffset = 0; })));
+    callout.style.left = g.ex + 'px'; callout.style.top = g.ey + 'px';
+  }
+  function activate(tile) {
+    if (active && active.tile === tile) return;
+    clearLine();
+    const m = M[tile.dataset.m - 1];
+    active = { tile, m };
+    tile.classList.add('is-active'); board.classList.add('has-active');
+    map.querySelector(`[data-c="${m.ci}"]`).classList.add('is-lit');
+    map.querySelector(`[data-p="${m.id}"]`).classList.add('is-on');
+    callout.innerHTML = `<b>${esc(m.family)}</b><span>${esc(m.place)}</span>${m.issue ? '<em class="flagnote">⚑ Card needs review</em>' : ''}<em>Tap again to open profile</em>`;
+    callout.classList.toggle('is-touch', lastPointer === 'touch');
+    callout.hidden = false;
+    draw(tile, m, true);
+  }
+  function clearLine() {
+    if (!active) return;
+    active.tile.classList.remove('is-active'); board.classList.remove('has-active');
+    map.querySelectorAll('.is-lit').forEach((n) => n.classList.remove('is-lit'));
+    map.querySelectorAll('.pin-ring.is-on').forEach((n) => n.classList.remove('is-on'));
+    [glow, line].forEach((p) => p.setAttribute('d', ''));
+    callout.hidden = true; active = null;
+  }
+  const tileOf = (n) => (n && n.closest ? n.closest('.tile') : null);
+  board.addEventListener('pointerdown', (e) => { lastPointer = e.pointerType; });
+  board.addEventListener('pointerover', (e) => { if (e.pointerType === 'mouse') { const t = tileOf(e.target); if (t) activate(t); } });
+  board.addEventListener('pointerout', (e) => { if (e.pointerType === 'mouse' && active && tileOf(e.target) && !tileOf(e.relatedTarget)) clearLine(); });
+  board.addEventListener('focusin', (e) => { const t = tileOf(e.target); if (t) activate(t); });
+  board.addEventListener('focusout', (e) => { if (!tileOf(e.relatedTarget)) clearLine(); });
+  board.addEventListener('click', (e) => {
+    const t = tileOf(e.target); if (!t) return;
+    if (lastPointer === 'touch' && (!active || active.tile !== t)) { activate(t); return; }
+    location.hash = 'm-' + t.dataset.m;
+  });
+  document.addEventListener('pointerdown', (e) => { if (active && !board.contains(e.target)) clearLine(); });
+  addEventListener('resize', () => { layout(); if (active) draw(active.tile, active.m, false); });
+  renderRegions(); renderWall();
+
+
+/* ---------- detail sheet (hash routes) ---------- */
+  const sheet = $('#sheet');
+  let returnTo = 'updates';
+  const bar = (crumb, back) => `<div class="sheet__bar"><div class="wrap"><button class="back" type="button" data-back="${back}">← Back to ${back === 'missions' ? 'Missions board' : 'Updates'}</button><span class="sheet__crumb">${crumb}</span></div></div>`;
+
+  function eventView(e) {
+    return bar(LABEL[e.cat] + ' · ' + esc(e.title), 'updates') + `<article class="wrap detail">
+      <div class="detail__hero">${cover(e.cat)}</div>
+      <div class="detail__grid">
+        <div>
+          <span class="eyebrow">${LABEL[e.cat]}${isUp(e) ? ' · Upcoming' : ''}</span>
+          <h1 id="sheetTitle" style="margin-top:10px">${esc(e.title)}</h1>
+          <div class="prose"><p>${esc(e.sum)}</p>
+            <p>Sample details: this is where the full write-up goes, with the program, who is speaking or singing, what to bring, and a short report with photos after the event.</p>
+            <p>Each event is one Markdown file with a cover photo, so adding a new update takes a few minutes.</p></div>
+          <div class="gallery">${[0, 1, 2].map(() => cover(e.cat)).join('')}</div>
+        </div>
+        <aside><dl class="facts">
+          <div><dt>Date</dt><dd>${fmt(e.date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</dd></div>
+          <div><dt>Time</dt><dd>${esc(e.time)}</dd></div>
+          <div><dt>Place</dt><dd>${esc(e.place)}</dd></div>
+          ${e.invite ? `<div><dt>Invitation</dt><dd>Printable invitation image will be shown here.</dd></div>` : ''}
+        </dl></aside>
+      </div></article>`;
+  }
+
+  const letterKinds = ['Typed letter', 'Scanned letter', 'PDF'];
+  function lettersFor(m) {
+    const months = ['2026-10-05', '2026-07-12', '2026-04-03', '2026-01-15'];
+    return months.map((d, i) => ({ d, kind: letterKinds[(m.id + i) % 3], title: i === 0 ? 'Praise report and prayer requests' : i === 1 ? 'News from the field' : i === 2 ? 'Quarterly prayer letter' : 'New year update' }));
+  }
+  /* Faithway missionary card: our own design, rebuilt from the card data + a cut-out photo */
+  function mcard(m) {
+    const c = WORLD.countries[m.ci];
+    const person = m.sprite >= 0
+      ? `<img class="mcard__photo" src="photos/${m.card}.jpg" alt="${esc(m.family)}" width="660" height="495">`
+      : '<p class="mcard__noimg">Photo coming soon</p>';
+    return `<article class="mcard" aria-label="Missionary card: ${esc(m.family)}, ${esc(m.country)}">
+      <div class="mcard__art">
+        ${person}
+      </div>
+      <div class="mcard__text">
+        <svg class="mcard__loc" data-pt="${m.pt.join(',')}" role="img" aria-label="Location in ${esc(m.country)}"><path d="${c.d}"/><circle class="mcard__ring" cx="${m.pt[0]}" cy="${m.pt[1]}" r="2"/><circle class="mcard__dot" cx="${m.pt[0]}" cy="${m.pt[1]}" r="1"/></svg>
+        <span class="mcard__eyebrow">Missionary partners in</span>
+        <h2 class="mcard__country">${esc(m.country)}</h2>
+        ${m.place !== m.country ? `<span class="mcard__place">${esc(m.place)}</span>` : ''}
+        <span class="mcard__rule" aria-hidden="true"></span>
+        <p class="mcard__family">${esc(m.family)}</p>
+        ${m.name !== m.family ? `<p class="mcard__name">${esc(m.name)}</p>` : ''}
+        <p class="mcard__support"><span>${m.iso === 'PH' ? 'Church' : 'Support address'}</span>${esc(m.aff)}</p>
+      </div>
+      <div class="mcard__foot"><img src="logo.jpg" alt=""><span>Faithway Bible Baptist Church</span><span class="mcard__no">No. ${m.card}</span></div>
+    </article>`;
+  }
+  /* zoom each card's country outline to the part of the country where the missionary serves */
+  function fitLand(root) {
+    root.querySelectorAll('.mcard [data-pt]').forEach((svg) => {
+      const p = svg.querySelector('path'), [x, y] = svg.dataset.pt.split(',').map(Number);
+      let b = p.getBBox();
+      if (Math.max(b.width, b.height) > 160) {
+        const tmp = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        svg.appendChild(tmp);
+        let best = null;
+        for (const d of p.getAttribute('d').split(/(?=M)/)) {
+          tmp.setAttribute('d', d);
+          const s = tmp.getBBox();
+          const inside = x >= s.x - 2 && x <= s.x + s.width + 2 && y >= s.y - 2 && y <= s.y + s.height + 2;
+          if (inside && (!best || s.width * s.height > best.width * best.height)) best = { x: s.x, y: s.y, width: s.width, height: s.height };
+        }
+        tmp.remove();
+        if (best) b = best;
+      }
+      const size = Math.max(b.width, b.height, 18) * 1.15, cx = b.x + b.width / 2, cy = b.y + b.height / 2;
+      svg.setAttribute('viewBox', `${(cx - size / 2).toFixed(1)} ${(cy - size / 2).toFixed(1)} ${size.toFixed(1)} ${size.toFixed(1)}`);
+      svg.querySelector('.mcard__dot')?.setAttribute('r', (size * .05).toFixed(2));
+      svg.querySelector('.mcard__ring')?.setAttribute('r', (size * .11).toFixed(2));
+    });
+  }
+
+  function missionaryView(m, li) {
+    const L = lettersFor(m), cur = L[li] || null;
+    const [x, y] = m.pt, vw = 240, vh = 140;
+    const mini = `<svg viewBox="${(x - vw / 2).toFixed(1)} ${(y - vh / 2).toFixed(1)} ${vw} ${vh}" role="img" aria-label="Map of ${esc(m.place)}"><rect x="-500" y="-500" width="2000" height="1600" fill="#EEF7FD"/><use href="#landG"/><circle cx="${x}" cy="${y}" r="9" fill="none" stroke="#086288" stroke-width="1.2" opacity=".5"/><circle cx="${x}" cy="${y}" r="3.4" fill="#086288" stroke="#fff" stroke-width="1.2"/></svg>`;
+    const reader = cur ? `<article class="reader" id="reader" aria-live="polite">
+      <div class="reader__head"><div><span class="eyebrow">${fmt(cur.d)} · sample</span><h3>${esc(cur.title)}</h3></div><span class="tag">${cur.kind}</span></div>
+      <div class="reader__body">
+        <p>Dear Pastor and Faithway church family,</p>
+        <p>This is a sample prayer letter. When real letters from ${esc(m.family)} family arrive they will appear here: typed letters as easy-to-read text, scanned letters as images you can zoom, and PDFs shown on the page with a download link.</p>
+        <p style="font-style:italic">In His service,<br>${esc(m.name)}</p>
+      </div>
+      <div class="reader__nav"><button type="button" data-l="${li + 1}" ${li + 1 >= L.length ? 'disabled' : ''}>← Older letter</button><button type="button" data-l="${li - 1}" ${li - 1 < 0 ? 'disabled' : ''}>Newer letter →</button></div>
+    </article>` : '';
+    const review = m.issue ? `<div class="review" role="note"><b>⚑ Card needs review</b><p>${esc(m.issue)}</p></div>` : '';
+    return bar(esc(m.family) + ' · ' + esc(m.place), 'missions') + `<article class="wrap detail">
+      <div class="person">
+        <div class="person__photo${photoCls(m)}"${photoAttr(m)}>${photoInner(m)}</div>
+        <div><span class="eyebrow">Missionary partners in ${esc(m.country)}</span><h1 id="sheetTitle" style="margin-top:10px">${esc(m.family)}</h1>
+          <p class="hero__tag" style="color:var(--mid);margin-top:8px">${m.name !== m.family ? esc(m.name) + ' · ' : ''}${esc(m.place)}</p></div>
+      </div>
+      ${review}
+      <div class="detail__grid">
+        <div>
+          ${mcard(m)}
+          <span class="eyebrow" style="display:block;margin-top:36px">Prayer letters · samples until real letters are added</span>
+          <div class="letters">${L.map((l, i) => `<button class="letter-btn" type="button" data-l="${i}" aria-current="${i === li}"><span><b>${esc(l.title)}</b><small>${fmt(l.d)}</small></span><span class="kind">${l.kind}</span></button>`).join('')}</div>
+          ${reader}
+        </div>
+        <aside style="display:grid;gap:16px;align-content:start">
+          <div class="minimap">${mini}</div>
+          <dl class="facts">
+            <div><dt>Field</dt><dd>${esc(m.place)}</dd></div>
+            <div><dt>Region</dt><dd>${esc(m.region)}</dd></div>
+            <div><dt>${m.iso === 'PH' ? 'Church' : 'Support address'}</dt><dd>${esc(m.aff)}</dd></div>
+          </dl>
+        </aside>
+      </div></article>`;
+  }
+
+function route() {
+    const h = decodeURIComponent(location.hash.slice(1));
+    let html = null;
+    const me = /^m-(\d+)(?:-l(\d+))?$/.exec(h);
+    const ee = /^e-(.+)$/.exec(h);
+    if (me && M[me[1] - 1]) { html = missionaryView(M[me[1] - 1], me[2] ? +me[2] : -1); returnTo = 'missions'; }
+    else if (ee) { const e = EVENTS.find((x) => x.id === ee[1]); if (e) { html = eventView(e); returnTo = 'updates'; } }
+    if (html) {
+      const sameM = me && sheet.dataset.view === 'm-' + me[1] && !sheet.hidden;
+      sheet.innerHTML = html; sheet.dataset.view = me ? 'm-' + me[1] : h;
+      if (sheet.hidden) { sheet.hidden = false; document.documentElement.style.overflow = 'hidden'; sheet.scrollTop = 0; $('.back', sheet).focus({ preventScroll: true }); }
+      else if (!sameM) sheet.scrollTop = 0;
+      fitLand(sheet);
+      if (me && me[2]) { const r = $('#reader', sheet); if (r) r.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' }); }
+      clearLine();
+    } else if (!sheet.hidden) {
+      sheet.hidden = true; sheet.innerHTML = ''; sheet.dataset.view = ''; document.documentElement.style.overflow = '';
+    }
+  }
+  sheet.addEventListener('click', (e) => {
+    const back = e.target.closest('[data-back]');
+    if (back) { location.hash = back.dataset.back; return; }
+    const l = e.target.closest('[data-l]');
+    if (l && !l.disabled) { const id = sheet.dataset.view.slice(2); location.hash = `m-${id}-l${l.dataset.l}`; }
+  });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && !sheet.hidden) location.hash = returnTo; });
+  addEventListener('hashchange', route);
+  route();
+})();
+</script>
+
+</body>
+</html>
