@@ -1,15 +1,19 @@
-// Builds docs/index.html (the GitHub Pages site) from the working preview page.
-// The preview is written without <html>/<head>/<body> (the artifact viewer adds them),
-// so this wraps it in a full document, sets the public title and adds noindex.
-// Usage: node scripts/build-docs.mjs <preview/index.html> <docs/index.html>
-import { readFileSync, writeFileSync } from 'node:fs';
+// Builds the GitHub Pages site in docs/ from the working preview in prototype/.
+// - prototype/index.html is written without <html>/<head>/<body> (the artifact viewer adds them),
+//   so it is wrapped in a full document with the public title and a noindex tag.
+// - data, map, images and missionary photos are copied across. Only photos listed in
+//   sprite-order.json (visible missionaries, written by data.mjs) are copied, so a hidden
+//   missionary's photo can never reach docs/ even if it is lying around in prototype/photos.
+// Usage: node scripts/build-docs.mjs [prototypeDir] [docsDir]
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync, readdirSync, rmSync, existsSync } from 'node:fs';
+import { join } from 'node:path';
 
-const [src, dst] = process.argv.slice(2);
-let body = readFileSync(src, 'utf8').replace(/\r\n/g, '\n');
+const [src = 'prototype', dst = 'docs'] = process.argv.slice(2);
+
+let body = readFileSync(join(src, 'index.html'), 'utf8').replace(/\r\n/g, '\n');
 body = body
   .replace('<title>Faithway Website Preview</title>', '<title>Faithway Bible Baptist Church</title>')
   .replace(/<meta name="claude:viewport-fit-sides"[^>]*>\n?/, '');
-
 const head = `<!doctype html>
 <html lang="en">
 <head>
@@ -21,5 +25,21 @@ const head = `<!doctype html>
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 `;
 const cut = body.indexOf('</style>') + '</style>'.length;
-writeFileSync(dst, `${head}${body.slice(0, cut)}\n</head>\n<body>\n${body.slice(cut)}\n</body>\n</html>\n`);
-console.log('built', dst);
+mkdirSync(dst, { recursive: true });
+writeFileSync(join(dst, 'index.html'), `${head}${body.slice(0, cut)}\n</head>\n<body>\n${body.slice(cut)}\n</body>\n</html>\n`);
+
+for (const f of ['map.js', 'missionaries.js', 'thumbs.jpg', 'logo.jpg']) copyFileSync(join(src, f), join(dst, f));
+
+mkdirSync(join(dst, 'img'), { recursive: true });
+for (const f of readdirSync(join(src, 'img'))) copyFileSync(join(src, 'img', f), join(dst, 'img', f));
+
+const visible = JSON.parse(readFileSync(join(src, 'sprite-order.json'), 'utf8'));
+rmSync(join(dst, 'photos'), { recursive: true, force: true });
+mkdirSync(join(dst, 'photos'));
+for (const card of visible) {
+  const p = join(src, 'photos', `${card}.jpg`);
+  if (existsSync(p)) copyFileSync(p, join(dst, 'photos', `${card}.jpg`));
+}
+if (!existsSync(join(dst, 'robots.txt'))) writeFileSync(join(dst, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
+if (!existsSync(join(dst, '.nojekyll'))) writeFileSync(join(dst, '.nojekyll'), '');
+console.log(`built ${dst}/ from ${src}/ (${visible.length} missionary photos)`);
