@@ -6,7 +6,7 @@ Writes 01.jpg, 02.jpg ... (max 1600px, for the gallery/lightbox) and 01-sm.jpg .
 cards and thumbnails). Files named on the command line come first, in that order (the first one is the
 event's cover photo); any other photos in the folder follow, sorted by name.
 """
-import sys, os, glob
+import sys, os, glob, hashlib
 from PIL import Image, ImageOps
 
 src, dst, *order = sys.argv[1:]
@@ -16,6 +16,17 @@ for old in glob.glob(os.path.join(dst, '*.jpg')):
 
 files = sorted(f for f in os.listdir(src) if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp')))
 ordered = [f for f in order if f in files] + [f for f in files if f not in order]
+
+# skip exact duplicates (e.g. "photo (1).jpg" downloaded twice)
+seen, unique = set(), []
+for name in ordered:
+    digest = hashlib.sha1(open(os.path.join(src, name), 'rb').read()).hexdigest()
+    if digest in seen:
+        print(f'skip duplicate: {name}')
+        continue
+    seen.add(digest)
+    unique.append(name)
+ordered = unique
 for n, name in enumerate(ordered, 1):
     im = ImageOps.exif_transpose(Image.open(os.path.join(src, name))).convert('RGB')
     for suffix, size, q in (('', 1600, 80), ('-sm', 720, 78)):
