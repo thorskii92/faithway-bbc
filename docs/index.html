@@ -247,6 +247,10 @@ a { color: var(--deep); }
 .overlay path { fill: none; stroke-linecap: round; }
 .overlay #line { stroke: var(--bow); }
 .overlay #lineGlow { stroke: var(--white); opacity: .9; }
+.overlay .mline { stroke: var(--bow); stroke-width: 2.5px; }
+.overlay .mglow { stroke: var(--white); stroke-width: 6px; opacity: .85; }
+.pin, .pin-ring, .home { pointer-events: none; }
+.country.is-served { cursor: pointer; }
 .callout { position: absolute; z-index: 8; pointer-events: none; background: var(--deep-2); color: var(--white); padding: 8px 12px; border-radius: 10px; font-size: .78rem; line-height: 1.3; transform: translate(-50%, calc(-100% - 14px)); white-space: nowrap; box-shadow: 0 10px 24px -10px rgba(5,68,95,.6); }
 .callout b { display: block; font-weight: 600; }
 .callout span { color: var(--sky); }
@@ -440,7 +444,7 @@ a { color: var(--deep); }
       <div class="section__head reveal" style="max-width:none">
         <span class="eyebrow">Missions board</span>
         <h2>To the ends of the earth</h2>
-        <p>Hover over a missionary (or tap on a phone) to see where they serve. Click to read their prayer letters.</p>
+        <p>Hover over a missionary to see where they serve, or hover over a country to see who serves there (tap on a phone). Click a photo to open their card and prayer letters.</p>
         <div class="stats"><div class="stat"><b id="statM">0</b><span>Missionaries</span></div><div class="stat"><b id="statC">0</b><span>Countries</span></div><div class="stat"><b id="statR">4</b><span>Continents</span></div></div>
       </div>
 
@@ -454,6 +458,7 @@ a { color: var(--deep); }
           <div class="map__legend"><span><i style="background:var(--home);box-shadow:inset 0 0 0 1px var(--deep-2)"></i>Philippines · Faithway, Palawan</span><span><i style="background:var(--land-served)"></i>Countries we support</span><span><i style="background:var(--deep)"></i>Selected field</span></div>
         </div>
         <svg class="overlay" id="overlay" aria-hidden="true">
+          <g id="multi"></g>
           <path id="lineGlow" stroke-width="8"/>
           <path id="line" stroke-width="3.5"/>
         </svg>
@@ -644,6 +649,7 @@ a { color: var(--deep); }
   function renderRegions() { $('#regionChips').innerHTML = regions.map((r) => `<button class="chip" type="button" data-r="${r}" aria-pressed="${r === region}">${r === REVIEW ? `⚑ ${r} (${M.filter((m) => m.issue).length})` : r}</button>`).join(''); }
   function renderWall() {
     clearLine();
+    clearCountry();
     const q = query.trim().toLowerCase();
     const list = M.filter((m) => (region === 'All' || (region === REVIEW ? m.issue : m.region === region)) && (!q || [m.name, m.family, m.place, m.country].join(' ').toLowerCase().includes(q)));
     board.querySelectorAll('.tile, .board__empty').forEach((n) => n.remove());
@@ -688,6 +694,7 @@ a { color: var(--deep); }
   function activate(tile) {
     if (active && active.tile === tile) return;
     clearLine();
+    clearCountry();
     const m = M[tile.dataset.m - 1];
     active = { tile, m };
     tile.classList.add('is-active'); board.classList.add('has-active');
@@ -706,19 +713,84 @@ a { color: var(--deep); }
     [glow, line].forEach((p) => p.setAttribute('d', ''));
     callout.hidden = true; active = null;
   }
+  /* ---------- reverse: hover a country → bow lines back to its missionaries ---------- */
+  const multi = $('#multi');
+  let cActive = null;
+  const toBoard = ([x, y]) => {
+    const s = map.getBoundingClientRect(), b = board.getBoundingClientRect(), k = Math.min(s.width / WORLD.w, s.height / WORLD.h);
+    return [s.left - b.left + (s.width - WORLD.w * k) / 2 + x * k, s.top - b.top + (s.height - WORLD.h * k) / 2 + y * k];
+  };
+  function countryLines(animate) {
+    const NS = 'http://www.w3.org/2000/svg', anim = animate && !reduce.matches;
+    multi.innerHTML = '';
+    cActive.tiles.forEach(({ tile, m }, i) => {
+      // same curve as the photo→map line, reversed so it draws out from the country to the photo
+      const d = geometry(tile, m).d.replace(/^M(\S+) (\S+) Q(\S+) (\S+) (\S+) (\S+)$/, 'M$5 $6 Q$3 $4 $1 $2');
+      for (const cls of ['mglow', 'mline']) {
+        const p = document.createElementNS(NS, 'path');
+        p.setAttribute('class', cls); p.setAttribute('d', d); multi.appendChild(p);
+        const len = p.getTotalLength();
+        p.style.strokeDasharray = len; p.style.strokeDashoffset = anim ? len : 0;
+        if (anim) requestAnimationFrame(() => requestAnimationFrame(() => { p.style.transition = `stroke-dashoffset .6s cubic-bezier(.4,0,.2,1) ${Math.min(i * 45, 450)}ms`; p.style.strokeDashoffset = 0; }));
+      }
+    });
+    const pts = cActive.tiles.map(({ m }) => m.pt);
+    const [cx, cy] = toBoard([pts.reduce((a, p) => a + p[0], 0) / pts.length, Math.min(...pts.map((p) => p[1]))]);
+    callout.style.left = cx + 'px'; callout.style.top = cy + 'px';
+  }
+  function showCountry(ci) {
+    if (cActive && cActive.ci === ci) return;
+    clearLine(); clearCountry();
+    const tiles = [...board.querySelectorAll('.tile')].map((t) => ({ tile: t, m: M[t.dataset.m - 1] })).filter((x) => x.m.ci === ci);
+    if (!tiles.length) return;
+    cActive = { ci, tiles };
+    board.classList.add('has-active');
+    tiles.forEach(({ tile }) => tile.classList.add('is-active'));
+    map.querySelector(`[data-c="${ci}"]`).classList.add('is-lit');
+    const n = tiles.length;
+    callout.innerHTML = `<b>${esc(tiles[0].m.country)}</b><span>${n} missionar${n === 1 ? 'y' : 'ies'}</span><em>Tap a photo to open</em>`;
+    callout.classList.toggle('is-touch', lastPointer === 'touch');
+    callout.hidden = false;
+    countryLines(true);
+  }
+  function clearCountry() {
+    if (!cActive) return;
+    cActive.tiles.forEach(({ tile }) => tile.classList.remove('is-active'));
+    board.classList.remove('has-active');
+    map.querySelectorAll('.is-lit').forEach((n) => n.classList.remove('is-lit'));
+    multi.innerHTML = ''; callout.hidden = true; cActive = null;
+  }
+  const countryOf = (n) => { const p = n && n.closest ? n.closest('.country.is-served') : null; return p ? +p.dataset.c : null; };
+
   const tileOf = (n) => (n && n.closest ? n.closest('.tile') : null);
   board.addEventListener('pointerdown', (e) => { lastPointer = e.pointerType; });
-  board.addEventListener('pointerover', (e) => { if (e.pointerType === 'mouse') { const t = tileOf(e.target); if (t) activate(t); } });
-  board.addEventListener('pointerout', (e) => { if (e.pointerType === 'mouse' && active && tileOf(e.target) && !tileOf(e.relatedTarget)) clearLine(); });
+  board.addEventListener('pointerover', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    const t = tileOf(e.target);
+    if (t) { activate(t); return; }
+    const ci = countryOf(e.target);
+    if (ci !== null) showCountry(ci);
+  });
+  board.addEventListener('pointerout', (e) => {
+    if (e.pointerType !== 'mouse') return;
+    if (active && tileOf(e.target) && !tileOf(e.relatedTarget)) clearLine();
+    if (cActive && countryOf(e.target) !== null && countryOf(e.relatedTarget) !== cActive.ci) clearCountry();
+  });
   board.addEventListener('focusin', (e) => { const t = tileOf(e.target); if (t) activate(t); });
   board.addEventListener('focusout', (e) => { if (!tileOf(e.relatedTarget)) clearLine(); });
   board.addEventListener('click', (e) => {
-    const t = tileOf(e.target); if (!t) return;
+    const t = tileOf(e.target);
+    if (!t) {
+      const ci = countryOf(e.target);
+      if (ci !== null) showCountry(ci);
+      else if (lastPointer === 'touch') { clearLine(); clearCountry(); }
+      return;
+    }
     if (lastPointer === 'touch' && (!active || active.tile !== t)) { activate(t); return; }
     location.hash = 'm-' + t.dataset.m;
   });
-  document.addEventListener('pointerdown', (e) => { if (active && !board.contains(e.target)) clearLine(); });
-  addEventListener('resize', () => { layout(); if (active) draw(active.tile, active.m, false); });
+  document.addEventListener('pointerdown', (e) => { if (!board.contains(e.target)) { clearLine(); clearCountry(); } });
+  addEventListener('resize', () => { layout(); if (active) draw(active.tile, active.m, false); if (cActive) countryLines(false); });
   renderRegions(); renderWall();
 
 
