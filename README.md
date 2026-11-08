@@ -60,6 +60,25 @@ If port 4173 is busy, `serve` picks another port and prints the address. Use the
    ```
    GitHub Pages updates about a minute later.
 
+## Adding an event with photos
+
+1. Put the photos in a folder under `Gallery/`, for example `Gallery/Youth Camp 2027/`.
+2. Make web-size copies. The first file you name becomes the cover photo, and the rest follow:
+   ```
+   uv run --with pillow python -I scripts/event-photos.py "Gallery/Youth Camp 2027" prototype/img/events/youth-camp-2027 cover-photo.jpg
+   ```
+3. In `prototype/index.html`, add an entry to the `EVENTS` list:
+   ```js
+   { id: 'youth-camp-2027', cat: 'camp', title: 'Youth Camp 2027', date: '2027-04-20',
+     place: 'Faithway Bible Baptist Church, Puerto Princesa City',
+     photos: 'img/events/youth-camp-2027', count: 12,
+     sum: 'One or two sentences about the event.' },
+   ```
+   - `count` is the number of photos.
+   - Use `dateLabel: 'April 2027'` when you only know the month.
+   - Categories: `cantata`, `anniversary`, `camp`, `family`, `saturation`, `extension-class` and `building`.
+4. Run `npm run build`, then commit and push.
+
 ## Updating the missionaries
 
 The missionary list comes from `MISSION/missionaries.csv`, one row per card. The photos are cropped from the card images in `MISSION/cards/`, exported from Canva as `1.png`, `2.png` and so on.
