@@ -91,3 +91,36 @@ collections:
       - { name: note, label: 'Note (optional)', widget: string, required: false, hint: 'e.g. "Sunday School theme: Prayer"' }
       - { name: sample, label: 'Example only', widget: boolean, default: false, required: false, hint: 'Shows an "Example" tag. Turn off for real verses.' }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
+
+  - name: videos
+    label: Videos (Music Ministry)
+    label_singular: Video
+    description: >-
+      Link YouTube videos of cantatas, the Sunday choir and special numbers. Videos stay on YouTube,
+      so they use no storage. Pick an event to also show the video on that event's page.
+    folder: content/videos
+    format: yml
+    extension: yml
+    create: true
+    delete: true
+    slug: '{{slug}}'
+    identifier_field: title
+    summary: '{{date}} · {{title}}'
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string, hint: 'e.g. "Easter Cantata – Full Program" or "How Great Thou Art"' }
+      - { name: youtube, label: 'YouTube link', widget: string, hint: 'Copy the link from YouTube (Share → Copy link) and paste it here.', pattern: ['(youtu\.be/|youtube\.com/)', 'Please paste a YouTube link'] }
+      - name: type
+        label: Type
+        widget: select
+        options:
+          - { label: Cantata, value: cantata }
+          - { label: Sunday Choir, value: choir }
+          - { label: Special Number, value: special }
+          - { label: Congregational Singing, value: congregational }
+          - { label: Other, value: other }
+      - { name: date, label: Date, widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, picker_utc: true, required: false }
+      - { name: performers, label: 'Sung by (optional)', widget: string, required: false, hint: 'e.g. "FBBC Choir" or "Youth Ladies Trio"' }
+      - { name: event, label: 'Event (optional)', widget: relation, collection: events, value_field: '{{slug}}', search_fields: [title], display_fields: [title], required: false, hint: 'Show this video on an event page, e.g. the cantata.' }
+      - { name: description, label: 'Description (optional)', widget: text, required: false }
+      - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
