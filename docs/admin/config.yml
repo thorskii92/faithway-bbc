@@ -68,3 +68,26 @@ collections:
         field: { name: image, label: Photo, widget: image }
       - { name: sample, label: 'Sample (placeholder) event', widget: boolean, default: false, required: false, hint: 'Shows a grey "Sample" tag. Turn off for real events.' }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
+
+  - name: verses
+    label: Memory Verses
+    label_singular: Memory Verse
+    description: >-
+      Add one verse per week. For a whole month, add each week's verse with its own "Week of" date;
+      the website shows each one when its week comes and lists the month's other verses underneath.
+    folder: content/verses
+    format: yml
+    extension: yml
+    create: true
+    delete: true
+    slug: '{{slug}}'
+    identifier_field: reference
+    summary: '{{week_of}} · {{reference}}'
+    sortable_fields: [week_of, reference]
+    fields:
+      - { name: reference, label: Reference, widget: string, hint: 'e.g. "Psalm 119:11" or "Romans 10:9-10"' }
+      - { name: text, label: 'Verse (KJV)', widget: text, hint: 'Type the verse exactly as in the King James Bible.' }
+      - { name: week_of, label: 'Week of', widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, picker_utc: true, hint: 'Pick the Sunday (or first day) of the week this verse is for.' }
+      - { name: note, label: 'Note (optional)', widget: string, required: false, hint: 'e.g. "Sunday School theme: Prayer"' }
+      - { name: sample, label: 'Example only', widget: boolean, default: false, required: false, hint: 'Shows an "Example" tag. Turn off for real verses.' }
+      - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }

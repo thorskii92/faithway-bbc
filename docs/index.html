@@ -94,6 +94,23 @@ a { color: var(--deep); }
 .creed span { font: 600 clamp(1.4rem, 2.6vw, 2rem)/1.1 var(--f-display); letter-spacing: 0; text-transform: none; color: var(--deep-2); }
 @media (max-width: 640px) { .creed { grid-template-columns: 1fr 1fr; row-gap: 20px; } .creed li:nth-child(3) { border-left: 0; } }
 .section__head .tag { justify-self: start; }
+/* memory verse */
+.mverse { padding-block: clamp(48px, 7vw, 84px) clamp(12px, 3vw, 28px); }
+.mverse__in { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+@media (max-width: 860px) { .mverse__in { grid-template-columns: 1fr; } }
+.mverse__main { display: grid; gap: 14px; border-left: 3px solid var(--bow); padding-left: clamp(18px, 3vw, 32px); }
+.mverse__text { margin: 0; font: italic 500 clamp(1.6rem, 3.4vw, 2.5rem)/1.3 var(--f-display); color: var(--deep-2); text-wrap: pretty; }
+.mverse__text::before { content: "“"; } .mverse__text::after { content: "”"; }
+.mverse__ref { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font: 600 .85rem/1.2 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--deep); }
+.mverse__note { color: var(--muted); font-size: .92rem; }
+.mverse__month { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; display: grid; gap: 10px; }
+.mverse__month ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.mverse__month button { all: unset; cursor: pointer; display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 10px; align-items: baseline; width: 100%; box-sizing: border-box; padding: 8px 10px; border-radius: 8px; }
+.mverse__month button:hover, .mverse__month button:focus-visible { background: var(--ocean); }
+.mverse__month button[aria-current="true"] { background: var(--cream); }
+.mverse__month time { font: 600 .7rem/1.3 var(--f-body); letter-spacing: .08em; text-transform: uppercase; color: var(--mid); font-variant-numeric: tabular-nums; }
+.mverse__month b { font: 600 1.1rem/1.2 var(--f-display); color: var(--deep-2); }
+.mverse__month small { display: block; font-size: .7rem; color: var(--muted); font-family: var(--f-body); font-weight: 500; }
 /* our story */
 .story { margin-top: clamp(48px, 7vw, 80px); display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.6fr); gap: clamp(24px, 5vw, 64px); }
 @media (max-width: 760px) { .story { grid-template-columns: 1fr; } }
@@ -465,6 +482,21 @@ a { color: var(--deep); }
       <div class="svc"><div class="svc__day">Saturday</div><div class="svc__name">Prayer Meeting</div><div class="svc__time">7:00 AM</div></div>
     </div>
   </div>
+
+  <section class="section mverse" id="memory-verse" hidden aria-labelledby="mvRef">
+    <div class="wrap mverse__in">
+      <div class="mverse__main">
+        <span class="eyebrow" id="mvLabel">Memory verse</span>
+        <blockquote class="mverse__text" id="mvText"></blockquote>
+        <p class="mverse__ref"><span id="mvRef"></span><span class="tag tag--sample" id="mvSample" hidden>Example</span></p>
+        <p class="mverse__note" id="mvNote" hidden></p>
+      </div>
+      <div class="mverse__month" id="mvMonth" hidden>
+        <span class="eyebrow" id="mvMonthLabel">This month</span>
+        <ol id="mvList"></ol>
+      </div>
+    </div>
+  </section>
 
   <section class="section" id="updates">
     <div class="wrap">
@@ -1201,8 +1233,41 @@ function route() {
   lightbox.addEventListener('click', () => lightbox.close());
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && !sheet.hidden && !lightbox.open) location.hash = returnTo; });
   addEventListener('hashchange', route);
+  /* ---------- memory verse: verses.json is built from content/verses/*.yml (the /admin editor) ---------- */
+  function loadVerses() {
+    fetch('verses.json', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : [])).catch(() => []).then((list) => {
+      if (!Array.isArray(list) || !list.length) return;
+      const d = (s) => new Date(s + 'T00:00:00');
+      const DAY = 864e5;
+      const past = list.filter((v) => d(v.week) <= today);
+      let current = past.length ? past[past.length - 1] : list[0];
+      const month = (v) => v.week.slice(0, 7);
+      const show = (v) => {
+        const days = Math.floor((today - d(v.week)) / DAY);
+        const weekText = fmt(v.week, { month: 'long', day: 'numeric' });
+        $('#mvLabel').textContent = days >= 0 && days < 7 ? `This week’s memory verse · week of ${weekText}`
+          : days < 0 ? `Memory verse · week of ${weekText}` : `Memory verse · week of ${weekText}, ${v.week.slice(0, 4)}`;
+        $('#mvText').textContent = v.text;
+        $('#mvRef').textContent = v.ref;
+        $('#mvSample').hidden = !v.sample;
+        $('#mvNote').hidden = !v.note; $('#mvNote').textContent = v.note || '';
+        $('#mvList').querySelectorAll('button').forEach((b) => b.setAttribute('aria-current', String(b.dataset.w === v.week + v.ref)));
+      };
+      const set = list.filter((v) => month(v) === month(current));
+      if (set.length > 1) {
+        $('#mvMonthLabel').textContent = fmt(current.week, { month: 'long', year: 'numeric' }) + ' memory verses';
+        $('#mvList').innerHTML = set.map((v) => `<li><button type="button" data-w="${esc(v.week + v.ref)}"><time>${fmt(v.week, { month: 'short', day: 'numeric' })}</time><span><b>${esc(v.ref)}</b><small>${d(v.week) > today ? 'Coming up' : v === current ? 'This week' : 'Earlier this month'}</small></span></button></li>`).join('');
+        $('#mvList').addEventListener('click', (e) => { const b = e.target.closest('[data-w]'); if (b) show(set.find((v) => v.week + v.ref === b.dataset.w)); });
+        $('#mvMonth').hidden = false;
+      }
+      show(current);
+      $('#memory-verse').hidden = false;
+    });
+  }
+
   route();
   loadEvents();
+  loadVerses();
 })();
 </script>
 

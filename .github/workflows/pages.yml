@@ -1,7 +1,7 @@
 # Runs when the /admin editor saves an event (changes under content/):
 # resizes the uploaded photos, rebuilds docs/events.json, commits the result to main
 # and asks GitHub Pages (which publishes main:/docs) to rebuild.
-name: Build events
+name: Build events and verses
 
 on:
   push:
@@ -28,12 +28,12 @@ jobs:
           cache: npm
       - run: npm ci
       - name: Build events and photos
-        run: node scripts/build-events.mjs docs
+        run: node scripts/build-events.mjs docs && node scripts/build-verses.mjs docs
       - name: Commit the built files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/events.json docs/img/events
+          git add docs/events.json docs/verses.json docs/img/events
           if git diff --cached --quiet; then echo "Nothing changed"; exit 0; fi
           git commit -m "Build events from the editor"
           git push
