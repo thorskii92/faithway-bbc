@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Faithway Logo Animation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,500&display=swap">
+<style>
+  html, body { margin: 0; background: #FFFFFF; }
+  body { display: grid; place-items: center; min-height: 100vh; }
+  svg { width: min(100vw, 100vh); height: min(100vw, 100vh); display: block; }
+  text { font-family: Montserrat, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<!--
+  Faithway Bible Baptist Church logo animation (redrawn from assets/brand/logo-full.jpg).
+  Sequence: book opens → road swipes up in gold, then back to blue → cross → dove flaps in →
+  circle drawn left to right with a sparkle (Disney style) → pause → name word by word →
+  EST. 2013 pops → tagline is written letter by letter.
+  window.renderAt(seconds) draws any moment; scripts in the scratchpad record it to MP4/GIF.
+-->
+<svg id="s" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="2.2"/></filter>
+    <radialGradient id="spark" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#FFFFFF"/><stop offset=".35" stop-color="#FFE7A3"/><stop offset="1" stop-color="#F2C14E" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="roadClip"><rect id="roadClipRect" x="380" y="470" width="260" height="0"/></clipPath>
+    <clipPath id="blueClip"><rect id="blueClipRect" x="380" y="470" width="260" height="0"/></clipPath>
+  </defs>
+  <rect width="1000" height="1000" fill="#FFFFFF"/>
+  <g transform="translate(0 36)">
+
+  <!-- open book: two halves that unfold from the spine (x = 510) -->
+  <g id="book" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="10">
+    <g id="bookL">
+      <path class="cover" d="M357 309 L296 440 Q392 437 468 452"/>
+      <path class="page" d="M497 313 Q447 287 386 290 L328 421 Q403 417 462 437"/>
+    </g>
+    <g id="bookR">
+      <path class="cover" d="M663 309 L724 440 Q628 437 552 452"/>
+      <path class="page" d="M523 313 Q573 287 634 290 L692 421 Q617 417 558 437"/>
+    </g>
+  </g>
+
+  <!-- road rising out of the book into the cross -->
+  <g clip-path="url(#roadClip)">
+    <path id="roadGlow" d="M507 334 C506 358 492 372 478 389 C462 407 452 431 444 467 L582 467 C569 441 549 421 540 405 C532 390 538 372 531 356 C525 346 518 342 518 334 Z" fill="#F7C64E" filter="url(#glow)"/>
+    <path id="road" fill="#E8B53C" d="M507 334 C506 358 492 372 478 389 C462 407 452 431 444 467 L582 467 C569 441 549 421 540 405 C532 390 538 372 531 356 C525 346 518 342 518 334 Z"/>
+    <g clip-path="url(#blueClip)"><path id="roadBlue" fill="#56748F" d="M507 334 C506 358 492 372 478 389 C462 407 452 431 444 467 L582 467 C569 441 549 421 540 405 C532 390 538 372 531 356 C525 346 518 342 518 334 Z"/></g>
+  </g>
+
+  <!-- cross -->
+  <rect id="stem" x="507" width="11" rx="1.5"/>
+  <rect id="bar" y="185" height="11" rx="1.5"/>
+
+  <!-- circle: two arcs (gap at the top for the dove, at the bottom for the cross) -->
+  <g fill="none" stroke-linecap="round">
+    <path id="arcLGlow" d="M490.2 289.2 A101 101 0 0 1 476.2 97.4" stroke="#F7C64E" stroke-width="20" filter="url(#glow)"/>
+    <path id="arcRGlow" d="M550.2 96.7 A101 101 0 0 1 530.1 290.7" stroke="#F7C64E" stroke-width="20" filter="url(#glow)"/>
+    <path id="arcL" d="M490.2 289.2 A101 101 0 0 1 476.2 97.4" stroke-width="10"/>
+    <path id="arcR" d="M550.2 96.7 A101 101 0 0 1 530.1 290.7" stroke-width="10"/>
+    <path id="arcLBlue" d="M490.2 289.2 A101 101 0 0 1 476.2 97.4" stroke="#56748F" stroke-width="10.6"/>
+    <path id="arcRBlue" d="M550.2 96.7 A101 101 0 0 1 530.1 290.7" stroke="#56748F" stroke-width="10.6"/>
+  </g>
+  <g id="glitter"></g>
+  <g id="sparkle">
+    <circle r="26" fill="url(#spark)"/>
+    <path d="M0 -24 L4 -4 L24 0 L4 4 L0 24 L-4 4 L-24 0 L-4 -4 Z" fill="#FFFFFF"/>
+    <path d="M0 -12 L2 -2 L12 0 L2 2 L0 12 L-2 2 L-12 0 L-2 -2 Z" fill="#FFE7A3" transform="rotate(45)"/>
+  </g>
+
+  <!-- dove (white body, blue outline), wings flap around the shoulder -->
+  <g id="dove" stroke-linejoin="round" stroke-linecap="round">
+    <g id="wingBack"><path d="M2 3 C0 -10 -5 -21 -15 -28 C-12 -14 -9 -4 -5 5 Z"/></g>
+    <path id="doveBody" d="M-29 9 L-16 6 C-7 14 8 15 18 6 C21 2 23 -2 27 -3 L33 -1 L27 2 C25 4 24 7 21 11 C12 21 -7 21 -15 14 Z"/>
+    <g id="wingFront"><path d="M-3 7 C-9 -6 -21 -14 -33 -15 C-25 -6 -19 2 -12 8 Z"/></g>
+    <circle cx="25" cy="-1" r="1.4" id="doveEye"/>
+  </g>
+
+  <g id="words"></g>
+  <text id="est" text-anchor="middle" font-size="26" font-weight="600" letter-spacing="9" fill="#3B3B3B">EST. 2013</text>
+  <g id="tag"></g>
+  </g>
+  <text id="measure" font-size="33" font-style="italic" font-weight="500" opacity="0">Passion for God. Compassion to People.</text>
+</svg>
+
+<script>
+(() => {
+  const BLUE = '#56748F', GOLD = '#E8B53C', TEXT = '#56748F', TAG = '#5D7B99';
+  const $ = (id) => document.getElementById(id);
+  const NS = 'http://www.w3.org/2000/svg';
+  const clamp = (x) => Math.max(0, Math.min(1, x));
+  const k = (t, a, d) => clamp((t - a) / d);
+  const outCubic = (x) => 1 - Math.pow(1 - x, 3);
+  const inOutCubic = (x) => (x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
+  const inOutSine = (x) => -(Math.cos(Math.PI * x) - 1) / 2;
+  const outBack = (x, s = 1.9) => 1 + (s + 1) * Math.pow(x - 1, 3) + s * Math.pow(x - 1, 2);
+  const hex = (h) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+  const mix = (a, b, t) => { const A = hex(a), B = hex(b); return '#' + A.map((v, i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2, '0')).join(''); };
+  const rnd = (i) => { const x = Math.sin(i * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); };
+
+  /* ---------- text layout (after fonts load) ---------- */
+  const WORDS = [];
+  const TAGCHARS = [];
+  function text(attrs, str, parent) {
+    const el = document.createElementNS(NS, 'text');
+    for (const [a, v] of Object.entries(attrs)) el.setAttribute(a, v);
+    el.textContent = str; parent.appendChild(el); return el;
+  }
+  function layout() {
+    const g = $('words');
+    WORDS.push(text({ x: 500, y: 516, 'text-anchor': 'middle', 'font-size': 34, 'font-weight': 600, fill: TEXT }, 'Palawan', g));
+    WORDS.push(text({ x: 514, y: 612, 'text-anchor': 'middle', 'font-size': 104, 'font-weight': 700, fill: TEXT, textLength: 668, lengthAdjust: 'spacing' }, 'FAITHWAY', g));
+    const line = [['BIBLE', 40, 3], ['BAPTIST', 40, 3], ['CHURCH,', 40, 3], ['Inc.', 26, 0]];
+    const els = line.map(([w, size, ls]) => text({ y: 667, 'font-size': size, 'font-weight': 400, 'letter-spacing': ls, fill: TEXT }, w, g));
+    const gap = 14;
+    const widths = els.map((e) => e.getComputedTextLength());
+    let x = 530 - (widths.reduce((a, b) => a + b, 0) + gap * (els.length - 1)) / 2;
+    els.forEach((e, i) => { e.setAttribute('x', x.toFixed(1)); x += widths[i] + gap; WORDS.push(e); });
+    $('est').setAttribute('x', 512); $('est').setAttribute('y', 748);
+    // tagline: one <text> per letter, placed where the whole line would put it
+    const m = $('measure');
+    const full = m.getComputedTextLength();
+    const x0 = 535 - full / 2;
+    m.setAttribute('x', x0); m.setAttribute('y', 834);
+    const str = m.textContent;
+    for (let i = 0; i < str.length; i++) {
+      if (str[i] === ' ') continue;
+      const p = m.getStartPositionOfChar(i);
+      const el = text({ x: p.x.toFixed(2), y: 834, 'font-size': 33, 'font-style': 'italic', 'font-weight': 500, fill: TAG, stroke: TAG, 'stroke-width': .9, 'stroke-dasharray': '220 220' }, str[i], $('tag'));
+      TAGCHARS.push({ el, order: TAGCHARS.length });
+    }
+  }
+
+  const ARC = { cx: 514, cy: 191, r: 101, a0: 103.6 * Math.PI / 180, aL: 248 * Math.PI / 180, aR: 291 * Math.PI / 180, a1: 440.8 * Math.PI / 180 };
+  const LL = ARC.r * (ARC.aL - ARC.a0), LG = ARC.r * (ARC.aR - ARC.aL), LR = ARC.r * (ARC.a1 - ARC.aR);
+  const glitter = [];
+  for (let i = 0; i < 14; i++) { const c = document.createElementNS(NS, 'circle'); $('glitter').appendChild(c); glitter.push(c); }
+
+  /* ---------- the timeline (seconds) ---------- */
+  const DURATION = 13.6;
+  function renderAt(t) {
+    // 1. book opens from the spine
+    const bookOp = k(t, .25, .25);
+    const sp = outBack(k(t, .4, 1.0), 1.1), sc = outBack(k(t, .55, 1.05), 1.1);
+    for (const side of ['bookL', 'bookR']) {
+      const g = $(side);
+      g.querySelector('.page').setAttribute('transform', `translate(510 0) scale(${Math.max(.02, sp)} ${.9 + .1 * sp}) translate(-510 0)`);
+      g.querySelector('.cover').setAttribute('transform', `translate(510 0) scale(${Math.max(.02, sc)} ${.9 + .1 * sc}) translate(-510 0)`);
+    }
+    $('book').setAttribute('stroke', BLUE); $('book').setAttribute('opacity', bookOp);
+
+    // 2. road swipes up in gold, then returns to blue
+    const rp = inOutCubic(k(t, 1.7, .65));
+    $('roadClipRect').setAttribute('y', 470 - rp * 142); $('roadClipRect').setAttribute('height', rp * 142 + 2);
+    const back = inOutCubic(k(t, 2.5, .6));
+    $('blueClipRect').setAttribute('y', 470 - back * 142); $('blueClipRect').setAttribute('height', back * 142 + 2);
+    $('roadGlow').setAttribute('opacity', (rp > 0 ? 1 : 0) * (1 - back) * .9);
+
+    // 3. cross: stem rises from the road, then the crossbar opens outward
+    const st = outCubic(k(t, 2.45, .45));
+    $('stem').setAttribute('y', 345 - st * 200); $('stem').setAttribute('height', st * 200); $('stem').setAttribute('fill', BLUE);
+    const br = outBack(k(t, 2.85, .4), 1.6);
+    const bw = Math.max(0, 105 * br);
+    $('bar').setAttribute('x', 512.5 - bw / 2); $('bar').setAttribute('width', bw); $('bar').setAttribute('fill', BLUE);
+
+    // 4. dove flies in, flapping, and settles above the cross
+    const da = k(t, 3.3, .55), dm = outCubic(k(t, 3.3, 1.0));
+    const dx = 514 + (1 - dm) * 70, dy = 104 - (1 - dm) * 55 + Math.sin(Math.max(0, t - 3.3) * 9) * 2.5 * (1 - k(t, 4.3, .4));
+    $('dove').setAttribute('transform', `translate(${dx} ${dy}) scale(1.22)`);
+    $('dove').setAttribute('opacity', da);
+    const flapping = 1 - k(t, 4.35, .3);
+    const phase = Math.max(0, t - 3.3) * (2 * Math.PI / .32);
+    const wing = 1 - flapping * (.5 + .5 * Math.cos(phase)) * 1.25; // 1 = raised, negative = down stroke
+    $('wingFront').setAttribute('transform', `translate(-4 7) scale(1 ${wing}) translate(4 -7)`);
+    $('wingBack').setAttribute('transform', `translate(1 4) scale(1 ${.85 * wing + .15}) translate(-1 -4)`);
+    for (const id of ['doveBody']) { $(id).setAttribute('fill', '#FFFFFF'); $(id).setAttribute('stroke', BLUE); $(id).setAttribute('stroke-width', 3.4); }
+    for (const id of ['wingFront', 'wingBack']) { const p = $(id).firstElementChild; p.setAttribute('fill', '#FFFFFF'); p.setAttribute('stroke', BLUE); p.setAttribute('stroke-width', 3.4); }
+    $('doveEye').setAttribute('fill', BLUE);
+
+    // 5. circle drawn left → over the top → right, with a sparkle at the tip (Disney style)
+    const cp = inOutSine(k(t, 4.6, 1.35));
+    const s = cp * (LL + LG + LR);
+    const dl = Math.min(s, LL), dr = Math.max(0, Math.min(LR, s - LL - LG));
+    const settle = k(t, 5.95, .7);
+    const arcCol = GOLD;
+    const blueDraw = inOutSine(k(t, 5.95, .7)) * (LL + LG + LR);
+    [['arcLBlue', Math.min(blueDraw, LL), LL], ['arcRBlue', Math.max(0, Math.min(LR, blueDraw - LL - LG)), LR]].forEach(([id, d, L]) => { $(id).setAttribute('stroke-dasharray', d.toFixed(2) + ' ' + (L + 50)); $(id).setAttribute('opacity', d > .1 ? 1 : 0); });
+    [['arcL', dl, LL], ['arcR', dr, LR]].forEach(([id, d, L]) => {
+      for (const e of [$(id), $(id + 'Glow')]) { e.setAttribute('stroke-dasharray', `${d.toFixed(2)} ${L + 50}`); e.setAttribute('opacity', d > .1 ? 1 : 0); }
+      $(id).setAttribute('stroke', arcCol);
+      $(id + 'Glow').setAttribute('opacity', d > .1 ? (1 - settle) * .85 : 0);
+    });
+    const tipA = ARC.a0 + s / ARC.r;
+    const tx = ARC.cx + ARC.r * Math.cos(tipA), ty = ARC.cy + ARC.r * Math.sin(tipA);
+    const sparkOn = cp > 0 && cp < 1 ? 1 : 0;
+    const burst = k(t, 5.95, .45);
+    const sparkOp = sparkOn ? 1 : (t > 5.95 ? (1 - burst) : 0);
+    const sparkScale = sparkOn ? .75 + .25 * Math.sin(t * 22) : 1 + burst * 1.4;
+    $('sparkle').setAttribute('transform', `translate(${tx.toFixed(1)} ${ty.toFixed(1)}) rotate(${(t * 220) % 360}) scale(${sparkScale.toFixed(3)})`);
+    $('sparkle').setAttribute('opacity', sparkOp);
+    glitter.forEach((c, i) => {
+      const behind = (i + 1) * .085 + rnd(i) * .04;
+      const a = tipA - behind;
+      const visible = sparkOn && a > ARC.a0 ? 1 : 0;
+      const rr = ARC.r + (rnd(i + 20) - .5) * 26;
+      c.setAttribute('cx', (ARC.cx + rr * Math.cos(a)).toFixed(1));
+      c.setAttribute('cy', (ARC.cy + rr * Math.sin(a) + i * .6).toFixed(1));
+      c.setAttribute('r', (1.4 + rnd(i + 40) * 2.6) * (1 - i / 16));
+      c.setAttribute('fill', i % 3 ? '#F7C64E' : '#FFFFFF');
+      c.setAttribute('opacity', visible * (1 - i / 14) * (.6 + .4 * Math.sin(t * 30 + i)));
+    });
+
+    // 6. pause (everything settles to the original colours by ~6.65s)
+
+    // 7. name, word by word
+    WORDS.forEach((w, i) => {
+      const q = outCubic(k(t, 6.9 + i * .3, .55));
+      w.setAttribute('opacity', q.toFixed(3));
+      w.setAttribute('transform', `translate(0 ${((1 - q) * 16).toFixed(2)})`);
+    });
+
+    // 8. EST. 2013 pops up
+    const ep = k(t, 8.95, .45);
+    $('est').setAttribute('opacity', clamp(ep * 3));
+    $('est').setAttribute('transform', `translate(512 740) scale(${Math.max(0, outBack(ep, 2.2)).toFixed(3)}) translate(-512 -740)`);
+
+    // 9. tagline written letter by letter
+    TAGCHARS.forEach(({ el, order }) => {
+      const st0 = 9.5 + order * .065;
+      const draw = k(t, st0, .32);
+      el.setAttribute('stroke-dashoffset', (220 * (1 - draw)).toFixed(1));
+      el.setAttribute('stroke-opacity', draw > 0 ? 1 : 0);
+      el.setAttribute('fill-opacity', k(t, st0 + .18, .3).toFixed(3));
+    });
+  }
+
+  window.DURATION = DURATION;
+  window.renderAt = renderAt;
+  window.ready = Promise.all([
+    document.fonts.load('600 34px Montserrat'), document.fonts.load('700 104px Montserrat'),
+    document.fonts.load('400 40px Montserrat'), document.fonts.load('italic 500 33px Montserrat'),
+  ]).then(() => document.fonts.ready).then(() => { layout(); renderAt(0); });
+
+  // live preview when opened in a browser (loops); the recorder calls renderAt() itself
+  if (!/[?&]capture/.test(location.search)) {
+    window.ready.then(() => {
+      const start = performance.now();
+      const loop = (now) => { renderAt(((now - start) / 1000) % (DURATION + 1.5)); requestAnimationFrame(loop); };
+      requestAnimationFrame(loop);
+    });
+  }
+})();
+</script>
+</body>
+</html>
