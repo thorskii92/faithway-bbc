@@ -1,20 +1,21 @@
-# Publishes the website. Runs on every push to main, including saves from the /admin editor:
-# builds events (resizing uploaded photos) into docs/, then deploys docs/ to GitHub Pages.
-name: Publish website
+# Runs when the /admin editor saves an event (changes under content/):
+# resizes the uploaded photos, rebuilds docs/events.json, commits the result to main
+# and asks GitHub Pages (which publishes main:/docs) to rebuild.
+name: Build events
 
 on:
   push:
     branches: [main]
+    paths: ['content/**']
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
-  id-token: write
 
 concurrency:
-  group: pages
-  cancel-in-progress: true
+  group: build-events
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -28,17 +29,15 @@ jobs:
       - run: npm ci
       - name: Build events and photos
         run: node scripts/build-events.mjs docs
-      - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Commit the built files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/events.json docs/img/events
+          if git diff --cached --quiet; then echo "Nothing changed"; exit 0; fi
+          git commit -m "Build events from the editor"
+          git push
+      - name: Republish the site
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/${{ github.repository }}/pages/builds" || true
