@@ -114,13 +114,13 @@ a { color: var(--deep); }
 
 /* service strip */
 .services { margin-top: -48px; position: relative; z-index: 2; }
-.services__card { background: var(--white); border-radius: var(--radius); box-shadow: 0 20px 50px -24px rgba(5,68,95,.35); display: grid; grid-template-columns: repeat(4, 1fr); }
+.services__card { background: var(--white); border-radius: var(--radius); box-shadow: 0 20px 50px -24px rgba(5,68,95,.35); display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .svc { padding: 22px 24px; border-left: 1px solid var(--line); min-width: 0; }
 .svc:first-child { border-left: 0; }
 .svc__day { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mid); font-weight: 600; }
 .svc__name { font-family: var(--f-display); font-size: 1.3rem; font-weight: 600; color: var(--deep-2); margin-top: 4px; }
 .svc__time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: .9rem; }
-@media (max-width: 860px) { .services__card { grid-template-columns: 1fr 1fr; } .svc:nth-child(3) { border-left: 0; } .svc:nth-child(n+3) { border-top: 1px solid var(--line); } }
+@media (max-width: 860px) { .services__card { grid-template-columns: 1fr 1fr; } .svc:nth-child(odd) { border-left: 0; } .svc:nth-child(n+3) { border-top: 1px solid var(--line); } .svc:last-child { grid-column: 1 / -1; } }
 
 /* updates */
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
@@ -402,7 +402,8 @@ a { color: var(--deep); }
 
   <div class="wrap services">
     <div class="services__card" aria-label="Schedule of services">
-      <div class="svc"><div class="svc__day">Sunday</div><div class="svc__name">Morning Service</div><div class="svc__time">8:30 AM</div></div>
+      <div class="svc"><div class="svc__day">Sunday</div><div class="svc__name">Sunday School</div><div class="svc__time">8:30 AM</div></div>
+      <div class="svc"><div class="svc__day">Sunday</div><div class="svc__name">Worship Service</div><div class="svc__time">10:00 AM</div></div>
       <div class="svc"><div class="svc__day">Sunday</div><div class="svc__name">Afternoon Service</div><div class="svc__time">4:00 PM</div></div>
       <div class="svc"><div class="svc__day">Wednesday</div><div class="svc__name">Midweek Prayer Meeting</div><div class="svc__time">6:00 PM</div></div>
       <div class="svc"><div class="svc__day">Saturday</div><div class="svc__name">Prayer Meeting</div><div class="svc__time">7:00 AM</div></div>
@@ -540,7 +541,7 @@ a { color: var(--deep); }
       </figure>
       <div class="visit">
         <div class="visit__item"><span class="eyebrow">Where</span><h3>Purok Matapat, San Jose</h3><p>Puerto Princesa City, Palawan, Philippines</p><p><a href="https://www.google.com/maps/place/Faithway+Bible+Baptist+Church/@9.7883332,118.7585032,17z/data=!4m6!3m5!1s0x33b563750267af07:0xd1e38ac7f5d98960!8m2!3d9.7883332!4d118.7585032" target="_blank" rel="noopener">Open in Google Maps →</a></p></div>
-        <div class="visit__item"><span class="eyebrow">When</span><h3>Every Sunday</h3><p>Morning service 8:30 AM and afternoon service 4:00 PM. Midweek prayer meeting Wednesday 6:00 PM, prayer meeting Saturday 7:00 AM.</p></div>
+        <div class="visit__item"><span class="eyebrow">When</span><h3>Every Sunday</h3><p>Sunday School 8:30 AM, Worship Service 10:00 AM and Afternoon Service 4:00 PM. Midweek prayer meeting Wednesday 6:00 PM, prayer meeting Saturday 7:00 AM.</p></div>
         <div class="visit__map">
           <iframe title="Map: Faithway Bible Baptist Church, Purok Matapat, San Jose, Puerto Princesa City" src="https://www.google.com/maps?q=9.7883332,118.7585032&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
