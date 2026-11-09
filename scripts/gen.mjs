@@ -12,7 +12,7 @@ const out = fc.features.map(f => {
   return { n: f.properties.name, d: path(f), c: [+x.toFixed(1), +y.toFixed(1)] };
 });
 // precise points for a few sample placements
-const pts = { palawan: proj([118.74, 9.74]).map(v => +v.toFixed(1)) };
+const pts = { palawan: proj([118.7585032, 9.7883332]).map(v => +v.toFixed(1)) };
 const s = `const WORLD=${JSON.stringify({ w: W, h: H, countries: out, pts })};`;
 writeFileSync(process.argv[2] || 'map.js', s);
 console.log(s.length, out.length, out.filter(o=>/Philipp|Papua|Kenya|Brazil|Fiji|Solomon|Nepal|Mongol|Madag|Peru|Ukraine/.test(o.n)).map(o=>o.n+':'+o.c).join(' | '));

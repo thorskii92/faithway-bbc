@@ -105,6 +105,8 @@ a { color: var(--deep); }
 .pastor__lead { font-family: var(--f-display); font-size: 1.45rem; line-height: 1.4; color: var(--deep-2); }
 .pastor__text p { color: var(--ink); max-width: 56ch; }
 .pastor__sign { font-family: var(--f-display); font-style: italic; font-size: 1.25rem; color: var(--deep) !important; }
+.visit__map { grid-column: 1 / -1; order: 9; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: var(--ocean); min-height: 320px; }
+.visit__map iframe { display: block; width: 100%; height: 360px; border: 0; }
 .visit__photo { margin: 0 0 40px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 30px 60px -40px rgba(5,68,95,.5); }
 .visit__photo img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 30%; }
 .hero__wave { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: clamp(50px, 7vw, 90px); display: block; }
@@ -537,8 +539,11 @@ a { color: var(--deep); }
         <img src="img/church-front.jpg" alt="The Faithway church family gathered in front of the church, under the sign 'Welcome to Faithway Bible Baptist Church'" width="1400" height="1050" loading="lazy">
       </figure>
       <div class="visit">
-        <div class="visit__item"><span class="eyebrow">Where</span><h3>Purok Matapat, San Jose</h3><p>Puerto Princesa City, Palawan, Philippines</p><p><a href="https://www.google.com/maps/search/?api=1&amp;query=Faithway+Bible+Baptist+Church+Purok+Matapat+San+Jose+Puerto+Princesa+City" target="_blank" rel="noopener">Open in Google Maps →</a></p></div>
+        <div class="visit__item"><span class="eyebrow">Where</span><h3>Purok Matapat, San Jose</h3><p>Puerto Princesa City, Palawan, Philippines</p><p><a href="https://www.google.com/maps/place/Faithway+Bible+Baptist+Church/@9.7883332,118.7585032,17z/data=!4m6!3m5!1s0x33b563750267af07:0xd1e38ac7f5d98960!8m2!3d9.7883332!4d118.7585032" target="_blank" rel="noopener">Open in Google Maps →</a></p></div>
         <div class="visit__item"><span class="eyebrow">When</span><h3>Every Sunday</h3><p>Morning service 8:30 AM and afternoon service 4:00 PM. Midweek prayer meeting Wednesday 6:00 PM, prayer meeting Saturday 7:00 AM.</p></div>
+        <div class="visit__map">
+          <iframe title="Map: Faithway Bible Baptist Church, Purok Matapat, San Jose, Puerto Princesa City" src="https://www.google.com/maps?q=9.7883332,118.7585032&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
         <div class="visit__item"><span class="eyebrow">Connect</span><h3>Facebook &amp; email</h3><p>Church Facebook page, email and phone to be supplied.</p></div>
       </div>
     </div>
