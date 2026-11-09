@@ -93,6 +93,35 @@ a { color: var(--deep); }
 .creed li:first-child { border-left: 0; }
 .creed span { font: 600 clamp(1.4rem, 2.6vw, 2rem)/1.1 var(--f-display); letter-spacing: 0; text-transform: none; color: var(--deep-2); }
 @media (max-width: 640px) { .creed { grid-template-columns: 1fr 1fr; row-gap: 20px; } .creed li:nth-child(3) { border-left: 0; } }
+.section__head .tag { justify-self: start; }
+/* our story */
+.story { margin-top: clamp(48px, 7vw, 80px); display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.6fr); gap: clamp(24px, 5vw, 64px); }
+@media (max-width: 760px) { .story { grid-template-columns: 1fr; } }
+.story__head { display: grid; gap: 10px; align-content: start; }
+.story__head h3 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+.story__head .tag { justify-self: start; }
+.timeline { list-style: none; margin: 0; padding: 0 0 0 22px; border-left: 2px solid var(--line); display: grid; gap: 22px; }
+.timeline li { position: relative; display: grid; gap: 2px; }
+.timeline li::before { content: ""; position: absolute; left: -30px; top: 5px; width: 12px; height: 12px; border-radius: 50%; background: var(--paper); border: 3px solid var(--deep); }
+.timeline li:last-child::before { background: var(--bow); border-color: var(--bow); }
+.timeline time { font: 600 .74rem/1.3 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--mid); }
+.timeline p { color: var(--ink); max-width: 60ch; }
+/* what we believe */
+.beliefs { background: var(--deep-2); color: var(--white); }
+.beliefs .section__head h2 { color: var(--white); }
+.beliefs .section__head p { color: var(--sky); }
+.beliefs .eyebrow { color: var(--home); }
+.beliefs__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; }
+.belief { display: grid; gap: 10px; align-content: start; padding: 24px; border-radius: var(--radius); background: rgba(255,255,255,.05); border: 1px solid rgba(151,215,255,.2); }
+.belief h3 { color: var(--cream); font-size: 1.5rem; }
+.belief p { color: #DCEBF5; font-size: .94rem; }
+.belief cite { font: italic 500 1rem var(--f-display); color: var(--sky); }
+/* ministries */
+.ministries__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
+.ministry { display: grid; gap: 8px; align-content: start; padding: 22px 24px; border-radius: var(--radius); background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--deep); }
+.ministry h3 { font-size: 1.45rem; }
+.ministry p { color: var(--muted); font-size: .92rem; }
+.ministry__when { font: 600 .7rem/1.3 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--mid); }
 .pastor { background: var(--cream); }
 .pastor__grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
 @media (max-width: 860px) { .pastor__grid { grid-template-columns: 1fr; } }
@@ -366,7 +395,7 @@ a { color: var(--deep); }
 <body>
 
 
-<div class="ribbon">Design preview · events tagged “Sample”, the mission/vision text and the prayer letters are <b>sample content</b>. The missionaries are real, taken from the FBBC cards</div>
+<div class="ribbon">Design preview · sections marked “Draft” await the pastor’s review, and the prayer letters are <b>samples</b></div>
 
 <header class="header">
   <div class="wrap header__in">
@@ -375,7 +404,7 @@ a { color: var(--deep); }
       <span class="brand__name">Faithway<small>Bible Baptist Church</small></span>
     </a>
     <nav class="nav" aria-label="Sections">
-      <a href="#updates">Updates</a><a href="#invited">Invitations</a><a href="#about">About</a><a href="#pastor">Pastor</a><a href="#missions">Missions</a><a href="#visit">Visit</a>
+      <a href="#updates">Updates</a><a href="#about">About</a><a href="#beliefs">Beliefs</a><a href="#pastor">Pastor</a><a href="#ministries">Ministries</a><a href="#missions">Missions</a><a href="#visit">Visit</a>
     </nav>
   </div>
 </header>
@@ -457,6 +486,21 @@ a { color: var(--deep); }
         </div>
       </div>
 
+      <div class="story reveal" id="history">
+        <div class="story__head">
+          <span class="eyebrow">Our story</span>
+          <h3>Thirteen years of God’s faithfulness</h3>
+          <span class="tag tag--sample">Draft for the pastor’s review</span>
+        </div>
+        <ol class="timeline">
+          <li><time datetime="2013-11-13">November 13, 2013</time><p>The church was organized as <b>Faith Bible Baptist Church</b> on Pablico Road 3, Tiniguiban, Puerto Princesa City, under the authority of Bible Baptist Church, Quezon, Palawan, with Pastor Sonny as pastor.</p></li>
+          <li><time datetime="2024-09">September 2024</time><p>The church family began worshipping in our new building at Purok Matapat, San Jose, Puerto Princesa City.</p></li>
+          <li><time datetime="2025-09">September 2025</time><p>We thanked the Lord for the first anniversary of the new building.</p></li>
+          <li><time datetime="2026-06-07">June 7, 2026</time><p>The new sanctuary ceiling was finished.</p></li>
+          <li><time datetime="2026-11-15">November 15, 2026</time><p>We celebrate thirteen years of God’s faithfulness at our 13th Church Anniversary.</p></li>
+        </ol>
+      </div>
+
       <ul class="creed reveal" aria-label="What we hold to">
         <li><span>Sound</span>Preaching</li>
         <li><span>Independent</span>Baptist</li>
@@ -483,6 +527,26 @@ a { color: var(--deep); }
     </div>
   </section>
 
+  <section class="section beliefs" id="beliefs">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="eyebrow">What we believe</span>
+        <h2>Standing on the Word of God</h2>
+        <p>We are an independent, fundamental Baptist church. These are the truths we hold to, each grounded in Scripture (King James Version).</p>
+        <span class="tag tag--sample">Draft for the pastor’s review</span>
+      </div>
+      <div class="beliefs__grid">
+        <article class="belief reveal"><h3>The Bible</h3><p>The Holy Bible is the inspired, inerrant and preserved Word of God, our final authority in all matters of faith and practice. We use the King James Version.</p><cite>2 Timothy 3:16 · Psalm 12:6–7</cite></article>
+        <article class="belief reveal"><h3>The Godhead</h3><p>There is one true God, eternally existing in three persons: the Father, the Son and the Holy Ghost.</p><cite>1 John 5:7 · Matthew 28:19</cite></article>
+        <article class="belief reveal"><h3>Jesus Christ</h3><p>Jesus Christ is God the Son, born of a virgin. He lived a sinless life, died on the cross for our sins, rose bodily from the dead and ascended into heaven.</p><cite>Isaiah 7:14 · 1 Corinthians 15:3–4</cite></article>
+        <article class="belief reveal"><h3>Salvation</h3><p>Salvation is a free gift received by grace through faith in the Lord Jesus Christ alone, not by works. Those who are saved are kept by the power of God.</p><cite>Ephesians 2:8–9 · John 10:28</cite></article>
+        <article class="belief reveal"><h3>The Ordinances</h3><p>The Lord gave the church two ordinances: baptism by immersion of believers, and the Lord’s Supper in remembrance of His death.</p><cite>Romans 6:4 · 1 Corinthians 11:23–26</cite></article>
+        <article class="belief reveal"><h3>The Local Church</h3><p>The local church is an independent, self-governing body of baptized believers, called to worship God and to carry the Gospel to every nation.</p><cite>Acts 2:41–42 · Matthew 28:19–20</cite></article>
+        <article class="belief reveal"><h3>The Lord’s Return</h3><p>The Lord Jesus Christ will return personally and bodily for His own, and every believer should live ready for that day.</p><cite>John 14:3 · 1 Thessalonians 4:16–17</cite></article>
+      </div>
+    </div>
+  </section>
+
   <section class="section pastor" id="pastor">
     <div class="wrap">
       <div class="section__head reveal">
@@ -502,6 +566,26 @@ a { color: var(--deep); }
           <p>A few lines about Ma’am Mila and their children, and the ministries they serve in, can follow here.</p>
           <p class="pastor__sign">Pastor Sonny &amp; Ma’am Mila</p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ministries" id="ministries">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="eyebrow">Ministries</span>
+        <h2>There is a place for you</h2>
+        <p>Every member and visitor is welcome to take part.</p>
+        <span class="tag tag--sample">Draft for the pastor’s review</span>
+      </div>
+      <div class="ministries__grid">
+        <article class="ministry reveal"><span class="ministry__when">Sundays · 8:30 AM</span><h3>Sunday School</h3><p>Bible classes for every age, from the youngest children to adults, before the worship service.</p></article>
+        <article class="ministry reveal"><span class="ministry__when">Sundays · 10:00 AM &amp; 4:00 PM</span><h3>Worship &amp; Preaching</h3><p>Sound preaching from the King James Bible and congregational singing from the hymnal, with special numbers from our choir.</p></article>
+        <article class="ministry reveal"><span class="ministry__when">Wednesdays 6:00 PM · Saturdays 7:00 AM</span><h3>Prayer Meetings</h3><p>The church gathers to pray for one another, for the lost, and for the missionaries we support.</p></article>
+        <article class="ministry reveal"><span class="ministry__when">Throughout the year</span><h3>Saturation</h3><p>Teams go house to house in the barangays around us, sharing the Gospel and inviting families to church.</p></article>
+        <article class="ministry reveal"><span class="ministry__when">Weekly</span><h3>Extension Classes</h3><p>Bible classes held in nearby communities, teaching children and families the Word of God where they live.</p></article>
+        <article class="ministry reveal"><span class="ministry__when">Our young people</span><h3>Youth</h3><p>Fellowship, Bible study and camps that help our young people grow in the Lord and serve Him.</p></article>
+        <article class="ministry reveal"><span class="ministry__when">To the ends of the earth</span><h3>Missions</h3><p>Through prayer and faithful giving, the church supports missionaries in the Philippines and around the world. <a href="#missions">See our missions board →</a></p></article>
       </div>
     </div>
   </section>
@@ -551,7 +635,7 @@ a { color: var(--deep); }
         <div class="visit__map">
           <iframe title="Map: Faithway Bible Baptist Church, Purok Matapat, San Jose, Puerto Princesa City" src="https://www.google.com/maps?q=9.7883332,118.7585032&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <div class="visit__item"><span class="eyebrow">Connect</span><h3>Facebook &amp; email</h3><p>Church Facebook page, email and phone to be supplied.</p></div>
+        <div class="visit__item"><span class="eyebrow">Connect</span><h3>Phone &amp; email</h3><p>Church phone number and email to be supplied.</p></div>
       </div>
     </div>
   </section>

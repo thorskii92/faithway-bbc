@@ -33,16 +33,6 @@
   "count": 3
  },
  {
-  "id": "2026-04-summer-youth-camp",
-  "title": "Summer Youth Camp",
-  "cat": "camp",
-  "date": "2026-04-21",
-  "place": "Sample campsite",
-  "sum": "Three days of preaching, worship and outdoor activities for our young people.",
-  "time": "3 days",
-  "sample": true
- },
- {
   "id": "2026-06-ceiling-project",
   "title": "Finished Ceiling Project",
   "cat": "building",
@@ -53,26 +43,6 @@
   "count": 7
  },
  {
-  "id": "2026-09-extension-class-recognition",
-  "title": "Extension Class Recognition",
-  "cat": "extension-class",
-  "date": "2026-09-13",
-  "place": "Extension class site",
-  "sum": "Celebrating the students who completed this term’s Bible lessons.",
-  "time": "2:00 PM",
-  "sample": true
- },
- {
-  "id": "2026-10-church-family-day",
-  "title": "Church Family Day",
-  "cat": "family",
-  "date": "2026-10-25",
-  "place": "Sample beach resort",
-  "sum": "Games, a picnic by the sea, and a short devotion for the whole church family.",
-  "time": "8:00 AM",
-  "sample": true
- },
- {
   "id": "2026-11-13th-church-anniversary",
   "title": "13th Church Anniversary",
   "cat": "anniversary",
@@ -80,15 +50,5 @@
   "place": "FBBC Main Sanctuary",
   "sum": "Thirteen years of God’s faithfulness since 2013. Thanksgiving service and fellowship lunch.",
   "time": "9:00 AM"
- },
- {
-  "id": "2026-11-barangay-saturation-day",
-  "title": "Barangay Saturation Day",
-  "cat": "saturation",
-  "date": "2026-11-01",
-  "place": "Sample barangay",
-  "sum": "Teams went house to house sharing the Gospel and inviting families to church.",
-  "time": "7:00 AM",
-  "sample": true
  }
 ]
