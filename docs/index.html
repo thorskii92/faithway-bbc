@@ -116,6 +116,17 @@ a { color: var(--deep); }
 .belief h3 { color: var(--cream); font-size: 1.5rem; }
 .belief p { color: #DCEBF5; font-size: .94rem; }
 .belief cite { font: italic 500 1rem var(--f-display); color: var(--sky); }
+.distinctives { margin-top: clamp(56px, 8vw, 96px); padding-top: clamp(40px, 6vw, 64px); border-top: 1px solid rgba(151,215,255,.2); display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 2fr); gap: clamp(24px, 5vw, 64px); }
+@media (max-width: 860px) { .distinctives { grid-template-columns: 1fr; } }
+.distinctives__head { display: grid; gap: 10px; align-content: start; }
+.distinctives__head h3 { font-size: clamp(2rem, 4vw, 3rem); color: var(--home); letter-spacing: .04em; font-weight: 600; }
+.distinctives__head p { color: var(--sky); }
+.distinctives__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px 28px; }
+.distinctives__list li { display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: 14px; align-items: start; padding: 14px 0; border-bottom: 1px solid rgba(151,215,255,.15); }
+.dl { font: 600 2.6rem/1 var(--f-display); color: var(--home); text-align: center; }
+.distinctives__list h4 { margin: 0 0 4px; font: 600 1.3rem/1.2 var(--f-display); color: var(--cream); }
+.distinctives__list p { color: #DCEBF5; font-size: .9rem; }
+.distinctives__list cite { display: block; margin-top: 4px; font: italic 500 .98rem var(--f-display); color: var(--sky); }
 /* ministries */
 .ministries__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
 .ministry { display: grid; gap: 8px; align-content: start; padding: 22px 24px; border-radius: var(--radius); background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--deep); }
@@ -543,6 +554,24 @@ a { color: var(--deep); }
         <article class="belief reveal"><h3>The Ordinances</h3><p>The Lord gave the church two ordinances: baptism by immersion of believers, and the Lord’s Supper in remembrance of His death.</p><cite>Romans 6:4 · 1 Corinthians 11:23–26</cite></article>
         <article class="belief reveal"><h3>The Local Church</h3><p>The local church is an independent, self-governing body of baptized believers, called to worship God and to carry the Gospel to every nation.</p><cite>Acts 2:41–42 · Matthew 28:19–20</cite></article>
         <article class="belief reveal"><h3>The Lord’s Return</h3><p>The Lord Jesus Christ will return personally and bodily for His own, and every believer should live ready for that day.</p><cite>John 14:3 · 1 Thessalonians 4:16–17</cite></article>
+      </div>
+
+      <div class="distinctives reveal" id="distinctives">
+        <div class="distinctives__head">
+          <span class="eyebrow">Baptist distinctives</span>
+          <h3 aria-label="BAPTISTS">B·A·P·T·I·S·T·S</h3>
+          <p>The historic marks that set Baptist churches apart.</p>
+        </div>
+        <ol class="distinctives__list">
+          <li><span class="dl" aria-hidden="true">B</span><div><h4>Biblical Authority</h4><p>The Bible is our sole and final authority for what we believe and how we live.</p><cite>2 Timothy 3:16–17</cite></div></li>
+          <li><span class="dl" aria-hidden="true">A</span><div><h4>Autonomy of the Local Church</h4><p>Each local church is self-governing under Christ, its Head, free from outside control.</p><cite>Colossians 1:18</cite></div></li>
+          <li><span class="dl" aria-hidden="true">P</span><div><h4>Priesthood of the Believer</h4><p>Every believer may go directly to God through Jesus Christ, our only Mediator.</p><cite>1 Peter 2:9 · 1 Timothy 2:5</cite></div></li>
+          <li><span class="dl" aria-hidden="true">T</span><div><h4>Two Ordinances</h4><p>Believer’s baptism by immersion and the Lord’s Supper, as pictures of what Christ has done.</p><cite>Matthew 28:19 · 1 Corinthians 11:23–26</cite></div></li>
+          <li><span class="dl" aria-hidden="true">I</span><div><h4>Individual Soul Liberty</h4><p>Each person is free, and responsible before God, to believe according to his own conscience.</p><cite>Romans 14:5, 12</cite></div></li>
+          <li><span class="dl" aria-hidden="true">S</span><div><h4>Saved Church Membership</h4><p>Church membership is for those who have been saved and baptized.</p><cite>Acts 2:41–47</cite></div></li>
+          <li><span class="dl" aria-hidden="true">T</span><div><h4>Two Offices</h4><p>The church has two scriptural offices: pastor and deacon.</p><cite>1 Timothy 3:1–13</cite></div></li>
+          <li><span class="dl" aria-hidden="true">S</span><div><h4>Separation of Church and State</h4><p>The church and the government each have their own God-given role, and neither should control the other.</p><cite>Matthew 22:21</cite></div></li>
+        </ol>
       </div>
     </div>
   </section>
