@@ -60,7 +60,24 @@ If port 4173 is busy, `serve` picks another port and prints the address. Use the
    ```
    GitHub Pages updates about a minute later.
 
-## Adding an event with photos
+## Adding events from the website (admin page)
+
+Open **https://thorskii92.github.io/faithway-bbc/admin/**. You can do this from a phone too.
+
+1. **Sign in.** Click **Sign In Using Access Token** and paste your GitHub token. You only need to make one token, the first time:
+   1. Go to GitHub → Settings → Developer settings → Personal access tokens → **Fine-grained tokens** → Generate new token.
+   2. Under **Repository access**, choose *Only select repositories* and pick `faithway-bbc`.
+   3. Under **Permissions**, set **Contents** to *Read and write*.
+2. **Add the event.** Go to **Events → New Event** and fill in the title, category, date, place and summary.
+   - **Upcoming event:** upload the **Invitation poster**. It appears under "You're Invited" and stays there until the day passes.
+   - **Past event:** add **Photos**. The first one becomes the cover.
+3. **Save.** The website updates about 2 minutes later.
+
+**Volunteers:** add each one under the repo's **Settings → Collaborators**. They accept the invite and make their own token the same way.
+
+**Note:** saves only publish while GitHub Actions can run on your account. If GitHub shows a billing lock, events you save in the editor are stored, but they won't appear on the site until it's fixed. Ask Claude to run `npm run build` and push in the meantime.
+
+## Adding an event with photos (by hand)
 
 1. Put the photos in a folder under `Gallery/`, for example `Gallery/Youth Camp 2027/`.
 2. Make web-size copies. The first file you name becomes the cover photo, and the rest follow:
