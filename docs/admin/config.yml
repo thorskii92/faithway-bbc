@@ -3,10 +3,10 @@ backend:
   name: github
   repo: thorskii92/faithway-bbc
   branch: main
-  # To enable the "Sign in with GitHub" button, deploy the free auth worker
-  # (https://github.com/sveltia/sveltia-cms-auth) and put its URL here, e.g.:
-  # base_url: https://sveltia-cms-auth.<your-account>.workers.dev
-  # Until then, sign in with "Sign In Using Access Token" (see README).
+  # GitHub sign-in helper (Cloudflare Worker "faithway-cms-auth", source: sveltia/sveltia-cms-auth)
+  base_url: https://faithway-cms-auth.nestorigna92.workers.dev
+  # the repo is public, so ask GitHub only for public-repo access
+  auth_scope: public_repo
   commit_messages:
     create: 'Add event: {{slug}}'
     update: 'Update event: {{slug}}'
