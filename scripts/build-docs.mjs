@@ -5,7 +5,7 @@
 //   sprite-order.json (visible missionaries, written by data.mjs) are copied, so a hidden
 //   missionary's photo can never reach docs/ even if it is lying around in prototype/photos.
 // Usage: node scripts/build-docs.mjs [prototypeDir] [docsDir]
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSync, cpSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSync, cpSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const [src = 'prototype', dst = 'docs'] = process.argv.slice(2);
@@ -29,6 +29,8 @@ mkdirSync(dst, { recursive: true });
 writeFileSync(join(dst, 'index.html'), `${head}${body.slice(0, cut)}\n</head>\n<body>\n${body.slice(cut)}\n</body>\n</html>\n`);
 
 for (const f of ['map.js', 'missionaries.js', 'thumbs.jpg', 'logo.jpg']) copyFileSync(join(src, f), join(dst, f));
+// extra standalone pages (complete HTML documents), e.g. kings-and-prophets.html
+for (const f of readdirSync(src).filter((n) => n.endsWith('.html') && n !== 'index.html')) copyFileSync(join(src, f), join(dst, f));
 
 rmSync(join(dst, 'img'), { recursive: true, force: true });
 cpSync(join(src, 'img'), join(dst, 'img'), { recursive: true });   // church photos + img/events/<slug>/

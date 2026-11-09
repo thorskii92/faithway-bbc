@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="An interactive timeline of the kings of Israel and Judah, the prophets, and the empires around them, 1050–400 B.C.">
+<title>Kings and Prophets</title>
+<link rel="icon" href="logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@400;500;600&display=swap">
+<style>
+/* Layout: a scroll-wide timeline like a wall chart, lanes pinned on the left, details card underneath. Faithway palette. */
+:root {
+  --deep: #086288; --deep-2: #05445F; --mid: #4D8DBA; --sky: #97D7FF; --cream: #FFEFC4;
+  --ink: #13293D; --muted: #4B6275; --paper: #FFFCF5; --line: #DCE5EC; --white: #FFFFFF; --ocean: #EEF7FD;
+  --home: #F3C463; --bow: #FFA81E;
+  /* lane colours */
+  --c-united: #E9D4B0; --c-united-b: #A9874E;
+  --c-israel: #CDEBF7; --c-israel-b: #4D8DBA;
+  --c-judah: #FFF1C9; --c-judah-b: #C9A04A;
+  --c-pisrael: #A9DCEF; --c-pjudah: #F6D98B; --c-pnations: #F2B49A; --c-pexile: #D9D2F0; --c-return: #CFC4EC;
+  --c-assyria: #E59A86; --c-babylon: #D7D3CB; --c-persia: #E2C27A;
+  /* character of the kings of Judah */
+  --good: #2E8B62; --mixed: #D39A1E; --wicked: #B33A22;
+  --f-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --f-body: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --label-w: 168px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.55; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 600; color: var(--deep-2); margin: 0; line-height: 1.1; text-wrap: balance; }
+p { margin: 0; }
+a { color: var(--deep); }
+:focus-visible { outline: 3px solid var(--bow); outline-offset: 2px; }
+.wrap { max-width: 1240px; margin-inline: auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.eyebrow { font: 600 .72rem/1.3 var(--f-body); letter-spacing: .18em; text-transform: uppercase; color: var(--mid); }
+
+.top { background: var(--deep-2); color: var(--white); }
+.top .wrap { padding-block: 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.top a { color: var(--sky); text-decoration: none; font-weight: 600; font-size: .85rem; }
+.top b { font-family: var(--f-display); font-size: 1.25rem; font-weight: 500; color: var(--white); }
+
+.intro { padding-block: clamp(36px, 6vw, 64px) 24px; display: grid; gap: 12px; }
+.intro h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+.intro p { color: var(--muted); max-width: 68ch; }
+.intro .verse { font: italic 500 1.2rem/1.4 var(--f-display); color: var(--deep); }
+
+.controls { display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; margin: 8px 0 14px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 .78rem/1 var(--f-body); padding: 8px 13px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); color: var(--ink); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--deep); border-color: var(--deep); color: var(--white); }
+.key { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: .74rem; color: var(--muted); }
+.key i { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+
+/* timeline */
+.scroller { overflow-x: auto; overscroll-behavior-x: contain; border: 1px solid var(--line); border-radius: 14px; background: var(--white); position: relative; }
+.chart { position: relative; display: grid; grid-template-columns: var(--label-w) var(--track-w); width: max-content; }
+.lane-label { position: sticky; left: 0; z-index: 4; background: var(--white); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 8px 12px; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.lane-label b { font: 600 1.05rem/1.15 var(--f-display); color: var(--deep-2); }
+.lane-label small { font-size: .66rem; color: var(--muted); letter-spacing: .04em; }
+.lane-label.axis { background: var(--ocean); }
+.track { position: relative; border-bottom: 1px solid var(--line); }
+.track.axis { background: var(--ocean); height: 34px; }
+.tick { position: absolute; top: 0; bottom: 0; border-left: 1px solid var(--line); }
+.tick span { position: absolute; top: 9px; left: 5px; font-size: .68rem; font-weight: 600; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.grid-line { position: absolute; top: 0; bottom: 0; border-left: 1px dashed #EDF1F5; pointer-events: none; }
+.band { position: absolute; top: 0; bottom: 0; background: repeating-linear-gradient(135deg, rgba(151,215,255,.16) 0 8px, rgba(151,215,255,.06) 8px 16px); border-inline: 1px dashed var(--sky); pointer-events: none; }
+.band-label { position: absolute; z-index: 3; top: 6px; font: 600 .62rem/1.2 var(--f-body); letter-spacing: .1em; text-transform: uppercase; color: var(--deep); background: var(--white); padding: 2px 6px; border-radius: 4px; border: 1px solid var(--sky); white-space: nowrap; pointer-events: none; }
+
+.bar { position: absolute; height: 24px; border-radius: 5px; border: 1px solid rgba(19,41,61,.18); padding: 0 6px; font: 600 .68rem/22px var(--f-body); color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: clip; cursor: pointer; text-align: left; transition: transform .15s, box-shadow .15s, opacity .2s; }
+.bar:hover { transform: translateY(-1px); box-shadow: 0 6px 14px -8px rgba(5,68,95,.6); z-index: 2; }
+.bar.is-sel { outline: 2.5px solid var(--deep-2); outline-offset: 1px; z-index: 3; }
+.bar.is-near { box-shadow: 0 0 0 2px var(--bow); }
+.chart.dimmed .bar:not(.is-sel):not(.is-near) { opacity: .35; }
+.bar .rate { position: absolute; left: 0; right: 0; bottom: 0; height: 4px; }
+.bar.l-united { background: var(--c-united); border-color: var(--c-united-b); }
+.bar.l-israel { background: var(--c-israel); border-color: var(--c-israel-b); }
+.bar.l-judah { background: var(--c-judah); border-color: var(--c-judah-b); }
+.bar.l-pIsrael { background: var(--c-pisrael); }
+.bar.l-pJudah { background: var(--c-pjudah); }
+.bar.l-pNations { background: var(--c-pnations); }
+.bar.l-pExile { background: var(--c-pexile); }
+.bar.l-return { background: var(--c-return); }
+.bar.e-assyria { background: var(--c-assyria); }
+.bar.e-babylon { background: var(--c-babylon); }
+.bar.e-persia { background: var(--c-persia); }
+.ev { position: absolute; top: 6px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; background: var(--deep); border: 3px solid var(--white); box-shadow: 0 0 0 1px var(--deep); cursor: pointer; padding: 0; }
+.ev.is-sel { background: var(--bow); box-shadow: 0 0 0 2px var(--deep-2); }
+.ev-line { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--bow); z-index: 5; pointer-events: none; }
+.swipe { display: none; font-size: .74rem; color: var(--muted); margin: 6px 2px 0; }
+@media (max-width: 760px) { :root { --label-w: 104px; } .lane-label b { font-size: .9rem; } .lane-label small { display: none; } .swipe { display: block; } }
+
+/* details */
+.detail { margin: 18px 0 0; background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: clamp(18px, 3vw, 28px); display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; }
+@media (max-width: 800px) { .detail { grid-template-columns: 1fr; } }
+.detail h2 { font-size: clamp(1.8rem, 3.4vw, 2.5rem); margin-top: 6px; }
+.detail .when { font: italic 500 1.2rem var(--f-display); color: var(--deep); margin-top: 4px; }
+.detail .note { margin-top: 10px; color: var(--ink); max-width: 60ch; }
+.detail .ref { margin-top: 10px; font: italic 500 1.08rem var(--f-display); color: var(--muted); }
+.badge { display: inline-block; margin-top: 10px; font: 600 .7rem/1 var(--f-body); letter-spacing: .1em; text-transform: uppercase; padding: 6px 10px; border-radius: 999px; color: var(--white); }
+.badge.good { background: var(--good); } .badge.mixed { background: var(--mixed); } .badge.wicked { background: var(--wicked); }
+.same { display: grid; gap: 10px; align-content: start; }
+.same h3 { font-size: 1.3rem; }
+.same dl { margin: 0; display: grid; gap: 8px; }
+.same dt { font: 600 .66rem/1.2 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--mid); }
+.same dd { margin: 2px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.same button { all: unset; cursor: pointer; font-size: .8rem; padding: 4px 10px; border-radius: 999px; background: var(--ocean); color: var(--deep-2); }
+.same button:hover, .same button:focus-visible { background: var(--sky); }
+.empty { color: var(--muted); font-size: .9rem; }
+
+/* facts */
+.facts { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; padding-block: 28px 64px; }
+.fact { background: var(--white); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
+.fact h3 { font-size: 1.4rem; margin-bottom: 10px; }
+.fact table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+.fact td { padding: 5px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.fact td:last-child { text-align: right; color: var(--muted); font-variant-numeric: tabular-nums; padding-left: 10px; }
+.fact tr:last-child td { border-bottom: 0; }
+.foot { border-top: 1px solid var(--line); padding-block: 20px 36px; font-size: .78rem; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><b>Faithway Bible Baptist Church</b><a href="./#beliefs">← Back to the website</a></div></header>
+
+<main>
+  <section class="wrap intro">
+    <span class="eyebrow">Bible study · 1050–400 B.C.</span>
+    <h1>Kings and Prophets</h1>
+    <p>The kings of Israel and Judah, the prophets God sent to them, and the empires around them, from King Saul to the return from Babylon. Tap any king, prophet or event to see when they lived, where to read about them, and who else lived at the same time.</p>
+    <p class="verse">“Surely the Lord GOD will do nothing, but he revealeth his secret unto his servants the prophets.” Amos 3:7</p>
+  </section>
+
+  <section class="wrap" aria-label="Timeline">
+    <div class="controls">
+      <div class="chips" id="laneChips" role="group" aria-label="Show or hide"></div>
+      <div class="key" aria-label="Kings of Judah, by their record">
+        <span><i style="background:var(--good)"></i>Good king</span>
+        <span><i style="background:var(--mixed)"></i>Mixed</span>
+        <span><i style="background:var(--wicked)"></i>Wicked king</span>
+      </div>
+    </div>
+    <div class="scroller" id="scroller"><div class="chart" id="chart"></div></div>
+    <p class="swipe">Swipe the chart sideways to move through the years.</p>
+
+    <article class="detail" id="detail" aria-live="polite"></article>
+  </section>
+
+  <section class="wrap facts" aria-label="Key facts">
+    <div class="fact">
+      <h3>Key Old Testament dates</h3>
+      <table><tr><td>Abraham</td><td>2166 B.C.</td></tr><tr><td>The Exodus</td><td>1446 B.C.</td></tr><tr><td>Conquest of Canaan</td><td>1406–1399 B.C.</td></tr><tr><td>Period of the Judges</td><td>1385–1055 B.C.</td></tr><tr><td>Kingdom divides</td><td>931 B.C.</td></tr><tr><td>Israel falls to Assyria</td><td>722 B.C.</td></tr><tr><td>Jerusalem falls to Babylon</td><td>586 B.C.</td></tr></table>
+    </div>
+    <div class="fact">
+      <h3>Israel–Judah civil wars</h3>
+      <table><tr><td>Jeroboam – Rehoboam</td><td>1 Kings 14:30</td></tr><tr><td>Jeroboam – Abijam</td><td>1 Kings 15:7 · 2 Chr. 13</td></tr><tr><td>Baasha – Asa</td><td>1 Kings 15:16, 32</td></tr><tr><td>Jehoash – Amaziah</td><td>2 Chr. 25:17–24</td></tr><tr><td>Pekah – Ahaz</td><td>2 Chr. 28:5–6</td></tr></table>
+    </div>
+    <div class="fact">
+      <h3>Babylonian captivity &amp; return</h3>
+      <table><tr><td>Phase 1: Daniel taken to Babylon</td><td>605 B.C.</td></tr><tr><td>Phase 2: Ezekiel taken to Babylon</td><td>597 B.C.</td></tr><tr><td>Phase 3: Jeremiah taken to Egypt</td><td>586 B.C.</td></tr><tr><td>1st return under Zerubbabel</td><td>536 B.C.</td></tr><tr><td>2nd return under Ezra</td><td>457 B.C.</td></tr><tr><td>3rd return under Nehemiah</td><td>445 B.C.</td></tr></table>
+    </div>
+  </section>
+  <p class="wrap foot">Dates are approximate, especially for the prophets, and follow the commonly used chronology with the kingdom dividing in 931 B.C. Overlapping reigns are co-regencies. Ratings of the kings of Judah summarize the Bible’s own verdicts in Kings and Chronicles.</p>
+</main>
+
+<script>
+(() => {
+  /* ---------- data: s = start, e = end (years B.C.); c = approximate ---------- */
+  const LANES = [
+    { id: 'events', label: 'Key events', group: 'events' },
+    { id: 'united', label: 'United Kingdom', sub: 'All twelve tribes' },
+    { id: 'israel', label: 'Kings of Israel', sub: 'Northern kingdom · 10 tribes' },
+    { id: 'pIsrael', label: 'Prophets to Israel', group: 'prophets' },
+    { id: 'pNations', label: 'Prophets to the nations', sub: 'Edom · Assyria', group: 'prophets' },
+    { id: 'empires', label: 'World empires', sub: 'Assyria · Babylon · Persia', group: 'empires' },
+    { id: 'pJudah', label: 'Prophets to Judah', group: 'prophets' },
+    { id: 'pExile', label: 'Prophets of the exile & return', group: 'prophets' },
+    { id: 'judah', label: 'Kings of Judah', sub: 'Southern kingdom · 2 tribes' },
+    { id: 'return', label: 'Return from exile', sub: 'Leaders in Jerusalem' },
+  ];
+  const ISRAEL_NOTE = 'Like every king of the northern kingdom, he “did evil in the sight of the LORD.”';
+  const K = (lane, name, s, e, ref, extra = {}) => ({ lane, name, s, e, ref, ...extra });
+  const ITEMS = [
+    K('united', 'Saul', 1051, 1011, '1 Samuel 9–31', { note: 'Israel’s first king, anointed by Samuel.' }),
+    K('united', 'David', 1011, 971, '2 Samuel; 1 Kings 1–2', { note: 'The man after God’s own heart; Jerusalem became his capital.' }),
+    K('united', 'Solomon', 971, 931, '1 Kings 1–11', { note: 'Built the temple, completed in 953 B.C. After his death the kingdom divided.' }),
+
+    K('israel', 'Jeroboam I', 931, 910, '1 Kings 12:20–14:20', { note: 'Set up golden calves at Bethel and Dan. ' + ISRAEL_NOTE }),
+    K('israel', 'Nadab', 910, 909, '1 Kings 15:25–31'),
+    K('israel', 'Baasha', 909, 886, '1 Kings 15:27–16:7'),
+    K('israel', 'Elah', 886, 885, '1 Kings 16:8–14'),
+    K('israel', 'Zimri', 885, 885, '1 Kings 16:9–20', { note: 'Reigned seven days. ' + ISRAEL_NOTE }),
+    K('israel', 'Omri', 885, 874, '1 Kings 16:16–28', { note: 'Built Samaria as the capital. ' + ISRAEL_NOTE }),
+    K('israel', 'Ahab', 874, 853, '1 Kings 16:29–22:40', { note: 'Married Jezebel and served Baal; opposed by Elijah. ' + ISRAEL_NOTE }),
+    K('israel', 'Ahaziah', 853, 852, '1 Kings 22:51–2 Kings 1:18'),
+    K('israel', 'Joram', 852, 841, '2 Kings 3:1–9:26'),
+    K('israel', 'Jehu', 841, 814, '2 Kings 9–10', { note: 'Destroyed the house of Ahab and the worship of Baal, yet kept the calves of Jeroboam.' }),
+    K('israel', 'Jehoahaz', 814, 798, '2 Kings 13:1–9'),
+    K('israel', 'Jehoash', 798, 782, '2 Kings 13:10–25'),
+    K('israel', 'Jeroboam II', 793, 753, '2 Kings 14:23–29', { note: 'A long, prosperous reign, the time of Amos, Hosea and Jonah. ' + ISRAEL_NOTE }),
+    K('israel', 'Zechariah', 753, 752, '2 Kings 15:8–12', { note: 'Reigned six months. ' + ISRAEL_NOTE }),
+    K('israel', 'Shallum', 752, 752, '2 Kings 15:13–15', { note: 'Reigned one month. ' + ISRAEL_NOTE }),
+    K('israel', 'Menahem', 752, 742, '2 Kings 15:16–22'),
+    K('israel', 'Pekahiah', 742, 740, '2 Kings 15:23–26'),
+    K('israel', 'Pekah', 752, 732, '2 Kings 15:27–31'),
+    K('israel', 'Hoshea', 732, 722, '2 Kings 17:1–6', { note: 'The last king of Israel. Samaria fell to Assyria in 722 B.C. and the ten tribes went into captivity.' }),
+
+    K('judah', 'Rehoboam', 931, 913, '1 Kings 12–14; 2 Chr. 10–12', { rate: 'mixed', label: 'Mixed bag' }),
+    K('judah', 'Abijam', 913, 911, '1 Kings 15:1–8; 2 Chr. 13', { rate: 'mixed', label: 'Mixed bag' }),
+    K('judah', 'Asa', 911, 870, '1 Kings 15:9–24; 2 Chr. 14–16', { rate: 'good', label: 'Good / mixed' }),
+    K('judah', 'Jehoshaphat', 873, 848, '1 Kings 22:41–50; 2 Chr. 17–20', { rate: 'good', label: 'Good' }),
+    K('judah', 'Jehoram', 853, 841, '2 Kings 8:16–24; 2 Chr. 21', { rate: 'wicked', label: 'Bad' }),
+    K('judah', 'Ahaziah', 841, 841, '2 Kings 8:25–29; 2 Chr. 22:1–9', { rate: 'wicked', label: 'Wicked' }),
+    K('judah', 'Athaliah', 841, 835, '2 Kings 11; 2 Chr. 22:10–23:21', { rate: 'wicked', label: 'Wicked', note: 'The only queen to reign over Judah; daughter of Ahab and Jezebel.' }),
+    K('judah', 'Joash', 835, 796, '2 Kings 12; 2 Chr. 24', { rate: 'mixed', label: 'Good / wicked', note: 'Repaired the temple while Jehoiada the priest lived, then turned away.' }),
+    K('judah', 'Amaziah', 796, 767, '2 Kings 14:1–20; 2 Chr. 25', { rate: 'mixed', label: 'Good, but not with a perfect heart' }),
+    K('judah', 'Uzziah', 792, 740, '2 Kings 15:1–7; 2 Chr. 26', { rate: 'mixed', label: 'Good / bad', note: 'Also called Azariah. Struck with leprosy for burning incense in the temple.' }),
+    K('judah', 'Jotham', 750, 732, '2 Kings 15:32–38; 2 Chr. 27', { rate: 'good', label: 'Good' }),
+    K('judah', 'Ahaz', 735, 716, '2 Kings 16; 2 Chr. 28', { rate: 'wicked', label: 'Wicked' }),
+    K('judah', 'Hezekiah', 716, 687, '2 Kings 18–20; 2 Chr. 29–32', { rate: 'good', label: 'Good', note: 'Trusted the LORD; rebuilt the wall and dug his tunnel; Jerusalem was spared when Sennacherib invaded.' }),
+    K('judah', 'Manasseh', 697, 642, '2 Kings 21:1–18; 2 Chr. 33:1–20', { rate: 'mixed', label: 'Wicked / good', note: 'The longest reign; very wicked, but humbled himself before God in captivity.' }),
+    K('judah', 'Amon', 642, 640, '2 Kings 21:19–26', { rate: 'wicked', label: 'Wicked' }),
+    K('judah', 'Josiah', 640, 609, '2 Kings 22–23; 2 Chr. 34–35', { rate: 'good', label: 'Good', note: 'The book of the law was found in 622 B.C. and he led a great reform. Slain at Megiddo in 609 B.C.' }),
+    K('judah', 'Jehoahaz', 609, 609, '2 Kings 23:31–34', { rate: 'wicked', label: 'Wicked', note: 'Reigned three months.' }),
+    K('judah', 'Jehoiakim', 609, 598, '2 Kings 23:34–24:6', { rate: 'wicked', label: 'Wicked' }),
+    K('judah', 'Jehoiachin', 598, 597, '2 Kings 24:8–17', { rate: 'wicked', label: 'Wicked', note: 'Reigned three months; taken to Babylon with Ezekiel.' }),
+    K('judah', 'Zedekiah', 597, 586, '2 Kings 24:18–25:7', { rate: 'wicked', label: 'Wicked', note: 'The last king of Judah. Jerusalem and the temple were destroyed in 586 B.C.' }),
+
+    K('pIsrael', 'Elijah', 875, 848, '1 Kings 17 – 2 Kings 2', { c: 1 }),
+    K('pIsrael', 'Elisha', 848, 797, '1 Kings 19:16 – 2 Kings 13:20', { c: 1 }),
+    K('pIsrael', 'Amos', 765, 755, 'Book of Amos', { c: 1 }),
+    K('pIsrael', 'Hosea', 755, 715, 'Book of Hosea', { c: 1 }),
+    K('pNations', 'Obadiah', 850, 840, 'Book of Obadiah', { c: 1, to: 'Edom' }),
+    K('pNations', 'Jonah', 785, 775, 'Book of Jonah; 2 Kings 14:25', { c: 1, to: 'Nineveh, Assyria' }),
+    K('pNations', 'Nahum', 663, 612, 'Book of Nahum', { c: 1, to: 'Nineveh, Assyria' }),
+    K('pJudah', 'Joel', 835, 796, 'Book of Joel', { c: 1 }),
+    K('pJudah', 'Isaiah', 740, 681, 'Book of Isaiah', { c: 1 }),
+    K('pJudah', 'Micah', 735, 700, 'Book of Micah', { c: 1 }),
+    K('pJudah', 'Zephaniah', 640, 621, 'Book of Zephaniah', { c: 1 }),
+    K('pJudah', 'Jeremiah', 627, 586, 'Books of Jeremiah and Lamentations', { c: 1, note: 'Prophesied until the fall of Jerusalem, then was taken to Egypt.' }),
+    K('pJudah', 'Habakkuk', 609, 598, 'Book of Habakkuk', { c: 1 }),
+    K('pExile', 'Daniel', 605, 536, 'Book of Daniel', { c: 1, note: 'Taken to Babylon in 605 B.C.; served under Babylonian and Persian kings.' }),
+    K('pExile', 'Ezekiel', 593, 571, 'Book of Ezekiel', { c: 1, note: 'Taken to Babylon in 597 B.C.; prophesied among the captives.' }),
+    K('pExile', 'Haggai', 520, 520, 'Book of Haggai', { c: 1, note: 'Stirred the people to finish rebuilding the temple.' }),
+    K('pExile', 'Zechariah', 520, 480, 'Book of Zechariah', { c: 1 }),
+    K('pExile', 'Malachi', 433, 424, 'Book of Malachi', { c: 1, note: 'The last prophet of the Old Testament.' }),
+
+    K('empires', 'Assyria', 745, 612, '2 Kings 15–19', { emp: 'assyria', note: 'Kings: Tiglath-pileser III, Shalmaneser V, Sargon II, Sennacherib, Esarhaddon, Ashurbanipal. Nineveh fell in 612 B.C.' }),
+    K('empires', 'Babylon', 626, 539, '2 Kings 24–25; Daniel 1–5', { emp: 'babylon', note: 'Kings: Nabopolassar, Nebuchadnezzar, Evil-merodach, Neriglissar, Nabonidus and Belshazzar. Fell to the Medes and Persians in 539 B.C.' }),
+    K('empires', 'Persia', 539, 404, 'Ezra; Nehemiah; Esther; Daniel 6', { emp: 'persia', note: 'Kings: Cyrus, Cambyses, Darius I, Xerxes (Ahasuerus), Artaxerxes I, Darius II. Esther became queen in 478 B.C.' }),
+    K('empires', 'Nebuchadnezzar', 605, 562, 'Daniel 1–4; 2 Kings 24–25', { emp: 'babylon', note: 'Defeated Egypt at Carchemish (605 B.C.) and destroyed Jerusalem (586 B.C.).' }),
+    K('empires', 'Cyrus', 539, 530, 'Ezra 1; Isaiah 44:28–45:1', { emp: 'persia', note: 'Decreed the return of the Jews to rebuild the temple (538 B.C.).' }),
+
+    K('return', 'Zerubbabel', 536, 516, 'Ezra 1–6; Haggai', { note: 'Led the first return in 536 B.C.; the temple was finished in 516 B.C.' }),
+    K('return', 'Ezra', 457, 440, 'Book of Ezra 7–10', { c: 1, note: 'Led the second return in 457 B.C. and taught the law.' }),
+    K('return', 'Nehemiah', 445, 420, 'Book of Nehemiah', { c: 1, note: 'Led the third return in 445 B.C. and rebuilt the walls of Jerusalem.' }),
+  ];
+  const EVENTS = [
+    { y: 953, name: 'Solomon completes the temple', ref: '1 Kings 6:38' },
+    { y: 931, name: 'The kingdom divides', ref: '1 Kings 12' },
+    { y: 722, name: 'Assyria conquers Israel; the ten tribes go into captivity', ref: '2 Kings 17' },
+    { y: 701, name: 'Sennacherib invades Judah', ref: '2 Kings 18:13–19:37' },
+    { y: 622, name: 'The book of the law is found', ref: '2 Kings 22:8' },
+    { y: 612, name: 'Nineveh falls to Babylon and the Medes', ref: 'Nahum 3' },
+    { y: 609, name: 'Josiah slain at Megiddo', ref: '2 Kings 23:29' },
+    { y: 605, name: 'Babylon defeats Egypt at Carchemish; Daniel taken to Babylon', ref: 'Jeremiah 46:2; Daniel 1:1' },
+    { y: 586, name: 'Jerusalem and the temple destroyed', ref: '2 Kings 25' },
+    { y: 538, name: 'Cyrus decrees the return', ref: 'Ezra 1:1–4' },
+    { y: 536, name: 'First return; temple rebuilding begins', ref: 'Ezra 3' },
+    { y: 516, name: 'The temple is finished', ref: 'Ezra 6:15' },
+    { y: 478, name: 'Esther becomes queen', ref: 'Esther 2:16–17' },
+    { y: 457, name: 'Second return under Ezra', ref: 'Ezra 7' },
+    { y: 445, name: 'Third return under Nehemiah; the walls rebuilt', ref: 'Nehemiah 2; 6:15' },
+  ];
+
+  /* ---------- geometry ---------- */
+  const FROM = 1060, TO = 395;
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const chart = $('#chart'), scroller = $('#scroller'), detail = $('#detail');
+  let px = 2.4;
+  const X = (y) => (FROM - y) * px;
+  const ROW = 30, MINW = 8;
+  const hidden = new Set();
+  let sel = null;
+
+  const yr = (y) => `${y} B.C.`;
+  const span = (it) => it.s === it.e ? `${it.c ? 'c. ' : ''}${yr(it.s)}` : `${it.c ? 'c. ' : ''}${it.s}–${it.e} B.C.`;
+  const years = (it) => { const n = it.s - it.e; return n <= 0 ? 'Less than a year' : `${n} year${n === 1 ? '' : 's'}`; };
+  const KIND = { united: 'King of the united kingdom', israel: 'King of Israel', judah: 'King of Judah', pIsrael: 'Prophet to Israel', pJudah: 'Prophet to Judah', pNations: 'Prophet', pExile: 'Prophet', empires: 'World empire', return: 'Leader of the return' };
+
+  function pack(items) {
+    const rows = [];
+    for (const it of [...items].sort((a, b) => b.s - a.s)) {
+      const x0 = X(it.s), x1 = Math.max(X(it.e), x0 + MINW);
+      let r = rows.findIndex((end) => end <= x0 - 2);
+      if (r < 0) { r = rows.length; rows.push(0); }
+      rows[r] = x1; it._row = r;
+    }
+    return Math.max(rows.length, 1);
+  }
+
+  function render() {
+    px = innerWidth < 760 ? 3.2 : 4.2;
+    const W = Math.ceil(X(TO));
+    chart.style.setProperty('--track-w', W + 'px');
+    let html = '<div class="lane-label axis"><small>Years B.C.</small></div><div class="track axis">';
+    for (let y = 1050; y >= 400; y -= 50) html += `<div class="tick" style="left:${X(y)}px"><span>${y}</span></div>`;
+    html += '</div>';
+    for (const lane of LANES) {
+      if (lane.group && hidden.has(lane.group)) continue;
+      const items = ITEMS.filter((i) => i.lane === lane.id);
+      const rows = lane.id === 'events' ? 1 : pack(items);
+      const h = Math.max(rows * ROW + 10, 56);
+      html += `<div class="lane-label" style="height:${h}px"><b>${esc(lane.label)}</b>${lane.sub ? `<small>${esc(lane.sub)}</small>` : ''}</div><div class="track" style="height:${h}px">`;
+      for (let y = 1050; y >= 400; y -= 50) html += `<div class="grid-line" style="left:${X(y)}px"></div>`;
+      if (lane.id === 'events') {
+        EVENTS.forEach((ev, i) => { html += `<button class="ev" type="button" data-ev="${i}" style="left:${X(ev.y)}px" aria-label="${ev.y} B.C.: ${esc(ev.name)}" title="${ev.y} B.C. · ${esc(ev.name)}"></button>`; });
+      } else {
+        for (const it of items) {
+          const idx = ITEMS.indexOf(it), x0 = X(it.s), w = Math.max(X(it.e) - x0, MINW);
+          const cls = `bar l-${it.lane}${it.emp ? ' e-' + it.emp : ''}`;
+          const fits = w >= it.name.length * 6.6 + 12;
+          html += `<button class="${cls}" type="button" data-i="${idx}" style="left:${x0}px;top:${5 + it._row * ROW}px;width:${w}px" title="${esc(it.name)} · ${span(it)}" aria-label="${esc(it.name)}, ${span(it)}">${fits ? esc(it.name) : ''}${it.rate ? `<span class="rate" style="background:var(--${it.rate})"></span>` : ''}</button>`;
+        }
+      }
+      html += '</div>';
+    }
+    chart.innerHTML = html;
+    // 70-year captivity band across the whole chart
+    const band = document.createElement('div');
+    band.className = 'band'; band.style.left = `calc(var(--label-w) + ${X(605)}px)`; band.style.width = (X(536) - X(605)) + 'px';
+    const bl = document.createElement('div');
+    bl.className = 'band-label'; bl.textContent = '70-year captivity'; bl.style.left = `calc(var(--label-w) + ${X(605) + 4}px)`; bl.style.top = 'auto'; bl.style.bottom = '8px';
+    chart.append(band, bl);
+    paint();
+  }
+
+  /* ---------- selection & details ---------- */
+  const overlap = (a, b) => a.s >= b.e && b.s >= a.e;
+  function paint() {
+    chart.classList.toggle('dimmed', !!sel);
+    chart.querySelectorAll('.bar').forEach((b) => b.classList.remove('is-sel', 'is-near'));
+    chart.querySelectorAll('.ev').forEach((b) => b.classList.remove('is-sel'));
+    chart.querySelector('.ev-line')?.remove();
+    if (!sel) return showIntro();
+    const range = sel.type === 'ev' ? { s: EVENTS[sel.i].y, e: EVENTS[sel.i].y } : ITEMS[sel.i];
+    const near = ITEMS.filter((it, i) => !(sel.type === 'it' && i === sel.i) && overlap(it, range));
+    near.forEach((it) => chart.querySelector(`[data-i="${ITEMS.indexOf(it)}"]`)?.classList.add('is-near'));
+    if (sel.type === 'it') chart.querySelector(`[data-i="${sel.i}"]`)?.classList.add('is-sel');
+    else {
+      chart.querySelector(`[data-ev="${sel.i}"]`)?.classList.add('is-sel');
+      const line = document.createElement('div');
+      line.className = 'ev-line'; line.style.left = `calc(var(--label-w) + ${X(range.s)}px)`;
+      chart.append(line);
+    }
+    showDetail(range, near);
+  }
+  function showIntro() {
+    detail.innerHTML = `<div><span class="eyebrow">How to use</span><h2>Tap a name on the chart</h2><p class="note">Each bar is a king’s reign or a prophet’s ministry. The coloured stripe under each king of Judah shows his record: <b style="color:var(--good)">good</b>, <b style="color:var(--mixed)">mixed</b> or <b style="color:var(--wicked)">wicked</b>. The dots along the top are key events.</p></div>
+      <div class="same"><h3>Try these</h3><dl><dd>${['Hezekiah', 'Isaiah', 'Daniel', 'Elijah', 'Josiah'].map((n) => `<button type="button" data-jump="${ITEMS.findIndex((i) => i.name === n)}">${n}</button>`).join('')}<button type="button" data-jump-ev="8">586 B.C.</button></dd></dl></div>`;
+  }
+  function showDetail(range, near) {
+    let head;
+    if (sel.type === 'ev') {
+      const ev = EVENTS[sel.i];
+      head = `<span class="eyebrow">Key event · ${yr(ev.y)}</span><h2>${esc(ev.name)}</h2><p class="ref">${esc(ev.ref)}</p>`;
+    } else {
+      const it = ITEMS[sel.i];
+      const kind = it.to ? `Prophet to ${it.to}` : KIND[it.lane];
+      head = `<span class="eyebrow">${esc(kind)}</span><h2>${esc(it.name)}</h2>
+        <p class="when">${span(it)} · ${years(it)}</p>
+        ${it.rate ? `<span class="badge ${it.rate}">${esc(it.label)}</span>` : ''}
+        ${it.note ? `<p class="note">${esc(it.note)}</p>` : it.lane === 'israel' ? `<p class="note">${esc(ISRAEL_NOTE)}</p>` : ''}
+        <p class="ref">Read: ${esc(it.ref)}</p>`;
+    }
+    const groups = [['Kings of Israel', ['israel', 'united']], ['Kings of Judah', ['judah']], ['Prophets', ['pIsrael', 'pJudah', 'pNations', 'pExile']], ['Empires', ['empires']], ['Leaders of the return', ['return']]];
+    const list = groups.map(([title, lanes]) => {
+      const g = near.filter((n) => lanes.includes(n.lane));
+      return g.length ? `<div><dt>${title}</dt><dd>${g.map((n) => `<button type="button" data-jump="${ITEMS.indexOf(n)}">${esc(n.name)}</button>`).join('')}</dd></div>` : '';
+    }).join('');
+    detail.innerHTML = `<div>${head}</div><div class="same"><h3>Living at the same time</h3>${list ? `<dl>${list}</dl>` : '<p class="empty">No one else on this chart overlaps.</p>'}</div>`;
+  }
+  function select(next, scroll) {
+    sel = next; paint();
+    if (scroll && next) {
+      const x = next.type === 'ev' ? X(EVENTS[next.i].y) : X(ITEMS[next.i].s);
+      scroller.scrollTo({ left: Math.max(0, x - scroller.clientWidth / 3), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    }
+  }
+  chart.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-i]'), ev = e.target.closest('[data-ev]');
+    if (b) select(sel && sel.type === 'it' && sel.i === +b.dataset.i ? null : { type: 'it', i: +b.dataset.i });
+    else if (ev) select(sel && sel.type === 'ev' && sel.i === +ev.dataset.ev ? null : { type: 'ev', i: +ev.dataset.ev });
+  });
+  detail.addEventListener('click', (e) => {
+    const j = e.target.closest('[data-jump]'), je = e.target.closest('[data-jump-ev]');
+    if (j) select({ type: 'it', i: +j.dataset.jump }, true);
+    if (je) select({ type: 'ev', i: +je.dataset.jumpEv }, true);
+  });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && sel) select(null); });
+
+  /* ---------- show / hide groups ---------- */
+  const GROUPS = [['prophets', 'Prophets'], ['empires', 'Empires'], ['events', 'Events']];
+  const chips = $('#laneChips');
+  const drawChips = () => { chips.innerHTML = GROUPS.map(([g, l]) => `<button class="chip" type="button" data-g="${g}" aria-pressed="${!hidden.has(g)}">${l}</button>`).join(''); };
+  chips.addEventListener('click', (e) => {
+    const b = e.target.closest('[data-g]'); if (!b) return;
+    hidden.has(b.dataset.g) ? hidden.delete(b.dataset.g) : hidden.add(b.dataset.g);
+    drawChips(); render();
+  });
+  drawChips();
+  let lastW = innerWidth;
+  addEventListener('resize', () => { if ((innerWidth < 760) !== (lastW < 760)) render(); lastW = innerWidth; });
+  render();
+})();
+</script>
+</body>
+</html>
