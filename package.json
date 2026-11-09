@@ -10,12 +10,15 @@
     "map": "node scripts/gen.mjs prototype/map.js",
     "data": "node scripts/data.mjs MISSION/missionaries.csv prototype/missionaries.js",
     "photos": "uv run --with pillow python -I scripts/crop.py MISSION/cards prototype",
-    "build": "node scripts/build-docs.mjs prototype docs"
+    "build": "node scripts/build-docs.mjs prototype docs && node scripts/build-events.mjs docs",
+    "events": "node scripts/build-events.mjs prototype"
   },
   "devDependencies": {
     "d3-geo": "3.1.1",
     "serve": "14.2.4",
+    "sharp": "0.35.5",
     "topojson-client": "3.1.0",
-    "world-atlas": "2.0.2"
+    "world-atlas": "2.0.2",
+    "yaml": "2.9.1"
   }
 }

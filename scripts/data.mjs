@@ -51,7 +51,7 @@ const COORD_BY_PLACE = {
 const NO_PHOTO = new Set([20, 151]);
 // cards the user asked not to flag on the site (2026-11-08): Nguyen Ba Qui (21) and the cards without photos.
 // Their notes stay in missionaries.csv for fixing the Canva cards.
-const NO_FLAG = new Set([20, 21, 151]);
+const NO_FLAG = new Set([20, 21, 151, 102, 103, 104]);  // 102-104: country name runs off the card edge
 const EXCLUDE = new Set([150, 154, 155]); // duplicate design, photo-only cards
 
 const rows = parseCSV(readFileSync(csvPath, 'utf8')).slice(1).filter((r) => r.length > 1);

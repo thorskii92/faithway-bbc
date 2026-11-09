@@ -1,0 +1,70 @@
+# Faithway website editor (Sveltia CMS). Docs: https://github.com/sveltia/sveltia-cms
+backend:
+  name: github
+  repo: thorskii92/faithway-bbc
+  branch: main
+  # To enable the "Sign in with GitHub" button, deploy the free auth worker
+  # (https://github.com/sveltia/sveltia-cms-auth) and put its URL here, e.g.:
+  # base_url: https://sveltia-cms-auth.<your-account>.workers.dev
+  # Until then, sign in with "Sign In Using Access Token" (see README).
+  commit_messages:
+    create: 'Add event: {{slug}}'
+    update: 'Update event: {{slug}}'
+    delete: 'Delete event: {{slug}}'
+    uploadMedia: 'Upload photo: {{path}}'
+    deleteMedia: 'Delete photo: {{path}}'
+
+site_url: https://thorskii92.github.io/faithway-bbc/
+display_url: https://thorskii92.github.io/faithway-bbc/
+logo:
+  src: https://thorskii92.github.io/faithway-bbc/logo.jpg
+
+media_folder: content/uploads
+public_folder: /content/uploads
+
+collections:
+  - name: events
+    label: Events
+    label_singular: Event
+    description: >-
+      Church updates and upcoming events. Events dated today or later appear under
+      "You're Invited" on the home page. After you save, the website updates in about 2 minutes.
+    folder: content/events
+    format: yml
+    extension: yml
+    create: true
+    delete: true
+    slug: '{{slug}}'
+    identifier_field: title
+    summary: '{{date}} · {{title}}'
+    sortable_fields: [date, title]
+    fields:
+      - { name: title, label: Title, widget: string, hint: 'e.g. "13th Church Anniversary" or "Easter Cantata 2027"' }
+      - name: category
+        label: Category
+        widget: select
+        options:
+          - { label: Cantata, value: cantata }
+          - { label: Anniversary, value: anniversary }
+          - { label: Camp, value: camp }
+          - { label: Family, value: family }
+          - { label: Saturation, value: saturation }
+          - { label: Extension Class, value: extension-class }
+          - { label: Church Building, value: building }
+          - { label: Other, value: other }
+      - { name: date, label: Date, widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, picker_utc: true }
+      - { name: date_label, label: 'Show date as (optional)', widget: string, required: false, hint: 'Only if the exact day is unknown, e.g. "November 2025". Still pick a date above for ordering.' }
+      - { name: time, label: 'Time (optional)', widget: string, required: false, hint: 'e.g. "9:00 AM"' }
+      - { name: place, label: Place, widget: string, default: 'Faithway Bible Baptist Church, Puerto Princesa City' }
+      - { name: summary, label: Summary, widget: text, hint: 'One or two sentences shown on the event card.' }
+      - { name: details, label: 'More details (optional)', widget: text, required: false, hint: 'Program, speakers, what to bring, or a short report. Leave a blank line between paragraphs.' }
+      - { name: invitation, label: 'Invitation poster (upcoming events)', widget: image, required: false, hint: 'Shown under "You''re Invited" and on the event page.' }
+      - name: photos
+        label: 'Photos (past events)'
+        label_singular: Photo
+        widget: list
+        required: false
+        hint: 'The first photo is the cover. Drag to reorder.'
+        field: { name: image, label: Photo, widget: image }
+      - { name: sample, label: 'Sample (placeholder) event', widget: boolean, default: false, required: false, hint: 'Shows a grey "Sample" tag. Turn off for real events.' }
+      - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }

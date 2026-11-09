@@ -317,6 +317,11 @@ a { color: var(--deep); }
 .cover--photo { background: var(--deep-2); }
 .cover--photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .cover--building { background: linear-gradient(140deg, #6B4E2E, #A7794A 60%, var(--cream)); }
+.invite--poster { display: grid; gap: 8px; padding: 10px; background: var(--cream); }
+.invite--poster img { display: block; width: 100%; height: auto; border-radius: 2px; }
+.invite__cap { font: 600 .78rem/1.3 var(--f-body); color: var(--deep-2); text-align: center; padding: 4px 0 2px; }
+.facts__invite { all: unset; cursor: zoom-in; display: block; margin-top: 6px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); }
+.facts__invite img { display: block; width: 100%; height: auto; }
 .tag--sample { background: var(--line); color: var(--muted); }
 .gallery--photos { margin-top: 12px; }
 .gallery--photos button { all: unset; cursor: zoom-in; display: block; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: var(--line); }
@@ -422,7 +427,7 @@ a { color: var(--deep); }
     </div>
   </section>
 
-  <section class="section invites" id="invited">
+  <section class="section invites" id="invited" hidden>
     <div class="wrap">
       <div class="section__head reveal">
         <span class="eyebrow" style="color:var(--cream)">You're invited</span>
@@ -588,41 +593,20 @@ a { color: var(--deep); }
     : `<div class="cover cover--${k}">${icon(k, 'big')}<div class="cover__badge">${icon(k)}<span>${LABEL[k]}</span></div></div>`;
   const dateText = (e, long) => e.dateLabel || fmt(e.date, long ? { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' } : { month: 'short', day: 'numeric', year: 'numeric' });
 
-  /* ---------- events: real ones have photos; sample: true marks placeholders ---------- */
-  const EVENTS = [
-    { id: 'ceiling-project-2026', cat: 'building', title: 'Finished Ceiling Project', date: '2026-06-07', place: 'Faithway Bible Baptist Church, Puerto Princesa City',
-      photos: 'img/events/ceiling-project-2026', count: 7,
-      sum: 'The new ceiling of our sanctuary is finished. We praise the Lord for His provision and thank everyone who helped make it possible.' },
-    { id: 'anniversary-12-2025', cat: 'anniversary', title: '12th Church Anniversary', date: '2025-11-01', dateLabel: 'November 2025', place: 'Faithway Bible Baptist Church, Puerto Princesa City',
-      photos: 'img/events/anniversary-12-2025', count: 3,
-      sum: 'Twelve years of God’s faithfulness since 2013, celebrated together with the theme “Eyes on the Prize.”' },
-    { id: 'building-anniversary-1-2025', cat: 'anniversary', title: '1st Anniversary of the New Building', date: '2025-09-01', dateLabel: 'September 2025', place: 'Faithway Bible Baptist Church, Puerto Princesa City',
-      photos: 'img/events/building-anniversary-1-2025', count: 4,
-      sum: 'Celebrating one year of worship in our new church building, with thanksgiving to God for His faithfulness.' },
-    { id: 'pastor-wedding-anniversary-2025', cat: 'anniversary', title: 'Pastor Sonny and Ma’am Mila’s Wedding Anniversary', date: '2025-06-01', dateLabel: 'June 2025', place: 'Faithway Bible Baptist Church, Puerto Princesa City',
-      photos: 'img/events/pastor-wedding-anniversary-2025', count: 4,
-      sum: 'The church family gathered to celebrate Pastor Sonny and Ma’am Mila’s wedding anniversary. “O give thanks unto the LORD; for he is good: because his mercy endureth for ever.” (Psalm 118:1)' },
-    { id: 'easter-cantata', cat: 'cantata', title: 'Easter Cantata 2027', date: '2027-03-28', time: '4:00 PM', place: 'FBBC Main Sanctuary', invite: true,
-      sum: 'The story of the cross and the empty tomb told in song by our choir on Resurrection Sunday.' },
-    { id: 'anniversary-13', cat: 'anniversary', title: '13th Church Anniversary', date: '2026-11-15', time: '9:00 AM', place: 'FBBC Main Sanctuary', invite: true,
-      sum: 'Thirteen years of God’s faithfulness since 2013. Thanksgiving service and fellowship lunch.' },
-    { id: 'saturation-nov', cat: 'saturation', title: 'Barangay Saturation Day', date: '2026-11-01', time: '7:00 AM', place: 'Sample barangay', sample: true,
-      sum: 'Teams went house to house sharing the Gospel and inviting families to church.' },
-    { id: 'family-day', cat: 'family', title: 'Church Family Day', date: '2026-10-25', time: '8:00 AM', place: 'Sample beach resort', sample: true,
-      sum: 'Games, a picnic by the sea, and a short devotion for the whole church family.' },
-    { id: 'extension-grad', cat: 'extension-class', title: 'Extension Class Recognition', date: '2026-09-13', time: '2:00 PM', place: 'Extension class site', sample: true,
-      sum: 'Celebrating the students who completed this term’s Bible lessons.' },
-    { id: 'youth-camp', cat: 'camp', title: 'Summer Youth Camp', date: '2026-04-21', time: '3 days', place: 'Sample campsite', sample: true,
-      sum: 'Three days of preaching, worship and outdoor activities for our young people.' }
-  ];
+  /* ---------- events: loaded from events.json, which scripts/build-events.mjs builds from content/events/*.yml
+     (the files the /admin editor saves). Shape: { id, cat, title, date, dateLabel?, time?, place, sum, details?,
+     photos?: 'img/events/<id>', count, invitation?: 'img/events/<id>/invitation.jpg', sample? } ---------- */
+  let EVENTS = [];
   const isUp = (e) => new Date(e.date + 'T23:59:00') >= today;
-  EVENTS.sort((a, b) => {
-    const ua = isUp(a), ub = isUp(b);
-    if (ua !== ub) return ua ? -1 : 1;
-    if (ua) return a.date.localeCompare(b.date);
-    if (!!a.sample !== !!b.sample) return a.sample ? 1 : -1;   // real past events before sample ones
-    return b.date.localeCompare(a.date);
-  });
+  function sortEvents() {
+    EVENTS.sort((a, b) => {
+      const ua = isUp(a), ub = isUp(b);
+      if (ua !== ub) return ua ? -1 : 1;
+      if (ua) return a.date.localeCompare(b.date);
+      if (!!a.sample !== !!b.sample) return a.sample ? 1 : -1;   // real past events before sample ones
+      return b.date.localeCompare(a.date);
+    });
+  }
 
   let evFilter = 'all';
   function renderChips() {
@@ -635,12 +619,12 @@ a { color: var(--deep); }
       <a class="card reveal" href="#e-${e.id}">
         ${cover(e.cat, e)}
         <div class="card__body">
-          <div class="card__meta">${isUp(e) ? '<span class="tag tag--up">Upcoming</span>' : `<span class="tag">${LABEL[e.cat]}</span>`}${e.sample ? '<span class="tag tag--sample">Sample</span>' : ''}<span>${dateText(e)}</span></div>
+          <div class="card__meta">${isUp(e) ? '<span class="tag tag--up">Upcoming</span>' : `<span class="tag">${LABEL[e.cat] || 'Event'}</span>`}${e.sample ? '<span class="tag tag--sample">Sample</span>' : ''}<span>${dateText(e)}</span></div>
           <h3>${esc(e.title)}</h3>
           <p class="card__sum">${esc(e.sum)}</p>
           <span class="card__more">View details →</span>
         </div>
-      </a>`).join('') || '<p class="card__sum">No updates in this category yet.</p>';
+      </a>`).join('') || `<p class="card__sum">${EVENTS.length ? 'No updates in this category yet.' : 'Updates are loading…'}</p>`;
   }
   $('#eventChips').addEventListener('click', (ev) => {
     const b = ev.target.closest('[data-cat]'); if (!b) return;
@@ -648,16 +632,32 @@ a { color: var(--deep); }
   });
   renderChips(); renderCards();
 
+  /* every upcoming event appears under "You're invited": its poster if one was uploaded, otherwise a printed-style card */
   const flourish = '<svg class="flourish" viewBox="0 0 120 14" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 7h48M72 7h48"/><path d="M60 1l6 6-6 6-6-6z"/></svg>';
-  $('#inviteRow').innerHTML = EVENTS.filter((e) => e.invite && isUp(e)).map((e) => `
-    <a class="invite reveal" href="#e-${e.id}"><div class="invite__in">
-      <span class="invite__pre">You are cordially invited to our</span>
-      <h3>${esc(e.title)}</h3>${flourish}
-      <span class="invite__date">${fmt(e.date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })} · ${e.time}</span>
-      <span class="invite__place">${esc(e.place)}</span>
-    </div></a>`).join('');
+  function renderInvites() {
+    const up = EVENTS.filter(isUp);
+    $('#invited').hidden = !up.length;
+    $('#inviteRow').innerHTML = up.map((e) => e.invitation
+      ? `<a class="invite invite--poster reveal" href="#e-${e.id}"><img src="${e.invitation}" alt="Invitation: ${esc(e.title)}, ${esc(dateText(e, true))}" loading="lazy"><span class="invite__cap">${esc(e.title)} · ${esc(dateText(e))}</span></a>`
+      : `<a class="invite reveal" href="#e-${e.id}"><div class="invite__in">
+          <span class="invite__pre">You are cordially invited to our</span>
+          <h3>${esc(e.title)}</h3>${flourish}
+          <span class="invite__date">${esc(dateText(e, true))}${e.time ? ' · ' + esc(e.time) : ''}</span>
+          <span class="invite__place">${esc(e.place)}</span>
+        </div></a>`).join('');
+  }
+  function loadEvents() {
+    return fetch('events.json', { cache: 'no-cache' })
+      .then((r) => (r.ok ? r.json() : []))
+      .catch(() => [])
+      .then((list) => {
+        EVENTS = Array.isArray(list) ? list : [];
+        sortEvents(); renderChips(); renderCards(); renderInvites();
+        if (/^#e-/.test(location.hash)) route();
+      });
+  }
 
-  /* ---------- map ---------- */
+/* ---------- map ---------- */
   const NS = 'http://www.w3.org/2000/svg';
   const map = $('#worldMap');
   map.setAttribute('viewBox', `0 0 ${WORLD.w} ${WORLD.h}`);
@@ -924,17 +924,18 @@ a { color: var(--deep); }
           <span class="eyebrow">${LABEL[e.cat]}${isUp(e) ? ' · Upcoming' : ''}${e.sample ? ' · Sample' : ''}</span>
           <h1 id="sheetTitle" style="margin-top:10px">${esc(e.title)}</h1>
           <div class="prose"><p>${esc(e.sum)}</p>
-            ${e.photos ? '' : '<p>Sample details: this is where the full write-up goes, with the program, who is speaking or singing, what to bring, and a short report with photos after the event.</p>'}</div>
+            ${e.details ? e.details.split(/\n\s*\n/).map((p) => '<p>' + esc(p.trim()) + '</p>').join('') : ''}
+            ${e.sample && !e.details ? '<p>Sample details: this is where the full write-up goes, with the program, who is speaking or singing, what to bring, and a short report with photos after the event.</p>' : ''}</div>
           ${e.photos
             ? `<span class="eyebrow" style="display:block;margin-top:32px">Photos · ${e.count}</span>
                <div class="gallery gallery--photos">${Array.from({ length: e.count }, (_, i) => { const n = String(i + 1).padStart(2, '0'); return `<button type="button" data-full="${e.photos}/${n}.jpg" aria-label="View photo ${i + 1} of ${e.count}"><img src="${e.photos}/${n}-sm.jpg" alt="${esc(e.title)}, photo ${i + 1}" loading="lazy"></button>`; }).join('')}</div>`
-            : `<div class="gallery">${[0, 1, 2].map(() => cover(e.cat)).join('')}</div>`}
+            : (e.sample ? `<div class="gallery">${[0, 1, 2].map(() => cover(e.cat)).join('')}</div>` : '')}
         </div>
         <aside><dl class="facts">
           <div><dt>Date</dt><dd>${dateText(e, true)}</dd></div>
           ${e.time ? `<div><dt>Time</dt><dd>${esc(e.time)}</dd></div>` : ''}
           <div><dt>Place</dt><dd>${esc(e.place)}</dd></div>
-          ${e.invite ? `<div><dt>Invitation</dt><dd>Printable invitation image will be shown here.</dd></div>` : ''}
+          ${e.invitation ? `<div><dt>Invitation</dt><dd><button class="facts__invite" type="button" data-full="${e.invitation}"><img src="${e.invitation}" alt="Invitation: ${esc(e.title)}" loading="lazy"></button></dd></div>` : ''}
         </dl></aside>
       </div></article>`;
   }
@@ -1069,6 +1070,7 @@ function route() {
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && !sheet.hidden && !lightbox.open) location.hash = returnTo; });
   addEventListener('hashchange', route);
   route();
+  loadEvents();
 })();
 </script>
 
