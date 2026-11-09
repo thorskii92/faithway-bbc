@@ -1,0 +1,103 @@
+[
+ {
+  "id": "2025-06-pastor-sonny-and-maam-milas-wedding-anniversary",
+  "title": "Pastor Sonny and Ma’am Mila’s Wedding Anniversary",
+  "cat": "anniversary",
+  "date": "2025-06-01",
+  "place": "Faithway Bible Baptist Church, Puerto Princesa City",
+  "sum": "The church family gathered to celebrate Pastor Sonny and Ma’am Mila’s wedding anniversary. “O give thanks unto the LORD; for he is good: because his mercy endureth for ever.” (Psalm 118:1)",
+  "dateLabel": "June 2025",
+  "photos": "img/events/2025-06-pastor-sonny-and-maam-milas-wedding-anniversary",
+  "count": 4
+ },
+ {
+  "id": "2025-09-1st-anniversary-of-the-new-building",
+  "title": "1st Anniversary of the New Building",
+  "cat": "anniversary",
+  "date": "2025-09-01",
+  "place": "Faithway Bible Baptist Church, Puerto Princesa City",
+  "sum": "Celebrating one year of worship in our new church building, with thanksgiving to God for His faithfulness.",
+  "dateLabel": "September 2025",
+  "photos": "img/events/2025-09-1st-anniversary-of-the-new-building",
+  "count": 4
+ },
+ {
+  "id": "2025-11-12th-church-anniversary",
+  "title": "12th Church Anniversary",
+  "cat": "anniversary",
+  "date": "2025-11-01",
+  "place": "Faithway Bible Baptist Church, Puerto Princesa City",
+  "sum": "Twelve years of God’s faithfulness since 2013, celebrated together with the theme “Eyes on the Prize.”",
+  "dateLabel": "November 2025",
+  "photos": "img/events/2025-11-12th-church-anniversary",
+  "count": 3
+ },
+ {
+  "id": "2026-04-summer-youth-camp",
+  "title": "Summer Youth Camp",
+  "cat": "camp",
+  "date": "2026-04-21",
+  "place": "Sample campsite",
+  "sum": "Three days of preaching, worship and outdoor activities for our young people.",
+  "time": "3 days",
+  "sample": true
+ },
+ {
+  "id": "2026-06-ceiling-project",
+  "title": "Finished Ceiling Project",
+  "cat": "building",
+  "date": "2026-06-07",
+  "place": "Faithway Bible Baptist Church, Puerto Princesa City",
+  "sum": "The new ceiling of our sanctuary is finished. We praise the Lord for His provision and thank everyone who helped make it possible.",
+  "photos": "img/events/2026-06-ceiling-project",
+  "count": 7
+ },
+ {
+  "id": "2026-09-extension-class-recognition",
+  "title": "Extension Class Recognition",
+  "cat": "extension-class",
+  "date": "2026-09-13",
+  "place": "Extension class site",
+  "sum": "Celebrating the students who completed this term’s Bible lessons.",
+  "time": "2:00 PM",
+  "sample": true
+ },
+ {
+  "id": "2026-10-church-family-day",
+  "title": "Church Family Day",
+  "cat": "family",
+  "date": "2026-10-25",
+  "place": "Sample beach resort",
+  "sum": "Games, a picnic by the sea, and a short devotion for the whole church family.",
+  "time": "8:00 AM",
+  "sample": true
+ },
+ {
+  "id": "2026-11-13th-church-anniversary",
+  "title": "13th Church Anniversary",
+  "cat": "anniversary",
+  "date": "2026-11-15",
+  "place": "FBBC Main Sanctuary",
+  "sum": "Thirteen years of God’s faithfulness since 2013. Thanksgiving service and fellowship lunch.",
+  "time": "9:00 AM"
+ },
+ {
+  "id": "2026-11-barangay-saturation-day",
+  "title": "Barangay Saturation Day",
+  "cat": "saturation",
+  "date": "2026-11-01",
+  "place": "Sample barangay",
+  "sum": "Teams went house to house sharing the Gospel and inviting families to church.",
+  "time": "7:00 AM",
+  "sample": true
+ },
+ {
+  "id": "2027-03-easter-cantata-2027",
+  "title": "Easter Cantata 2027",
+  "cat": "cantata",
+  "date": "2027-03-28",
+  "place": "FBBC Main Sanctuary",
+  "sum": "The story of the cross and the empty tomb told in song by our choir on Resurrection Sunday.",
+  "time": "4:00 PM"
+ }
+]
