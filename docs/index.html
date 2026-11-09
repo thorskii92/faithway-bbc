@@ -93,6 +93,18 @@ a { color: var(--deep); }
 .creed li:first-child { border-left: 0; }
 .creed span { font: 600 clamp(1.4rem, 2.6vw, 2rem)/1.1 var(--f-display); letter-spacing: 0; text-transform: none; color: var(--deep-2); }
 @media (max-width: 640px) { .creed { grid-template-columns: 1fr 1fr; row-gap: 20px; } .creed li:nth-child(3) { border-left: 0; } }
+.pastor { background: var(--cream); }
+.pastor__grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+@media (max-width: 860px) { .pastor__grid { grid-template-columns: 1fr; } }
+.pastor__family { margin: 0; border-radius: var(--radius); overflow: hidden; background: var(--white); box-shadow: 0 30px 60px -36px rgba(5,68,95,.5); }
+.pastor__family img { display: block; width: 100%; height: auto; }
+.pastor__family figcaption { font-size: .78rem; color: var(--muted); padding: 10px 14px; }
+.pastor__text { display: grid; gap: 14px; align-content: start; min-width: 0; }
+.pastor__text .tag { justify-self: start; }
+.pastor__couple { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; object-position: 50% 15%; box-shadow: 0 0 0 5px var(--white), 0 0 0 6px var(--line), 0 18px 30px -18px rgba(5,68,95,.6); max-width: 100%; }
+.pastor__lead { font-family: var(--f-display); font-size: 1.45rem; line-height: 1.4; color: var(--deep-2); }
+.pastor__text p { color: var(--ink); max-width: 56ch; }
+.pastor__sign { font-family: var(--f-display); font-style: italic; font-size: 1.25rem; color: var(--deep) !important; }
 .visit__photo { margin: 0 0 40px; border-radius: var(--radius); overflow: hidden; box-shadow: 0 30px 60px -40px rgba(5,68,95,.5); }
 .visit__photo img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: 50% 30%; }
 .hero__wave { position: absolute; left: 0; right: 0; bottom: -1px; width: 100%; height: clamp(50px, 7vw, 90px); display: block; }
@@ -356,7 +368,7 @@ a { color: var(--deep); }
       <span class="brand__name">Faithway<small>Bible Baptist Church</small></span>
     </a>
     <nav class="nav" aria-label="Sections">
-      <a href="#updates">Updates</a><a href="#invited">Invitations</a><a href="#about">About</a><a href="#missions">Missions</a><a href="#visit">Visit</a>
+      <a href="#updates">Updates</a><a href="#invited">Invitations</a><a href="#about">About</a><a href="#pastor">Pastor</a><a href="#missions">Missions</a><a href="#visit">Visit</a>
     </nav>
   </div>
 </header>
@@ -459,6 +471,29 @@ a { color: var(--deep); }
           </details>
         </div>
       </article>
+    </div>
+  </section>
+
+  <section class="section pastor" id="pastor">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="eyebrow">Our pastor</span>
+        <h2>Pastor Sonny &amp; Ma’am Mila</h2>
+      </div>
+      <div class="pastor__grid">
+        <figure class="pastor__family reveal">
+          <img src="img/pastor-family.jpg" alt="Pastor Sonny, Ma’am Mila and their children in front of the pulpit at Faithway Bible Baptist Church" width="1600" height="1200" loading="lazy">
+          <figcaption>The pastor’s family at Faithway</figcaption>
+        </figure>
+        <div class="pastor__text reveal">
+          <img class="pastor__couple" src="img/pastor-couple.jpg" alt="Pastor Sonny and Ma’am Mila" width="776" height="800" loading="lazy">
+          <span class="tag tag--sample">Placeholder text</span>
+          <p class="pastor__lead">Pastor Sonny and his wife, Ma’am Mila, have faithfully served the Lord at Palawan Faithway Bible Baptist Church since it began in 2013.</p>
+          <p>A short introduction goes here: how Pastor Sonny was saved and called to preach, where he trained for the ministry, and how the Lord led the family to start Faithway in Puerto Princesa City.</p>
+          <p>A few lines about Ma’am Mila and their children, and the ministries they serve in, can follow here.</p>
+          <p class="pastor__sign">Pastor Sonny &amp; Ma’am Mila</p>
+        </div>
+      </div>
     </div>
   </section>
 
