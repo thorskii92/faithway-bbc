@@ -249,6 +249,16 @@ a { color: var(--deep); }
 .overlay #lineGlow { stroke: var(--white); opacity: .9; }
 .overlay .mline { stroke: var(--bow); stroke-width: 2.5px; }
 .overlay .mglow { stroke: var(--white); stroke-width: 6px; opacity: .85; }
+.overlay .aline { stroke: var(--bow); stroke-width: 1.3px; opacity: .6; }
+#allLines { transition: opacity .3s; }
+.board.has-active #allLines { opacity: .18; }
+.board-tools__right { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.board-tools__right input { width: 280px; max-width: 100%; }
+.lines-btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1.5px solid var(--deep); background: var(--white); color: var(--deep); font: 600 .8rem/1 var(--f-body); cursor: pointer; transition: background .2s, color .2s; }
+.lines-btn svg { width: 18px; height: 18px; }
+.lines-btn:hover { background: var(--ocean); }
+.lines-btn[aria-pressed="true"] { background: var(--deep); color: var(--white); }
+.lines-btn[aria-pressed="true"] svg { color: var(--bow); }
 .pin, .pin-ring, .home { pointer-events: none; }
 .country.is-served { cursor: pointer; }
 .callout { position: absolute; z-index: 8; pointer-events: none; background: var(--deep-2); color: var(--white); padding: 8px 12px; border-radius: 10px; font-size: .78rem; line-height: 1.3; transform: translate(-50%, calc(-100% - 14px)); white-space: nowrap; box-shadow: 0 10px 24px -10px rgba(5,68,95,.6); }
@@ -463,7 +473,10 @@ a { color: var(--deep); }
 
       <div class="board-tools">
         <div class="chips" id="regionChips" role="group" aria-label="Filter by region"></div>
-        <input id="mSearch" type="search" placeholder="Search by name or country" aria-label="Search missionaries" autocomplete="off">
+        <div class="board-tools__right">
+          <button class="lines-btn" id="allLinesBtn" type="button" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 20C6 9 13 5 21 4M3 20c4-7 9-10 18-9M3 20c5-4 10-5 18-2"/><circle cx="3" cy="20" r="1.6" fill="currentColor"/></svg><span>Show all connections</span></button>
+          <input id="mSearch" type="search" placeholder="Search by name or country" aria-label="Search missionaries" autocomplete="off">
+        </div>
       </div>
       <div class="board" id="board">
         <div class="board__map" id="boardMap">
@@ -471,6 +484,7 @@ a { color: var(--deep); }
           <div class="map__legend"><span><i style="background:var(--home);box-shadow:inset 0 0 0 1px var(--deep-2)"></i>Philippines · Faithway, Palawan</span><span><i style="background:var(--land-served)"></i>Countries we support</span><span><i style="background:var(--deep)"></i>Selected field</span></div>
         </div>
         <svg class="overlay" id="overlay" aria-hidden="true">
+          <g id="allLines"></g>
           <g id="multi"></g>
           <path id="lineGlow" stroke-width="8"/>
           <path id="line" stroke-width="3.5"/>
@@ -690,6 +704,7 @@ a { color: var(--deep); }
       <span class="tile__photo${photoCls(m)}"${photoAttr(m)}>${photoInner(m)}</span>${m.issue ? '<span class="tile__flag" aria-hidden="true">!</span>' : ''}
       <span class="tile__name">${esc(m.short)}</span><span class="tile__place">${esc(m.country)}</span></button>`).join('') || '<p class="board__empty">No missionaries match that search.</p>');
     layout();
+    drawAll(false);
   }
   $('#regionChips').addEventListener('click', (e) => { const b = e.target.closest('[data-r]'); if (!b) return; region = b.dataset.r; renderRegions(); renderWall(); });
   $('#mSearch').addEventListener('input', (e) => { query = e.target.value; renderWall(); });
@@ -700,10 +715,10 @@ a { color: var(--deep); }
     const k = Math.min(s.width / WORLD.w, s.height / WORLD.h);
     return [s.left - b.left + (s.width - WORLD.w * k) / 2 + m.pt[0] * k, s.top - b.top + (s.height - WORLD.h * k) / 2 + m.pt[1] * k];
   }
-  function geometry(tile, m) {
+  function geometry(tile, m, scale = SCALE) {
     const b = board.getBoundingClientRect(), ph = tile.querySelector('.tile__photo'), r = ph.getBoundingClientRect();
     const cx = r.left - b.left + r.width / 2, cy = r.top - b.top + r.height / 2;
-    const rad = ph.offsetWidth * SCALE / 2 + 5;
+    const rad = ph.offsetWidth * scale / 2 + (scale > 1 ? 5 : 2);
     const [ex, ey] = endPoint(m);
     const dx = ex - cx, dy = ey - cy, dist = Math.hypot(dx, dy) || 1;
     const sx = cx + dx / dist * rad, sy = cy + dy / dist * rad;
@@ -795,6 +810,34 @@ a { color: var(--deep); }
   }
   const countryOf = (n) => { const p = n && n.closest ? n.closest('.country.is-served') : null; return p ? +p.dataset.c : null; };
 
+  /* ---------- "Show all connections": every visible photo linked to its pin ---------- */
+  const allBtn = $('#allLinesBtn'), allG = $('#allLines');
+  let showAll = false;
+  function drawAll(animate) {
+    allG.innerHTML = '';
+    if (!showAll) return;
+    const NS = 'http://www.w3.org/2000/svg', paths = [];
+    board.querySelectorAll('.tile').forEach((tile) => {
+      const d = geometry(tile, M[tile.dataset.m - 1], 1).d.replace(/^M(\S+) (\S+) Q(\S+) (\S+) (\S+) (\S+)$/, 'M$5 $6 Q$3 $4 $1 $2');
+      const p = document.createElementNS(NS, 'path');
+      p.setAttribute('class', 'aline'); p.setAttribute('d', d);
+      paths.push(p);
+    });
+    paths.forEach((p) => allG.appendChild(p));
+    if (!animate || reduce.matches) return;
+    paths.forEach((p) => { const len = p.getTotalLength(); p.style.strokeDasharray = len; p.style.strokeDashoffset = len; });
+    requestAnimationFrame(() => requestAnimationFrame(() => paths.forEach((p, i) => {
+      p.style.transition = `stroke-dashoffset .9s cubic-bezier(.4,0,.2,1) ${Math.min(i * 6, 700)}ms`;
+      p.style.strokeDashoffset = 0;
+    })));
+  }
+  allBtn.addEventListener('click', () => {
+    showAll = !showAll;
+    allBtn.setAttribute('aria-pressed', String(showAll));
+    allBtn.querySelector('span').textContent = showAll ? 'Hide connections' : 'Show all connections';
+    drawAll(true);
+  });
+
   const tileOf = (n) => (n && n.closest ? n.closest('.tile') : null);
   board.addEventListener('pointerdown', (e) => { lastPointer = e.pointerType; });
   board.addEventListener('pointerover', (e) => {
@@ -823,7 +866,7 @@ a { color: var(--deep); }
     location.hash = 'm-' + t.dataset.m;
   });
   document.addEventListener('pointerdown', (e) => { if (!board.contains(e.target)) { clearLine(); clearCountry(); } });
-  addEventListener('resize', () => { layout(); if (active) draw(active.tile, active.m, false); if (cActive) countryLines(false); });
+  addEventListener('resize', () => { layout(); if (active) draw(active.tile, active.m, false); if (cActive) countryLines(false); drawAll(false); });
   renderRegions(); renderWall();
 
 
