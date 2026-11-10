@@ -51,7 +51,9 @@ const COORD_BY_PLACE = {
 const NO_PHOTO = new Set([20, 151]);
 // cards the user asked not to flag on the site (2026-11-08): Nguyen Ba Qui (21) and the cards without photos.
 // Their notes stay in missionaries.csv for fixing the Canva cards.
-const NO_FLAG = new Set([20, 21, 151, 102, 103, 104]);  // 102-104: country name runs off the card edge
+// 1-11: only the country facts on the card are wrong, and the site never shows those
+// 93-97: the DR Congo flag on the cards confirms the country; 131: Zanzibar is part of Tanzania
+const NO_FLAG = new Set([20, 21, 151, 102, 103, 104, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 93, 94, 95, 96, 97, 131]);
 const EXCLUDE = new Set([150, 154, 155]); // duplicate design, photo-only cards
 
 const rows = parseCSV(readFileSync(csvPath, 'utf8')).slice(1).filter((r) => r.length > 1);
