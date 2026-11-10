@@ -11,7 +11,8 @@
     "data": "node scripts/data.mjs MISSION/missionaries.csv prototype/missionaries.js",
     "photos": "uv run --with pillow python -I scripts/crop.py MISSION/cards prototype",
     "build": "node scripts/build-docs.mjs prototype docs && node scripts/build-events.mjs docs && node scripts/build-verses.mjs docs && node scripts/build-videos.mjs docs",
-    "events": "node scripts/build-events.mjs prototype && node scripts/build-verses.mjs prototype && node scripts/build-videos.mjs prototype"
+    "events": "node scripts/build-events.mjs prototype && node scripts/build-verses.mjs prototype && node scripts/build-videos.mjs prototype",
+    "publish-site": "node scripts/publish.mjs"
   },
   "devDependencies": {
     "d3-geo": "3.1.1",

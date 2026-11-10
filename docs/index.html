@@ -65,8 +65,8 @@ a { color: var(--deep); }
 .header__in { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 68px; }
 .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--deep-2); min-width: 0; }
 .brand__logo { width: 62px; height: auto; mix-blend-mode: multiply; flex: none; }  /* animated mark: builds, holds 2.5s, loops */
-.sign-off { background: var(--paper); border-top: 1px solid var(--line); padding-block: clamp(56px, 8vw, 96px); text-align: center; }
-.sign-off img { display: block; width: min(560px, 82vw); height: auto; margin: 0 auto; }
+.footer__logo { padding-bottom: 36px; margin-bottom: 32px; border-bottom: 1px solid rgba(151,215,255,.18); }
+.footer__logo img { display: block; width: min(373px, 66vw); height: auto; margin: 0 auto; }
 .brand__name { font-family: var(--f-display); font-size: 1.35rem; font-weight: 600; line-height: 1; }
 .brand__name small { display: block; font-family: var(--f-body); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-top: 4px; }
 .nav { display: flex; gap: 4px; }
@@ -747,11 +747,8 @@ a { color: var(--deep); }
   </section>
 </main>
 
-<section class="sign-off" aria-label="Palawan Faithway Bible Baptist Church, Inc.">
-  <div class="wrap"><img src="img/logo-full.png" alt="Palawan Faithway Bible Baptist Church, Inc. Est. 2013. Passion for God. Compassion to People." width="1424" height="1560" loading="lazy"></div>
-</section>
-
 <footer class="footer">
+  <div class="wrap footer__logo"><img src="img/logo-full-white.png" alt="Palawan Faithway Bible Baptist Church, Inc. Est. 2013. Passion for God. Compassion to People." width="1424" height="1560" loading="lazy"></div>
   <div class="wrap footer__in">
     <div><b>Palawan Faithway Bible Baptist Church, Inc.</b>Purok Matapat, San Jose, Puerto Princesa City · Est. 2013<br>Sound Preaching · Independent · Hymnal · King James Bible</div>
     <div>© 2026 · Design preview</div>
