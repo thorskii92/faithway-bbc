@@ -28,7 +28,7 @@
     </radialGradient>
     <clipPath id="roadGoldClip"><rect id="roadGoldRect" x="420" width="190" y="470" height="0"/></clipPath>
     <clipPath id="roadBlueClip"><rect id="roadBlueRect" x="420" width="190" y="470" height="0"/></clipPath>
-    <clipPath id="stemClip"><rect id="stemRect" height="0"/></clipPath>
+    <clipPath id="stemClip"><rect id="stemRect" height="0"/><rect id="neckRect" x="430" width="170" height="0"/></clipPath>
     <clipPath id="barClip"><rect id="barRect" width="0"/></clipPath>
     <clipPath id="wingClip"><polygon points="480,74 523,74 523,99 513,104 503,111 495,116 480,117"/></clipPath>
     <clipPath id="bodyClip"><polygon points="480,117 495,116 503,111 513,104 523,99 523,74 548,74 548,142 480,142"/></clipPath>
@@ -70,7 +70,7 @@ const PARTS = {"circle":{"cx":512.42,"cy":189.51,"r":99.87,"thick":10.98,"left":
   el('path', { d: P.road, fill: GOLD, 'clip-path': 'url(#roadGoldClip)' }, art);
   el('path', { d: P.road, fill: BLUE, 'clip-path': 'url(#roadBlueClip)' }, art);
   const crossParts = el('g', { fill: BLUE }, art);
-  el('path', { d: P.cross, 'clip-path': 'url(#stemClip)' }, crossParts);
+  el('path', { d: P.crossroad, 'clip-path': 'url(#stemClip)' }, crossParts);   // one shape: no seam where stem meets road
   el('path', { d: P.cross, 'clip-path': 'url(#barClip)' }, crossParts);
   const crossroad = el('path', { d: P.crossroad, fill: BLUE, opacity: 0 }, art);
   $('stemRect').setAttribute('x', X.stem[0] - .6); $('stemRect').setAttribute('width', X.stem[1] - X.stem[0] + 1.2);
@@ -134,14 +134,20 @@ const PARTS = {"circle":{"cx":512.42,"cy":189.51,"r":99.87,"thick":10.98,"left":
     // 2. the road swipes up in gold, then the blue refills it from the bottom
     const top = P.road_box[1] - 2, bottom = P.road_box[3] + 2, H = bottom - top;
     const rp = inOutCubic(k(t, 1.05, .5)), back = inOutCubic(k(t, 1.7, .45));
-    $('roadGoldRect').setAttribute('y', bottom - rp * H); $('roadGoldRect').setAttribute('height', rp * H);
+    // gold only where the blue hasn't reached yet, so no gold edge peeks out behind the blue
+    const goldTop = bottom - rp * H, blueTop = bottom - back * H;
+    $('roadGoldRect').setAttribute('y', goldTop); $('roadGoldRect').setAttribute('height', Math.max(0, blueTop - goldTop));
     $('roadBlueRect').setAttribute('y', bottom - back * H); $('roadBlueRect').setAttribute('height', back * H);
     $('roadGlow').setAttribute('opacity', (1 - back) * .9);
 
     // 3. the cross: the stem rises out of the road, then the crossbar opens outward
     const stemH = X.cut - X.top + 4;
     const st = outCubic(k(t, 1.6, .35));
-    $('stemRect').setAttribute('y', X.cut + 2 - st * stemH); $('stemRect').setAttribute('height', st * stemH);
+    const revealY = X.cut + 2 - st * stemH;
+    $('stemRect').setAttribute('y', revealY); $('stemRect').setAttribute('height', st * stemH);
+    // below the crossbar the stem flares into the road: reveal that part at its full width
+    const neckTop = Math.max(X.bar[1] + 6, revealY);
+    $('neckRect').setAttribute('y', neckTop); $('neckRect').setAttribute('height', Math.max(0, (back >= 1 ? P.road_box[3] + 4 : X.cut + 2) - neckTop));
     const bw = Math.max(0, outBack(k(t, 1.9, .3), 1.6)) * (X.bar_x[1] - X.bar_x[0] + 6);
     const bc = (X.bar_x[0] + X.bar_x[1]) / 2;
     $('barRect').setAttribute('x', bc - bw / 2); $('barRect').setAttribute('width', bw);
