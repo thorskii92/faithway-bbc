@@ -17,6 +17,16 @@ function run(cmd) {
   try {
     execSync(cmd, { stdio: 'inherit' });
   } catch {
+    // VS Code's background git fetch can clash with ours ("cannot lock ref"): wait a moment and retry once
+    if (cmd.startsWith('git pull') || cmd === 'git push') {
+      try {
+        console.log('  (GitHub was busy, retrying...)');
+        execSync('node -e "setTimeout(()=>{},3000)"');
+        execSync('git fetch', { stdio: 'inherit' });
+        execSync(cmd, { stdio: 'inherit' });
+        return;
+      } catch { /* fall through to the error message */ }
+    }
     console.error(`\n✖ ${STEPS[cmd] || 'This step failed.'}\n  Nothing was published. Copy the messages above and send them to Claude if you need help.`);
     process.exit(1);
   }
