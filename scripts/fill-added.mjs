@@ -11,7 +11,7 @@ for (const dir of ['content/events', 'content/videos', 'content/verses']) {
     const p = `${dir}/${f}`;
     const s = readFileSync(p, 'utf8');
     if (/^added:\s*\S/m.test(s)) continue;
-    const iso = execSync(`git log --diff-filter=A --follow --format=%aI -- "${p}"`, { encoding: 'utf8' }).trim().split('\n').pop();
+    const iso = execSync(`git log --diff-filter=A --follow --format=%aI -- "${p}"`, { encoding: 'utf8' }).trim().split('\n')[0];   // newest add (a file can be deleted and re-added)
     const d = iso ? new Date(iso) : new Date();
     const m = new Date(d.getTime() + 8 * 3600e3);   // Manila, UTC+8
     const v = `${m.getUTCFullYear()}-${pad(m.getUTCMonth() + 1)}-${pad(m.getUTCDate())} ${pad(m.getUTCHours())}:${pad(m.getUTCMinutes())}`;
