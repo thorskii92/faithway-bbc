@@ -61,6 +61,16 @@
   "thumb": "img/videos/we-shall-behold-him.jpg"
  },
  {
+  "id": "written-in-red",
+  "title": "Written in red",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/2135947290522715",
+  "date": "2026-04-05",
+  "by": "FBBC Ladies Group",
+  "event": "easter-cantata-2026",
+  "thumb": "img/videos/written-in-red.jpg"
+ },
+ {
   "id": "a-few-good-men",
   "title": "A Few Good Men",
   "type": "special",
