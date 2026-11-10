@@ -786,13 +786,8 @@ a { color: var(--deep); }
   let EVENTS = [];
   const isUp = (e) => new Date(e.date + 'T23:59:00') >= today;
   function sortEvents() {
-    EVENTS.sort((a, b) => {
-      const ua = isUp(a), ub = isUp(b);
-      if (ua !== ub) return ua ? -1 : 1;
-      if (ua) return a.date.localeCompare(b.date);
-      if (!!a.sample !== !!b.sample) return a.sample ? 1 : -1;   // real past events before sample ones
-      return b.date.localeCompare(a.date);
-    });
+    // newest date first (upcoming events naturally come first); sample events last
+    EVENTS.sort((a, b) => (!!a.sample - !!b.sample) || b.date.localeCompare(a.date) || a.title.localeCompare(b.title));
   }
 
   let evFilter = 'all';
@@ -822,7 +817,7 @@ a { color: var(--deep); }
   /* every upcoming event appears under "You're invited": its poster if one was uploaded, otherwise a printed-style card */
   const flourish = '<svg class="flourish" viewBox="0 0 120 14" fill="none" stroke="currentColor" stroke-width="1"><path d="M0 7h48M72 7h48"/><path d="M60 1l6 6-6 6-6-6z"/></svg>';
   function renderInvites() {
-    const up = EVENTS.filter(isUp);
+    const up = EVENTS.filter(isUp).sort((a, b) => a.date.localeCompare(b.date));   // soonest invitation first
     $('#invited').hidden = !up.length;
     $('#inviteRow').innerHTML = up.map((e) => e.invitation
       ? `<a class="invite invite--poster reveal" href="#e-${e.id}"><img src="${e.invitation}" alt="Invitation: ${esc(e.title)}, ${esc(dateText(e, true))}" loading="lazy"><span class="invite__cap">${esc(e.title)} · ${esc(dateText(e))}</span></a>`
