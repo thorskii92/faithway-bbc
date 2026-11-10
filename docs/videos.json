@@ -1,5 +1,16 @@
 [
  {
+  "id": "resurrection-hymn",
+  "title": "Resurrection Hymn",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/1483612936795847",
+  "date": "2026-04-05",
+  "by": "FBBC Men",
+  "event": "easter-cantata-2026",
+  "desc": "FBBC Men singing the Resurrection Hymn",
+  "thumb": "img/videos/resurrection-hymn.jpg"
+ },
+ {
   "id": "we-shall-behold-him",
   "title": "We shall behold Him",
   "type": "cantata",
