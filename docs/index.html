@@ -169,6 +169,8 @@ a { color: var(--deep); }
 .video { display: grid; gap: 10px; align-content: start; min-width: 0; }
 .video__frame { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: var(--deep-2); max-width: 100%; }
 .video__frame iframe, .video__frame img { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; object-fit: cover; }
+.video__fbart { position: absolute; inset: 0; background: radial-gradient(circle at 30% 25%, rgba(151,215,255,.35), transparent 55%), linear-gradient(140deg, #05445F, #086288 60%, #4D8DBA); }
+.video__src { position: absolute; top: 10px; left: 10px; z-index: 1; font: 600 .62rem/1 Montserrat, system-ui, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: #fff; background: #1877F2; padding: 5px 8px; border-radius: 999px; }
 .video__play { all: unset; position: absolute; inset: 0; cursor: pointer; display: grid; place-items: center; }
 .video__play::after { content: ""; width: 64px; height: 64px; border-radius: 50%; background: rgba(5,68,95,.85) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23FFEFC4'%3E%3Cpath d='M8 5v14l11-7z'/%3E%3C/svg%3E") 54% 50% / 28px no-repeat; box-shadow: 0 10px 24px -8px rgba(0,0,0,.5); transition: transform .2s; }
 .video__play:hover::after, .video__play:focus-visible::after { transform: scale(1.08); }
@@ -1310,9 +1312,9 @@ function route() {
   /* ---------- music ministry videos: videos.json is built from content/videos/*.yml (the /admin editor) ---------- */
   let VIDEOS = [];
   const VTYPE = { cantata: 'Cantata', choir: 'Sunday Choir', special: 'Special Number', congregational: 'Congregational', other: 'Music' };
-  // shows the YouTube thumbnail; the player (youtube-nocookie) loads only when someone taps play
+  // shows a thumbnail; the player (YouTube no-cookie, or Facebook's video plugin) loads only when someone taps play
   const videoCard = (v) => `<article class="video">
-      <div class="video__frame"><img src="https://i.ytimg.com/vi/${v.yt}/hqdefault.jpg" alt="" loading="lazy"><button class="video__play" type="button" data-yt="${v.yt}" aria-label="Play: ${esc(v.title)}"></button></div>
+      <div class="video__frame">${v.yt ? `<img src="https://i.ytimg.com/vi/${v.yt}/hqdefault.jpg" alt="" loading="lazy">` : v.thumb ? `<img src="${v.thumb}" alt="" loading="lazy">` : '<span class="video__fbart" aria-hidden="true"></span>'}${v.fb ? '<span class="video__src">Facebook</span>' : ''}<button class="video__play" type="button" ${v.yt ? `data-yt="${v.yt}"` : `data-fb="${esc(v.fb)}"`} aria-label="Play: ${esc(v.title)}"></button></div>
       <div class="video__meta"><span class="tag">${VTYPE[v.type]}</span>${v.date ? `<span>${fmt(v.date, { month: 'short', day: 'numeric', year: 'numeric' })}</span>` : ''}</div>
       <h3>${esc(v.title)}</h3>
       ${v.by ? `<p>${esc(v.by)}</p>` : ''}${v.desc ? `<p>${esc(v.desc)}</p>` : ''}
@@ -1324,9 +1326,10 @@ function route() {
   document.addEventListener('click', (e) => {
     const b = e.target.closest('.video__play'); if (!b) return;
     const f = document.createElement('iframe');
-    f.src = `https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0`;
+    f.src = b.dataset.yt ? `https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0`
+      : `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(b.dataset.fb)}&show_text=false&autoplay=true&width=560`;
     f.title = b.getAttribute('aria-label').replace(/^Play: /, '');
-    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.allow = 'autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share; fullscreen';
     f.allowFullscreen = true;
     b.parentElement.replaceChildren(f);
   });

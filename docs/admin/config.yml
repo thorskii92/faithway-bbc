@@ -98,7 +98,7 @@ collections:
     label: Videos (Music Ministry)
     label_singular: Video
     description: >-
-      Link YouTube videos of cantatas, the Sunday choir and special numbers. Videos stay on YouTube,
+      Link YouTube or public Facebook videos of cantatas, the Sunday choir and special numbers. Videos stay on YouTube/Facebook,
       so they use no storage. Pick an event to also show the video on that event's page.
     folder: content/videos
     format: yml
@@ -111,7 +111,8 @@ collections:
     sortable_fields: [date, title]
     fields:
       - { name: title, label: Title, widget: string, hint: 'e.g. "Easter Cantata – Full Program" or "How Great Thou Art"' }
-      - { name: youtube, label: 'YouTube link', widget: string, hint: 'Copy the link from YouTube (Share → Copy link) and paste it here.', pattern: ['(youtu\.be/|youtube\.com/)', 'Please paste a YouTube link'] }
+      - { name: link, label: 'Video link (YouTube or Facebook)', widget: string, hint: 'YouTube: Share → Copy link. Facebook: open the video, click ... → Copy link. Facebook videos must be Public.', pattern: ['(youtu\.be/|youtube\.com/|facebook\.com/|fb\.watch/)', 'Please paste a YouTube or Facebook video link'] }
+      - { name: thumbnail, label: 'Thumbnail (optional, for Facebook videos)', widget: image, required: false, hint: 'YouTube videos get their picture automatically. For Facebook, upload a screenshot or photo to show before playing.' }
       - name: type
         label: Type
         widget: select
