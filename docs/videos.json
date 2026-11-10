@@ -1,5 +1,35 @@
 [
  {
+  "id": "christ-the-lord-is-risen-today",
+  "title": "Christ the Lord is risen today",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/1108762338980778",
+  "date": "2026-04-05",
+  "by": "Youth Group",
+  "event": "easter-cantata-2026",
+  "thumb": "img/videos/christ-the-lord-is-risen-today.jpg"
+ },
+ {
+  "id": "he-loved-me-with-a-cross",
+  "title": "He loved me with a Cross",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/34856758870639333",
+  "date": "2026-04-05",
+  "by": "ESIARP",
+  "event": "easter-cantata-2026",
+  "thumb": "img/videos/he-loved-me-with-a-cross.jpg"
+ },
+ {
+  "id": "lift-up-the-cross",
+  "title": "Lift up the cross",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/1286819226748510",
+  "date": "2026-04-05",
+  "by": "FBBC Youth Group",
+  "event": "easter-cantata-2026",
+  "thumb": "img/videos/lift-up-the-cross.jpg"
+ },
+ {
   "id": "resurrection-hymn",
   "title": "Resurrection Hymn",
   "type": "cantata",
