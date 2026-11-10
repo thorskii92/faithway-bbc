@@ -53,11 +53,13 @@
  },
  {
   "id": "easter-cantata-2026",
-  "title": "Easter Cantata 2026",
+  "title": "He's Alive! A Resurrection Sunday Cantata",
   "cat": "cantata",
   "date": "2026-04-05",
   "place": "Faithway Bible Baptist Church, Puerto Princesa City",
-  "sum": "We Shall Behold Him"
+  "sum": "We Shall Behold Him",
+  "details": "A Resurrection Sunday Cantata. Join us as we celebrate the risen Christ through music",
+  "invitation": "img/events/easter-cantata-2026/invitation.jpg"
  },
  {
   "id": "evangelistic-musical-2026",
