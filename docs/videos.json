@@ -70,6 +70,16 @@
   "thumb": "img/videos/o-precious-lord.jpg"
  },
  {
+  "id": "one-life-at-a-time",
+  "title": "One Life at a Time",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/895986663475337",
+  "date": "2026-04-05",
+  "by": "FBBC Choir",
+  "event": "easter-cantata-2026",
+  "thumb": "img/videos/one-life-at-a-time.jpg"
+ },
+ {
   "id": "resurrection-hymn",
   "title": "Resurrection Hymn",
   "type": "cantata",
