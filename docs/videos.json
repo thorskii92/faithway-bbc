@@ -10,6 +10,16 @@
   "thumb": "img/videos/behold-the-lamb.jpg"
  },
  {
+  "id": "blessed-be-the-name",
+  "title": "Blessed be the Name",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/2056394484904979",
+  "date": "2026-04-05",
+  "by": "Choir and Juniors Choir",
+  "event": "easter-cantata-2026",
+  "thumb": "img/videos/blessed-be-the-name.jpg"
+ },
+ {
   "id": "christ-the-lord-is-risen-today",
   "title": "Christ the Lord is risen today",
   "type": "cantata",
