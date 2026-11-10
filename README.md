@@ -77,6 +77,16 @@ Open **https://thorskii92.github.io/faithway-bbc/admin/**. You can do this from 
 
 **Note:** saves only publish while GitHub Actions can run on your account. If GitHub shows a billing lock, events you save in the editor are stored, but they won't appear on the site until it's fixed. Ask Claude to run `npm run build` and push in the meantime.
 
+## Publishing editor saves (while GitHub Actions is locked)
+
+Saves from the admin page are stored on GitHub but don't publish by themselves while GitHub Actions is blocked. To publish them, open a terminal in this folder and run:
+
+```
+npm run publish-site
+```
+
+It downloads the latest saves, rebuilds the site, and pushes it. The website updates about 1–2 minutes later. If there's nothing new, it says so and changes nothing.
+
 ## Adding an event with photos (by hand)
 
 1. Put the photos in a folder under `Gallery/`, for example `Gallery/Youth Camp 2027/`.
