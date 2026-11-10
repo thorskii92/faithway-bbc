@@ -94,6 +94,13 @@ a { color: var(--deep); }
 .creed span { font: 600 clamp(1.4rem, 2.6vw, 2rem)/1.1 var(--f-display); letter-spacing: 0; text-transform: none; color: var(--deep-2); }
 @media (max-width: 640px) { .creed { grid-template-columns: 1fr 1fr; row-gap: 20px; } .creed li:nth-child(3) { border-left: 0; } }
 .section__head .tag { justify-self: start; }
+/* title fonts chosen in the /admin editor (fallbacks keep the layout if a font is slow to load) */
+.font-classic { font-family: "Playfair Display", Georgia, serif !important; font-weight: 600; letter-spacing: -.01em; }
+.font-inscription { font-family: Cinzel, "Trajan Pro", Georgia, serif !important; font-weight: 600; letter-spacing: .04em; font-size: .9em; }
+.font-script { font-family: "Dancing Script", "Brush Script MT", cursive !important; font-weight: 700; font-size: 1.12em; }
+.font-modern { font-family: Montserrat, system-ui, sans-serif !important; font-weight: 700; letter-spacing: -.01em; font-size: .86em; }
+.mverse__text.font-modern, .mverse__text.font-inscription { font-style: normal; }
+.mverse__text.font-script { font-style: normal; }
 /* memory verse */
 .mverse { padding-block: clamp(48px, 7vw, 84px) clamp(12px, 3vw, 28px); }
 .mverse__in { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
@@ -398,6 +405,7 @@ a { color: var(--deep); }
 .gallery .cover svg.big { width: 90%; }
 .cover--photo { background: var(--deep-2); }
 .cover--photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.cover--photo img.is-wide { object-fit: contain; background: var(--cream); }  /* banners/posters: show whole, don't crop */
 .cover--building { background: linear-gradient(140deg, #6B4E2E, #A7794A 60%, var(--cream)); }
 .invite--poster { display: grid; gap: 10px; padding: 10px; background: var(--cream); align-content: center; }
 .invite--poster img { display: block; width: 100%; height: auto; border-radius: 2px; }
@@ -768,7 +776,7 @@ a { color: var(--deep); }
   const icon = (k, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]}</svg>`;
   /* events with photos (folder in img/events/<slug>/: 01.jpg is the cover) show the photo; others get category art */
   const cover = (k, e, big) => e && e.photos
-    ? `<div class="cover cover--photo"><img src="${e.photos}/01${big ? '' : '-sm'}.jpg" alt="" loading="lazy"></div>`
+    ? `<div class="cover cover--photo"><img src="${e.photos}/01${big ? '' : '-sm'}.jpg" alt="" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight>1.9)this.classList.add('is-wide')"></div>`
     : `<div class="cover cover--${k}">${icon(k, 'big')}<div class="cover__badge">${icon(k)}<span>${LABEL[k]}</span></div></div>`;
   const dateText = (e, long) => e.dateLabel || fmt(e.date, long ? { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' } : { month: 'short', day: 'numeric', year: 'numeric' });
 
@@ -799,7 +807,7 @@ a { color: var(--deep); }
         ${cover(e.cat, e)}
         <div class="card__body">
           <div class="card__meta">${isUp(e) ? '<span class="tag tag--up">Upcoming</span>' : `<span class="tag">${LABEL[e.cat] || 'Event'}</span>`}${e.sample ? '<span class="tag tag--sample">Sample</span>' : ''}<span>${dateText(e)}</span></div>
-          <h3>${esc(e.title)}</h3>
+          <h3 class="${fontCls(e.font)}">${esc(e.title)}</h3>
           <p class="card__sum">${esc(e.sum)}</p>
           <span class="card__more">View details →</span>
         </div>
@@ -820,17 +828,32 @@ a { color: var(--deep); }
       ? `<a class="invite invite--poster reveal" href="#e-${e.id}"><img src="${e.invitation}" alt="Invitation: ${esc(e.title)}, ${esc(dateText(e, true))}" loading="lazy"><span class="invite__cap">${esc(e.title)} · ${esc(dateText(e))}</span></a>`
       : `<a class="invite reveal" href="#e-${e.id}"><div class="invite__in">
           <span class="invite__pre">You are cordially invited to our</span>
-          <h3>${esc(e.title)}</h3>${flourish}
+          <h3 class="${fontCls(e.font)}">${esc(e.title)}</h3>${flourish}
           <span class="invite__date">${esc(dateText(e, true))}${e.time ? ' · ' + esc(e.time) : ''}</span>
           <span class="invite__place">${esc(e.place)}</span>
         </div></a>`).join('');
   }
+  /* font choices from the /admin editor: each Google font is loaded only when a post uses it */
+  const FONT_SRC = { classic: 'Playfair+Display:ital,wght@0,600;1,500', inscription: 'Cinzel:wght@500;600', script: 'Dancing+Script:wght@600;700', modern: 'Montserrat:wght@700' };
+  const fontCls = (f) => (f && FONT_SRC[f] ? 'font-' + f : '');
+  const loadedFonts = new Set();
+  function useFonts(list) {
+    const need = [...new Set(list)].filter((f) => FONT_SRC[f] && !loadedFonts.has(f));
+    if (!need.length) return;
+    need.forEach((f) => loadedFonts.add(f));
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = `https://fonts.googleapis.com/css2?${need.map((f) => 'family=' + FONT_SRC[f]).join('&')}&display=swap`;
+    document.head.appendChild(link);
+  }
+
   function loadEvents() {
     return fetch('events.json', { cache: 'no-cache' })
       .then((r) => (r.ok ? r.json() : []))
       .catch(() => [])
       .then((list) => {
         EVENTS = Array.isArray(list) ? list : [];
+        useFonts(EVENTS.map((e) => e.font));
         sortEvents(); renderChips(); renderCards(); renderInvites();
         if (/^#e-/.test(location.hash)) route();
       });
@@ -1101,7 +1124,7 @@ a { color: var(--deep); }
       <div class="detail__grid">
         <div>
           <span class="eyebrow">${LABEL[e.cat]}${isUp(e) ? ' · Upcoming' : ''}${e.sample ? ' · Sample' : ''}</span>
-          <h1 id="sheetTitle" style="margin-top:10px">${esc(e.title)}</h1>
+          <h1 id="sheetTitle" class="${fontCls(e.font)}" style="margin-top:10px">${esc(e.title)}</h1>
           <div class="prose"><p>${esc(e.sum)}</p>
             ${e.details ? e.details.split(/\n\s*\n/).map((p) => '<p>' + esc(p.trim()) + '</p>').join('') : ''}
             ${e.sample && !e.details ? '<p>Sample details: this is where the full write-up goes, with the program, who is speaking or singing, what to bring, and a short report with photos after the event.</p>' : ''}</div>
@@ -1264,6 +1287,8 @@ function route() {
         $('#mvLabel').textContent = days >= 0 && days < 7 ? `This week’s memory verse · week of ${weekText}`
           : days < 0 ? `Memory verse · week of ${weekText}` : `Memory verse · week of ${weekText}, ${v.week.slice(0, 4)}`;
         $('#mvText').textContent = v.text;
+        $('#mvText').className = 'mverse__text ' + fontCls(v.font);
+        useFonts([v.font]);
         $('#mvRef').textContent = v.ref;
         $('#mvSample').hidden = !v.sample;
         $('#mvNote').hidden = !v.note; $('#mvNote').textContent = v.note || '';

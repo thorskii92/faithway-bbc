@@ -8,6 +8,7 @@ import sharp from 'sharp';
 
 const out = process.argv[2] || 'docs';
 const SRC = 'content/events';
+const FONTS = ['elegant', 'classic', 'inscription', 'script', 'modern'];
 const CATEGORIES = ['cantata', 'anniversary', 'camp', 'family', 'saturation', 'extension-class', 'building', 'other'];
 
 // image paths saved by the editor look like "/content/uploads/x.jpg" (repo-root relative)
@@ -39,6 +40,7 @@ for (const file of readdirSync(SRC).filter((f) => /\.ya?ml$/i.test(f)).sort()) {
   if (d.time) ev.time = String(d.time);
   if (d.details) ev.details = String(d.details).trim();
   if (d.sample) ev.sample = true;
+  if (FONTS.includes(d.title_font) && d.title_font !== 'elegant') ev.font = d.title_font;
 
   const dir = join(out, 'img', 'events', id);
   const photos = (Array.isArray(d.photos) ? d.photos : []).map((p) => (typeof p === 'object' && p ? p.image : p)).filter(Boolean);

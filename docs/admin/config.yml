@@ -40,6 +40,7 @@ collections:
     sortable_fields: [date, title]
     fields:
       - { name: title, label: Title, widget: string, hint: 'e.g. "13th Church Anniversary" or "Easter Cantata 2027"' }
+      - { name: title_font, label: 'Title font', widget: select, default: elegant, required: false, hint: 'How the title looks on the card, event page and invitation.', options: [{ label: 'Elegant (default)', value: elegant }, { label: 'Classic', value: classic }, { label: 'Inscription (all caps)', value: inscription }, { label: 'Script (handwritten)', value: script }, { label: 'Modern bold', value: modern }] }
       - name: category
         label: Category
         widget: select
@@ -87,6 +88,7 @@ collections:
     fields:
       - { name: reference, label: Reference, widget: string, hint: 'e.g. "Psalm 119:11" or "Romans 10:9-10"' }
       - { name: text, label: 'Verse (KJV)', widget: text, hint: 'Type the verse exactly as in the King James Bible.' }
+      - { name: font, label: 'Verse font', widget: select, default: elegant, required: false, options: [{ label: 'Elegant (default)', value: elegant }, { label: 'Classic', value: classic }, { label: 'Inscription (all caps)', value: inscription }, { label: 'Script (handwritten)', value: script }, { label: 'Modern bold', value: modern }] }
       - { name: week_of, label: 'Week of', widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, picker_utc: true, hint: 'Pick the Sunday (or first day) of the week this verse is for.' }
       - { name: note, label: 'Note (optional)', widget: string, required: false, hint: 'e.g. "Sunday School theme: Prayer"' }
       - { name: sample, label: 'Example only', widget: boolean, default: false, required: false, hint: 'Shows an "Example" tag. Turn off for real verses.' }

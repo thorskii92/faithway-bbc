@@ -17,6 +17,7 @@ if (existsSync(SRC)) {
     const v = { ref: String(d.reference).trim(), text: String(d.text).trim(), week };
     if (d.note) v.note = String(d.note).trim();
     if (d.sample) v.sample = true;
+    if (['classic', 'inscription', 'script', 'modern'].includes(d.font)) v.font = d.font;
     verses.push(v);
   }
 }
