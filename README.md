@@ -75,17 +75,16 @@ Open **https://thorskii92.github.io/faithway-bbc/admin/**. You can do this from 
 
 **Volunteers:** add each one under the repo's **Settings → Collaborators**. They accept the invite and make their own token the same way.
 
-**Note:** saves only publish while GitHub Actions can run on your account. If GitHub shows a billing lock, events you save in the editor are stored, but they won't appear on the site until it's fixed. Ask Claude to run `npm run build` and push in the meantime.
 
-## Publishing editor saves (while GitHub Actions is locked)
+## Publishing editor saves
 
-Saves from the admin page are stored on GitHub but don't publish by themselves while GitHub Actions is blocked. To publish them, open a terminal in this folder and run:
+Saves from the admin page publish automatically: GitHub rebuilds the site and it updates about 2–3 minutes later.
+
+If that ever stops working (for example a GitHub billing problem), publish by hand from this folder:
 
 ```
 npm run publish-site
 ```
-
-It downloads the latest saves, rebuilds the site, and pushes it. The website updates about 1–2 minutes later. If there's nothing new, it says so and changes nothing.
 
 ## Adding an event with photos (by hand)
 
