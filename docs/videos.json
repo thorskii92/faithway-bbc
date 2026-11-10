@@ -40,6 +40,16 @@
   "thumb": "img/videos/lift-up-the-cross-1.jpg"
  },
  {
+  "id": "no-greater-love",
+  "title": "No Greater Love",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/3470327186454276",
+  "date": "2026-04-05",
+  "by": "ESIARP",
+  "event": "easter-cantata-2026",
+  "thumb": "img/videos/no-greater-love.jpg"
+ },
+ {
   "id": "o-precious-lord",
   "title": "O precious Lord",
   "type": "cantata",
