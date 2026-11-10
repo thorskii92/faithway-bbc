@@ -36,8 +36,8 @@ collections:
     delete: true
     slug: '{{slug}}'
     identifier_field: title
-    summary: '{{date}} · {{title}}'
-    sortable_fields: [date, title]
+    summary: 'Added {{added}}  ·  {{date}} · {{title}}'
+    sortable_fields: [added, date, title]
     fields:
       - { name: title, label: Title, widget: string, hint: 'e.g. "13th Church Anniversary" or "Easter Cantata 2027"' }
       - { name: title_font, label: 'Title font', widget: select, default: elegant, required: false, hint: 'How the title looks on the card, event page and invitation.', options: [{ label: 'Elegant (default)', value: elegant }, { label: 'Classic', value: classic }, { label: 'Inscription (all caps)', value: inscription }, { label: 'Script (handwritten)', value: script }, { label: 'Modern bold', value: modern }] }
@@ -69,6 +69,7 @@ collections:
         field: { name: image, label: Photo, widget: image }
       - { name: sample, label: 'Sample (placeholder) event', widget: boolean, default: false, required: false, hint: 'Shows a grey "Sample" tag. Turn off for real events.' }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
+      - { name: added, label: 'Added on', widget: datetime, date_format: YYYY-MM-DD, time_format: 'HH:mm', format: 'YYYY-MM-DD HH:mm', required: false, readonly: true, hint: 'Filled in automatically when the entry is created.' }
 
   - name: verses
     label: Memory Verses
@@ -83,8 +84,8 @@ collections:
     delete: true
     slug: '{{slug}}'
     identifier_field: reference
-    summary: '{{week_of}} · {{reference}}'
-    sortable_fields: [week_of, reference]
+    summary: 'Added {{added}}  ·  {{week_of}} · {{reference}}'
+    sortable_fields: [added, week_of, reference]
     fields:
       - { name: reference, label: Reference, widget: string, hint: 'e.g. "Psalm 119:11" or "Romans 10:9-10"' }
       - { name: text, label: 'Verse (KJV)', widget: text, hint: 'Type the verse exactly as in the King James Bible.' }
@@ -93,6 +94,7 @@ collections:
       - { name: note, label: 'Note (optional)', widget: string, required: false, hint: 'e.g. "Sunday School theme: Prayer"' }
       - { name: sample, label: 'Example only', widget: boolean, default: false, required: false, hint: 'Shows an "Example" tag. Turn off for real verses.' }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
+      - { name: added, label: 'Added on', widget: datetime, date_format: YYYY-MM-DD, time_format: 'HH:mm', format: 'YYYY-MM-DD HH:mm', required: false, readonly: true, hint: 'Filled in automatically when the entry is created.' }
 
   - name: videos
     label: Videos (Music Ministry)
@@ -107,8 +109,8 @@ collections:
     delete: true
     slug: '{{slug}}'
     identifier_field: title
-    summary: '{{date}} · {{title}}'
-    sortable_fields: [date, title]
+    summary: 'Added {{added}}  ·  {{date}} · {{title}}'
+    sortable_fields: [added, date, title]
     fields:
       - { name: title, label: Title, widget: string, hint: 'e.g. "Easter Cantata – Full Program" or "How Great Thou Art"' }
       - { name: link, label: 'Video link (YouTube or Facebook)', widget: string, hint: 'YouTube: Share → Copy link. Facebook: open the video, click ... → Copy link. Facebook videos must be Public.', pattern: ['(youtu\.be/|youtube\.com/|facebook\.com/|fb\.watch/)', 'Please paste a YouTube or Facebook video link'] }
@@ -127,3 +129,4 @@ collections:
       - { name: event, label: 'Event (optional)', widget: relation, collection: events, value_field: '{{slug}}', search_fields: [title], display_fields: [title], required: false, hint: 'Show this video on an event page, e.g. the cantata.' }
       - { name: description, label: 'Description (optional)', widget: text, required: false }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
+      - { name: added, label: 'Added on', widget: datetime, date_format: YYYY-MM-DD, time_format: 'HH:mm', format: 'YYYY-MM-DD HH:mm', required: false, readonly: true, hint: 'Filled in automatically when the entry is created.' }

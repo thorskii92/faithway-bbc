@@ -7,7 +7,8 @@ const STEPS = {
   'git pull --rebase --autostash': 'Downloading the latest editor saves from GitHub failed. Check your internet connection, then try again.',
   'npm run -s events': 'Building the events, verses and videos failed. The message above names the file with the problem.',
   'npm run -s build': 'Building the website failed. The message above shows what went wrong.',
-  'git add docs': 'Preparing the files failed.',
+  'node scripts/fill-added.mjs': 'Filling in the added dates failed.',
+  'git add docs content': 'Preparing the files failed.',
   'git commit -q -m "Publish editor changes"': 'Saving the changes failed.',
   'git push': 'Uploading to GitHub failed. Make sure you are signed in (run: gh auth login), then try again.',
 };
@@ -34,9 +35,10 @@ function run(cmd) {
 const out = (cmd) => execSync(cmd, { encoding: 'utf8' }).trim();
 
 run('git pull --rebase --autostash');
+run('node scripts/fill-added.mjs');
 run('npm run -s events');
 run('npm run -s build');
-run('git add docs');
+run('git add docs content');
 if (!out('git diff --cached --name-only')) {
   console.log('\n✔ Nothing new to publish. The website is already up to date.');
 } else {
