@@ -69,7 +69,7 @@ collections:
         field: { name: image, label: Photo, widget: image }
       - { name: sample, label: 'Sample (placeholder) event', widget: boolean, default: false, required: false, hint: 'Shows a grey "Sample" tag. Turn off for real events.' }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
-      - { name: added, label: 'Added on', widget: datetime, date_format: YYYY-MM-DD, time_format: 'HH:mm', format: 'YYYY-MM-DD HH:mm', required: false, readonly: true, hint: 'Filled in automatically when the entry is created.' }
+      - { name: added, label: 'Added on', widget: hidden, required: false }   # set automatically (publish-site fills it from GitHub history)
 
   - name: verses
     label: Memory Verses
@@ -94,7 +94,7 @@ collections:
       - { name: note, label: 'Note (optional)', widget: string, required: false, hint: 'e.g. "Sunday School theme: Prayer"' }
       - { name: sample, label: 'Example only', widget: boolean, default: false, required: false, hint: 'Shows an "Example" tag. Turn off for real verses.' }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
-      - { name: added, label: 'Added on', widget: datetime, date_format: YYYY-MM-DD, time_format: 'HH:mm', format: 'YYYY-MM-DD HH:mm', required: false, readonly: true, hint: 'Filled in automatically when the entry is created.' }
+      - { name: added, label: 'Added on', widget: hidden, required: false }   # set automatically (publish-site fills it from GitHub history)
 
   - name: videos
     label: Videos (Music Ministry)
@@ -129,4 +129,4 @@ collections:
       - { name: event, label: 'Event (optional)', widget: relation, collection: events, value_field: '{{slug}}', search_fields: [title], display_fields: [title], required: false, hint: 'Show this video on an event page, e.g. the cantata.' }
       - { name: description, label: 'Description (optional)', widget: text, required: false }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
-      - { name: added, label: 'Added on', widget: datetime, date_format: YYYY-MM-DD, time_format: 'HH:mm', format: 'YYYY-MM-DD HH:mm', required: false, readonly: true, hint: 'Filled in automatically when the entry is created.' }
+      - { name: added, label: 'Added on', widget: hidden, required: false }   # set automatically (publish-site fills it from GitHub history)
