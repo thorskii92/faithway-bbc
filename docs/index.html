@@ -782,6 +782,8 @@ a { color: var(--deep); }
   /* events with photos (folder in img/events/<slug>/: 01.jpg is the cover) show the photo; others get category art */
   const cover = (k, e, big) => e && e.photos
     ? `<div class="cover cover--photo"><img src="${e.photos}/01${big ? '' : '-sm'}.jpg" alt="" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight>1.9)this.classList.add('is-wide')"></div>`
+    : e && e.invitation   // no photos yet: use the invitation poster as the cover
+      ? `<div class="cover cover--photo"><img src="${e.invitation}" alt="" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight>1.9)this.classList.add('is-wide')"></div>`
     : `<div class="cover cover--${k}">${icon(k, 'big')}<div class="cover__badge">${icon(k)}<span>${LABEL[k]}</span></div></div>`;
   const dateText = (e, long) => e.dateLabel || fmt(e.date, long ? { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' } : { month: 'short', day: 'numeric', year: 'numeric' });
 
