@@ -149,11 +149,11 @@ const PARTS = __PARTS__;
     crossroad.setAttribute('opacity', whole ? 1 : 0);
     crossParts.setAttribute('opacity', whole ? 0 : 1);
 
-    // 4. the dove flies in flapping, then settles in its place above the cross
+    // 4. the dove flies in from the top left, flapping, then settles in its place above the cross
     const da = k(t, 2.1, .35), dm = outCubic(k(t, 2.1, .7));
     const settle = k(t, 2.65, .25);
     const bob = Math.sin(Math.max(0, t - 2.1) * 12) * 2.2 * (1 - settle);
-    dove.setAttribute('transform', `translate(${((1 - dm) * 60).toFixed(2)} ${(-(1 - dm) * 45 + bob).toFixed(2)})`);
+    dove.setAttribute('transform', `translate(${(-(1 - dm) * 60).toFixed(2)} ${(-(1 - dm) * 45 + bob).toFixed(2)})`);
     dove.setAttribute('opacity', da);
     const flapping = 1 - k(t, 2.7, .2);
     const phase = Math.max(0, t - 2.1) * (2 * Math.PI / .24);
