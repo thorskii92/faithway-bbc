@@ -110,7 +110,9 @@ collections:
     slug: '{{slug}}'
     identifier_field: title
     summary: 'Added {{added}}  ·  {{date}} · {{title}}'
-    sortable_fields: [added, date, title]
+    sortable_fields:
+      fields: [added, date, title]
+      default: { field: date, direction: descending }   # latest event date on top
     fields:
       - { name: title, label: Title, widget: string, hint: 'e.g. "Easter Cantata – Full Program" or "How Great Thou Art"' }
       - { name: link, label: 'Video link (YouTube or Facebook)', widget: string, hint: 'YouTube: Share → Copy link. Facebook: open the video, click ... → Copy link. Facebook videos must be Public.', pattern: ['(youtu\.be/|youtube\.com/|facebook\.com/|fb\.watch/)', 'Please paste a YouTube or Facebook video link'] }
