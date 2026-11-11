@@ -80,6 +80,7 @@ Open **https://thorskii92.github.io/faithway-bbc/admin/**. You can do this from 
 - **Announcements:** short notices for the "This week at Faithway" box on the home page. Each one shows only from its *Show from* day through its *Show until* day, then disappears by itself.
 - **Prayer Letters:** pick the missionary, then type the letter, upload photos of the printed pages, or attach the PDF. It appears on that missionary's page on the missions board. Letters are public, so leave out anything sensitive. Missionaries hidden for their safety aren't in the list, and the build refuses any letter for them.
 - **Church Info:** the church phone number, email and prayer request form link, shown in the Visit section and the footer. Leave a field empty to hide it.
+- **Testimonies:** "Stories of grace" on the home page. A story is only published when *They agreed to share this* is ticked.
 - **Ministries:** each card in the Ministries section (when it meets, who it's for, who to contact). *Order* arranges them.
 
 **Guide for volunteers:** https://thorskii92.github.io/faithway-bbc/guide.html gives step-by-step help for everything above, plus the photo rules. Send volunteers this link.
@@ -87,6 +88,13 @@ Open **https://thorskii92.github.io/faithway-bbc/admin/**. You can do this from 
 **Prayer requests** go through a Tally form (https://tally.so/r/aO55OW). Submissions are emailed to the Tally account owner and are never shown on the website. To use a different form (for example a Google Form), paste its link in Church Info.
 
 **Visitor counts:** paste a Cloudflare Web Analytics token into `ANALYTICS_TOKEN` in `scripts/site.mjs` (the steps are in the comment there), then run `npm run build` and push. It counts visits without cookies or personal data.
+
+**Other pages and features**
+- `calendar.html`: a month calendar of events (from the editor) and the regular services (written in the page, so update them there and on the home page if the schedule changes).
+- `reading-plan.html` and `reading-plan.js`: read through the Bible in a year (KJV, 3–4 chapters a day). The home page shows today's reading. Readers' ticks are saved on their own device.
+- Filipino: the "Filipino" button switches the menu, service times, visit section and footer. The translations are in `prototype/i18n.js` and **should be checked by a native speaker**. Editor content (events, ministries, verses) stays as written.
+- "Next service" under the service times is worked out in Philippine time from the `SERVICES` list in `prototype/index.html`.
+- Each upcoming event has a printable QR code (`e/<event>-qr.svg`) for posters and tarpaulins.
 
 **Icons:** the browser-tab and phone home-screen icons are made from the logo by `node scripts/icons.mjs`.
 

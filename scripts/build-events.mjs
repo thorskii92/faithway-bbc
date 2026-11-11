@@ -1,12 +1,14 @@
 // Builds the site's events from content/events/*.yml (the files the /admin editor saves).
 // Writes <out>/events.json and resized photos to <out>/img/events/<id>/ (01.jpg + 01-sm.jpg ..., invitation.jpg).
 // Also writes, for each event, a share page <out>/e/<id>.html (so Facebook/Messenger previews show the
-// event's poster or cover photo) and a calendar file <out>/e/<id>.ics ("Add to calendar").
+// event's poster or cover photo), a calendar file <out>/e/<id>.ics ("Add to calendar") and a QR code
+// <out>/e/<id>-qr.svg for printed invitations.
 // Usage: node scripts/build-events.mjs [outDir=docs]
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { join, basename } from 'node:path';
 import YAML from 'yaml';
 import sharp from 'sharp';
+import QRCode from 'qrcode';
 import { SITE, CHURCH, ogTags, escAttr } from './site.mjs';
 
 const out = process.argv[2] || 'docs';
@@ -126,6 +128,8 @@ ${ogTags({ title: ev.title, description: desc, image, url: page, type: 'article'
 </body></html>
 `);
   writeFileSync(join(out, 'e', `${ev.id}.ics`), ics(ev, page));
+  // QR code for printed invitations and tarpaulins: scanning it opens the event page
+  writeFileSync(join(out, 'e', `${ev.id}-qr.svg`), await QRCode.toString(page, { type: 'svg', margin: 2, errorCorrectionLevel: 'M', color: { dark: '#05445F', light: '#FFFFFF' } }));
   ev.gcal = googleCal(ev, page);
 }
 

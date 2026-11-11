@@ -335,6 +335,34 @@ collections:
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
       - { name: added, label: 'Added on', widget: hidden, required: false }   # set automatically from GitHub history
 
+  - name: testimonies
+    label: Testimonies
+    label_singular: Testimony
+    description: >-
+      Short stories from members: how they came to Christ or to Faithway. A story appears on the website only
+      when "They agreed to share this" is ticked. Ask the person first, and let them read it before you save.
+    folder: content/testimonies
+    format: yml
+    extension: yml
+    create: true
+    delete: true
+    slug: '{{slug}}'
+    identifier_field: name
+    summary: 'Added {{added}}  ·  {{name}}'
+    sortable_fields:
+      fields: [added, date, name]
+      default: { field: date, direction: descending }
+    fields:
+      - { name: name, label: 'Name shown', widget: string, hint: 'As they want it shown, e.g. "Sis. Maria" or "Bro. Ramon S." First names are fine.' }
+      - { name: about, label: 'About them (optional)', widget: string, required: false, hint: 'e.g. "Member since 2016" or "Youth group"' }
+      - { name: quote, label: 'Short quote (optional)', widget: string, required: false, hint: 'One sentence shown big, e.g. "I finally knew I was saved."' }
+      - { name: story, label: Story, widget: text, hint: 'In their own words if possible. A few short paragraphs; leave a blank line between paragraphs.' }
+      - { name: photo, label: 'Photo (optional)', widget: image, required: false, hint: 'Only with their permission.' }
+      - { name: date, label: 'Date shared', widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, picker_utc: true, required: false }
+      - { name: consent, label: 'They agreed to share this on the website', widget: boolean, default: false, hint: 'Required. Without this tick the story stays hidden.' }
+      - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
+      - { name: added, label: 'Added on', widget: hidden, required: false }   # set automatically from GitHub history
+
   - name: settings
     label: Church Info
     description: Contact details shown in the Visit section of the website.

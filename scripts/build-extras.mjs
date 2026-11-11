@@ -2,6 +2,8 @@
 //   content/notices/*.yml       → <out>/notices.json   (the "This week at Faithway" announcements)
 //   content/settings/church.yml → <out>/church.json    (phone, email and prayer request form: Visit section and footer)
 //   content/ministries/*.yml    → <out>/ministries.json (the Ministries section)
+//   content/testimonies/*.yml   → <out>/testimonies.json (Stories of grace; only with the person's consent),
+//                                 photos to <out>/img/testimonies/<id>.jpg
 //   content/letters/*.yml       → <out>/letters.json   (missionary prayer letters), scanned pages resized to
 //                                 <out>/img/letters/<id>/, PDFs copied to <out>/letters/<id>.pdf
 // PRIVACY: a letter is only published if its missionary is on the public board (<out>/missionaries.js lists
@@ -104,5 +106,27 @@ for (const { id, file, d } of readAll('content/letters')) {
 letters.sort((a, b) => b.date.localeCompare(a.date));
 writeFileSync(join(out, 'letters.json'), JSON.stringify(letters, null, 1));
 
-console.log(`extras: ${ministries.length} ministries, ${notices.length} announcements, ${letters.length} prayer letters, church info ${Object.keys(church).length ? 'set' : 'empty'} → ${out}/`);
+/* ---------- testimonies: published only when "they agreed to share this" is ticked ---------- */
+rmSync(join(out, 'img', 'testimonies'), { recursive: true, force: true });
+const testimonies = [];
+for (const { id, file, d } of readAll('content/testimonies')) {
+  if (!d.consent) { problems.push(`testimonies/${file}: not published until "They agreed to share this" is ticked`); continue; }
+  if (!d.name || !d.story) { problems.push(`testimonies/${file}: needs a name and the story`); continue; }
+  const t = { id, name: String(d.name).trim(), story: String(d.story).trim(), date: day(d.date) };
+  if (d.about) t.about = String(d.about).trim();
+  if (d.quote) t.quote = String(d.quote).trim();
+  if (d.photo) {
+    if (existsSync(local(d.photo))) {
+      mkdirSync(join(out, 'img', 'testimonies'), { recursive: true });
+      await sharp(local(d.photo), { failOn: 'none' }).rotate().resize(480, 480, { fit: 'cover', position: 'attention' })
+        .jpeg({ quality: 80, mozjpeg: true }).toFile(join(out, 'img', 'testimonies', `${id}.jpg`));
+      t.photo = `img/testimonies/${id}.jpg`;
+    } else problems.push(`testimonies/${file}: photo not found: ${d.photo}`);
+  }
+  testimonies.push(t);
+}
+testimonies.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+writeFileSync(join(out, 'testimonies.json'), JSON.stringify(testimonies, null, 1));
+
+console.log(`extras: ${testimonies.length} testimonies, ${ministries.length} ministries, ${notices.length} announcements, ${letters.length} prayer letters, church info ${Object.keys(church).length ? 'set' : 'empty'} → ${out}/`);
 for (const p of problems) console.warn('warning:', p);

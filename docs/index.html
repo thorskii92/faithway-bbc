@@ -83,14 +83,19 @@ a { color: var(--deep); }
 .nav { display: flex; gap: 4px; }
 .nav a { text-decoration: none; color: var(--ink); font-size: .86rem; font-weight: 500; padding: 8px 12px; border-radius: 999px; }
 .nav a:hover { background: var(--ocean); color: var(--deep); }
+.lang-btn { all: unset; cursor: pointer; font-size: .8rem; font-weight: 600; color: var(--deep); padding: 7px 12px; margin-left: 6px; border-radius: 999px; border: 1.5px solid var(--line); white-space: nowrap; }
+.lang-btn:hover, .lang-btn:focus-visible { border-color: var(--mid); background: var(--ocean); }
+html[lang="fil"] .svc.is-next .svc__day::after { content: " · susunod"; }
+html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
 .menu-btn { display: none; }
-@media (max-width: 760px) {
+@media (max-width: 1100px) {
   .menu-btn { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; border: 1.5px solid var(--line); color: var(--deep-2); font: 600 .85rem/1 var(--f-body); background: var(--white); }
   .menu-btn svg { width: 18px; height: 18px; }
   .nav { display: none; }
   .nav.is-open { display: grid; position: absolute; top: 100%; right: 0; left: 0; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: 0 24px 40px -24px rgba(5,68,95,.4); padding: 8px 16px 16px; gap: 0; }
   .nav.is-open a { padding: 13px 8px; border-radius: 8px; font-size: 1rem; border-bottom: 1px solid var(--line); }
-  .nav.is-open a:last-child { border-bottom: 0; }
+  .nav.is-open a:last-of-type { border-bottom: 0; }
+  .nav.is-open .lang-btn { justify-self: start; margin: 10px 0 0 4px; padding: 10px 16px; font-size: .9rem; }
 }
 
 /* hero */
@@ -236,6 +241,48 @@ a { color: var(--deep); }
 .svc__day { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--mid); font-weight: 600; }
 .svc__name { font-family: var(--f-display); font-size: 1.3rem; font-weight: 600; color: var(--deep-2); margin-top: 4px; }
 .svc__time { font-variant-numeric: tabular-nums; color: var(--muted); font-size: .9rem; }
+.svc.is-next { background: var(--ocean); box-shadow: inset 0 3px 0 var(--deep); }
+.svc.is-next .svc__day::after { content: " · next"; color: var(--deep); }
+.svc.is-now { background: var(--cream); box-shadow: inset 0 3px 0 var(--bow, #C9A04A); }
+.svc.is-now .svc__day::after { content: " · now"; color: var(--deep-2); }
+.services__next { margin: 14px 4px 0; font-size: .9rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+.services__next b { color: var(--deep-2); font-weight: 600; }
+.services__next .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--deep); flex: none; }
+.services__next.is-now .dot { background: #2E9E6A; box-shadow: 0 0 0 4px rgba(46,158,106,.18); }
+.services__next a { font-weight: 600; color: var(--deep); }
+/* today's Bible reading */
+.reading { padding-block: clamp(20px, 3vw, 32px) 0; }
+.reading__card { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 24px; padding: 18px 22px; border-radius: var(--radius); background: var(--white); border: 1px solid var(--line); }
+.reading__card b { display: block; font: 600 1.55rem/1.15 var(--f-display); color: var(--deep-2); margin-top: 4px; }
+.reading__links { display: flex; gap: 10px; flex-wrap: wrap; }
+.reading__links a { font-weight: 600; font-size: .85rem; text-decoration: none; padding: 9px 16px; border-radius: 999px; border: 1.5px solid var(--deep); color: var(--deep); }
+.reading__links a:first-child { background: var(--deep); color: var(--white); }
+/* testimonies */
+.stories__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+.tstory { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; gap: 12px; align-content: start; }
+.tstory__quote { font: italic 500 1.45rem/1.3 var(--f-display); color: var(--deep-2); margin: 0; }
+.tstory__quote::before { content: "“"; } .tstory__quote::after { content: "”"; }
+.tstory__body { color: #3A4A58; font-size: .93rem; display: grid; gap: 10px; }
+.tstory__body.is-clamped { display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.tstory__more { all: unset; cursor: pointer; font-weight: 600; font-size: .85rem; color: var(--deep); justify-self: start; }
+.tstory__who { display: flex; align-items: center; gap: 12px; margin-top: 4px; padding-top: 12px; border-top: 1px solid var(--line); }
+.tstory__who img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; }
+.tstory__who b { display: block; color: var(--deep-2); }
+.tstory__who small { color: var(--muted); font-size: .8rem; }
+/* QR code card for printed invitations */
+.qr { border: 0; border-radius: 16px; padding: 0; max-width: min(420px, 94vw); background: var(--white); }
+.qr::backdrop { background: rgba(3, 25, 36, .75); }
+.qr__card { padding: 28px 28px 22px; text-align: center; display: grid; gap: 8px; }
+.qr__card img { width: 100%; max-width: 280px; height: auto; margin: 6px auto; display: block; }
+.qr__card h3 { font-size: 1.6rem; }
+.qr__card p { color: var(--muted); font-size: .88rem; margin: 0; }
+.qr__actions { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 0 20px 22px; }
+@media print {
+  body.printing-qr > *:not(.qr) { display: none !important; }
+  body.printing-qr .qr { position: static; box-shadow: none; max-width: none; }
+  body.printing-qr .qr__actions { display: none; }
+  body.printing-qr .qr__card img { max-width: 360px; }
+}
 @media (max-width: 860px) { .services__card { grid-template-columns: 1fr 1fr; } .svc:nth-child(odd) { border-left: 0; } .svc:nth-child(n+3) { border-top: 1px solid var(--line); } .svc:last-child { grid-column: 1 / -1; } }
 
 /* updates */
@@ -534,7 +581,7 @@ a { color: var(--deep); }
     </a>
     <button class="menu-btn" type="button" aria-expanded="false" aria-controls="siteNav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
     <nav class="nav" id="siteNav" aria-label="Sections">
-      <a href="#updates">Updates</a><a href="#about">About</a><a href="#beliefs">Beliefs</a><a href="#pastor">Pastor</a><a href="#ministries">Ministries</a><a href="music.html">Music</a><a href="#missions">Missions</a><a href="#visit">Visit</a>
+      <a href="#updates">Updates</a><a href="#about">About</a><a href="#beliefs">Beliefs</a><a href="#pastor">Pastor</a><a href="#ministries">Ministries</a><a href="music.html">Music</a><a href="#missions">Missions</a><a href="#visit">Visit</a><button class="lang-btn" type="button" data-lang-toggle lang="fil">Filipino</button>
     </nav>
   </div>
 </header>
@@ -572,6 +619,7 @@ a { color: var(--deep); }
       <div class="svc"><div class="svc__day">Wednesday</div><div class="svc__name">Midweek Prayer Meeting</div><div class="svc__time">6:00 PM</div></div>
       <div class="svc"><div class="svc__day">Saturday</div><div class="svc__name">Prayer Meeting</div><div class="svc__time">7:00 AM</div></div>
     </div>
+    <p class="services__next" id="nextService" aria-live="polite" hidden></p>
   </div>
 
   <section class="notices" id="notices" hidden aria-labelledby="noticesLabel">
@@ -598,12 +646,21 @@ a { color: var(--deep); }
     </div>
   </section>
 
+  <section class="reading" id="reading" hidden aria-labelledby="readingRef">
+    <div class="wrap">
+      <div class="reading__card">
+        <div><span class="eyebrow" id="readingLabel">Today’s Bible reading</span><b id="readingRef"></b></div>
+        <div class="reading__links"><a id="readingLink" href="#" target="_blank" rel="noopener">Read (KJV)</a><a href="reading-plan.html">The whole plan</a></div>
+      </div>
+    </div>
+  </section>
+
   <section class="section" id="updates">
     <div class="wrap">
       <div class="section__head reveal">
         <span class="eyebrow">Latest updates</span>
         <h2>What's happening at Faithway</h2>
-        <p>Cantatas, anniversaries, camps, family days, saturation and extension class activities. Open any card for photos and details.</p>
+        <p>Cantatas, anniversaries, camps, family days, saturation and extension class activities. Open any card for photos and details. <a href="calendar.html">See the church calendar →</a></p>
       </div>
       <div class="chips" id="eventChips" role="group" aria-label="Filter updates by category"></div>
       <div class="cards" id="eventCards"></div>
@@ -770,6 +827,17 @@ a { color: var(--deep); }
     </div>
   </section>
 
+  <section class="section stories" id="stories" hidden>
+    <div class="wrap">
+      <div class="section__head reveal">
+        <span class="eyebrow">Stories of grace</span>
+        <h2>What God has done</h2>
+        <p>Members of our church family share how they came to Christ and to Faithway, in their own words.</p>
+      </div>
+      <div class="stories__grid" id="storyGrid"></div>
+    </div>
+  </section>
+
   <section class="section missions" id="missions">
     <div class="wrap wrap--wide">
       <div class="section__head reveal" style="max-width:none">
@@ -839,6 +907,8 @@ a { color: var(--deep); }
         <li><a href="#ministries">Ministries</a></li>
         <li><a href="music.html">Music Ministry</a></li>
         <li><a href="#missions">Missions board</a></li>
+        <li><a href="calendar.html">Church calendar</a></li>
+        <li><a href="reading-plan.html">Bible reading plan</a></li>
         <li><a href="kings-and-prophets.html">Kings and Prophets</a></li>
       </ul>
     </nav>
@@ -865,10 +935,26 @@ a { color: var(--deep); }
 </footer>
 
 <div class="sheet" id="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle"></div>
+<dialog class="qr" id="qrDialog" aria-labelledby="qrTitle">
+  <div class="qr__card">
+    <span class="eyebrow">Scan for details</span>
+    <h3 id="qrTitle"></h3>
+    <p id="qrWhen"></p>
+    <img id="qrImg" src="" alt="" width="280" height="280">
+    <p>Faithway Bible Baptist Church · Purok Matapat, San Jose, Puerto Princesa City</p>
+  </div>
+  <div class="qr__actions">
+    <a class="act" id="qrDownload" href="#" download>Download QR code</a>
+    <button class="act" type="button" id="qrPrint">Print</button>
+    <button class="act" type="button" id="qrClose">Close</button>
+  </div>
+</dialog>
 <dialog class="lightbox" id="lightbox" aria-label="Photo viewer"><img src="" alt=""><span class="lightbox__hint">Tap anywhere or press Esc to close</span></dialog>
 
 <script src="map.js"></script>
 <script src="missionaries.js" charset="utf-8"></script>
+<script src="reading-plan.js"></script>
+<script src="i18n.js" charset="utf-8"></script>
 <script>
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
@@ -1261,6 +1347,7 @@ a { color: var(--deep); }
   const CAL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>';
   const eventActions = (e) => `<div class="actions">
       <button class="act" type="button" data-share="${esc(e.id)}">${SHARE_ICON}<span>Share</span></button>
+      ${isUp(e) ? `<button class="act" type="button" data-qr="${esc(e.id)}">${QR_ICON}<span>QR code</span></button>` : ''}
       ${isUp(e) && e.gcal ? `<details class="calmenu"><summary class="act">${CAL_ICON}<span>Add to calendar</span></summary><div class="calmenu__pop">
         <a href="${esc(e.gcal)}" target="_blank" rel="noopener">Google Calendar<small>Android phones and Gmail</small></a>
         <a href="e/${esc(e.id)}.ics" download="${esc(e.id)}.ics">iPhone, Outlook and others<small>Downloads a calendar file</small></a>
@@ -1281,6 +1368,28 @@ a { color: var(--deep); }
     }
     setTimeout(() => { label.textContent = 'Share'; }, 2500);
   });
+  /* QR code for printed invitations and tarpaulins (e/<id>-qr.svg, made by build-events): scanning opens the event */
+  const QR_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 20h1M20 14h1"/></svg>';
+  const qrDialog = $('#qrDialog');
+  document.addEventListener('click', (ev) => {
+    const b = ev.target.closest('[data-qr]'); if (!b) return;
+    const e = EVENTS.find((x) => x.id === b.dataset.qr); if (!e) return;
+    $('#qrTitle').textContent = e.title;
+    $('#qrWhen').textContent = dateText(e, true) + (e.time ? ' · ' + e.time : '');
+    $('#qrImg').src = `e/${e.id}-qr.svg`;
+    $('#qrImg').alt = `QR code that opens the ${e.title} page`;
+    $('#qrDownload').href = `e/${e.id}-qr.svg`;
+    $('#qrDownload').setAttribute('download', `${e.id}-qr.svg`);
+    qrDialog.showModal();
+  });
+  $('#qrClose').addEventListener('click', () => qrDialog.close());
+  qrDialog.addEventListener('click', (ev) => { if (ev.target === qrDialog) qrDialog.close(); });
+  $('#qrPrint').addEventListener('click', () => {
+    document.body.classList.add('printing-qr');
+    print();
+    document.body.classList.remove('printing-qr');
+  });
+
   document.addEventListener('click', (ev) => {   // close the calendar menu when tapping elsewhere
     document.querySelectorAll('.calmenu[open]').forEach((d) => { if (!d.contains(ev.target)) d.open = false; });
   });
@@ -1410,7 +1519,7 @@ function route() {
     lightbox.showModal();
   });
   lightbox.addEventListener('click', () => lightbox.close());
-  addEventListener('keydown', (e) => { if (e.key === 'Escape' && !sheet.hidden && !lightbox.open) location.hash = returnTo; });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape' && !sheet.hidden && !lightbox.open && !qrDialog.open) location.hash = returnTo; });
   addEventListener('hashchange', route);
   /* ---------- memory verse: verses.json is built from content/verses/*.yml (the /admin editor) ---------- */
   function loadVerses() {
@@ -1507,6 +1616,7 @@ function route() {
         + (c.note ? `<p>${esc(c.note)}</p>` : '');
       $('#contactInfo').innerHTML = html;
       $('#footerContact').innerHTML = html;
+      FAITHWAY_I18N.refresh();
     });
   }
   /* ministries: ministries.json (content/ministries/*.yml); the cards written in the page are the fallback */
@@ -1531,7 +1641,87 @@ function route() {
       if (/^#m-/.test(location.hash)) route();
     });
   }
+  /* next service: worked out in Philippine time (UTC+8), whatever the visitor's own clock zone */
+  const SERVICES = [   // same order as the cards in the services strip
+    { dow: 0, h: 8, m: 30, name: 'Sunday School', mins: 90 },
+    { dow: 0, h: 10, m: 0, name: 'Worship Service', mins: 120 },
+    { dow: 0, h: 16, m: 0, name: 'Afternoon Service', mins: 90 },
+    { dow: 3, h: 18, m: 0, name: 'Midweek Prayer Meeting', mins: 90 },
+    { dow: 6, h: 7, m: 0, name: 'Prayer Meeting', mins: 90 },
+  ];
+  const DAYNAME = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  function showNextService() {
+    const now = Date.now() + 8 * 3600e3;   // "Manila wall clock" in UTC fields
+    const n = new Date(now), midnight = Date.UTC(n.getUTCFullYear(), n.getUTCMonth(), n.getUTCDate());
+    let best = null;
+    SERVICES.forEach((s, i) => {
+      for (let k = 0; k <= 7; k++) {
+        const dayStart = midnight + k * 864e5;
+        if (new Date(dayStart).getUTCDay() !== s.dow) continue;
+        const start = dayStart + (s.h * 60 + s.m) * 6e4, end = start + s.mins * 6e4;
+        if (end <= now) continue;
+        if (!best || start < best.start) best = { ...s, i, start, k, live: start <= now };
+        break;
+      }
+    });
+    if (!best) return;
+    const T = window.FAITHWAY_I18N ? FAITHWAY_I18N.t() : null;
+    const t12 = `${(best.h % 12) || 12}:${String(best.m).padStart(2, '0')} ${best.h < 12 ? 'AM' : 'PM'}`;
+    const when = !T ? '' : best.live ? T.live : best.k === 0 ? T.today(t12) : best.k === 1 ? T.tomorrow(t12) : T.later(T.days[best.dow], t12, best.k);
+    const p = $('#nextService');
+    p.innerHTML = `<span class="dot" aria-hidden="true"></span><span>${best.live ? T.now : T.next}: <b>${esc(best.name)}</b> · ${when}</span><a href="#visit">Directions</a>`;
+    if (window.FAITHWAY_I18N) FAITHWAY_I18N.refresh();
+    p.classList.toggle('is-now', best.live);
+    p.hidden = false;
+    document.querySelectorAll('.services__card .svc').forEach((el, i) => { el.classList.toggle('is-next', i === best.i && !best.live); el.classList.toggle('is-now', i === best.i && best.live); });
+  }
+  /* today's Bible reading (reading-plan.js) */
+  function showReading() {
+    if (!window.READING_PLAN) return;
+    const t = READING_PLAN.todayInfo(), r = READING_PLAN.reading(t.day);
+    $('#readingRef').textContent = r.label;
+    const T = FAITHWAY_I18N.t();
+    $('#readingLabel').textContent = t.catchUp ? T.catchUp : T.reading(t.day, READING_PLAN.DAYS);
+    $('#readingLink').href = r.url;
+    $('#reading').hidden = false;
+  }
+  /* testimonies: testimonies.json (content/testimonies/*.yml, only stories shared with permission) */
+  function loadStories() {
+    getJSON('testimonies.json').then((list) => {
+      if (!Array.isArray(list) || !list.length) return;
+      $('#storyGrid').innerHTML = list.slice(0, 6).map((t) => {
+        const paras = t.story.split(/\n\s*\n/).map((p) => `<p>${esc(p.trim()).replace(/\n/g, '<br>')}</p>`).join('');
+        return `<article class="tstory">
+          ${t.quote ? `<p class="tstory__quote">${esc(t.quote)}</p>` : ''}
+          <div class="tstory__body is-clamped">${paras}</div>
+          <button class="tstory__more" type="button" aria-expanded="false">Read the whole story</button>
+          <div class="tstory__who">${t.photo ? `<img src="${t.photo}" alt="" loading="lazy" width="46" height="46">` : ''}<div><b>${esc(t.name)}</b>${t.about ? `<small>${esc(t.about)}</small>` : ''}</div></div>
+        </article>`;
+      }).join('');
+      $('#stories').hidden = false;
+      $('#storyGrid').querySelectorAll(".tstory").forEach((s) => {   // short story: no "Read the whole story" button
+        const body = s.querySelector('.tstory__body'), more = s.querySelector('.tstory__more');
+        if (more && body.scrollHeight <= body.clientHeight + 4) { body.classList.remove('is-clamped'); more.remove(); }
+      });
+    });
+  }
+  $('#storyGrid').addEventListener('click', (e) => {
+    const b = e.target.closest('.tstory__more'); if (!b) return;
+    const body = b.previousElementSibling, open = body.classList.toggle('is-clamped');
+    b.textContent = open ? 'Read the whole story' : 'Show less';
+    b.setAttribute('aria-expanded', String(!open));
+  });
+
+  /* Filipino / English (i18n.js): the choice is remembered on this device */
+  document.addEventListener('click', (e) => { if (e.target.closest('[data-lang-toggle]')) FAITHWAY_I18N.toggle(); });
+  document.addEventListener('faithway:lang', () => { showNextService(); showReading(); });
+  if (FAITHWAY_I18N.lang === 'fil') FAITHWAY_I18N.apply('fil');
+
   route();
+  showNextService();
+  setInterval(showNextService, 60e3);
+  showReading();
+  loadStories();
   loadEvents();
   loadVerses();
   loadVideos();

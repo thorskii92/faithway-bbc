@@ -5,7 +5,7 @@ import { execSync } from 'node:child_process';
 
 const pad = (n) => String(n).padStart(2, '0');
 let filled = 0;
-for (const dir of ['content/events', 'content/videos', 'content/verses', 'content/notices', 'content/letters']) {
+for (const dir of ['content/events', 'content/videos', 'content/verses', 'content/notices', 'content/letters', 'content/testimonies']) {
   if (!existsSync(dir)) continue;
   for (const f of readdirSync(dir).filter((n) => n.endsWith('.yml'))) {
     const p = `${dir}/${f}`;

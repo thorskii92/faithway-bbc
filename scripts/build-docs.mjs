@@ -42,7 +42,7 @@ const cut = body.indexOf('</style>') + '</style>'.length;
 mkdirSync(dst, { recursive: true });
 writeFileSync(join(dst, 'index.html'), `${head}${body.slice(0, cut)}\n</head>\n<body>\n${body.slice(cut)}\n</body>\n</html>\n`);
 
-for (const f of ['map.js', 'missionaries.js', 'thumbs.jpg', 'logo.jpg']) copyFileSync(join(src, f), join(dst, f));
+for (const f of ['map.js', 'missionaries.js', 'reading-plan.js', 'i18n.js', 'thumbs.jpg', 'logo.jpg']) copyFileSync(join(src, f), join(dst, f));
 // extra standalone pages (complete HTML documents), e.g. kings-and-prophets.html
 // each gets the share-preview tags (title from its <title>), icons and analytics unless it already has them
 for (const f of readdirSync(src).filter((n) => n.endsWith('.html') && n !== 'index.html')) {

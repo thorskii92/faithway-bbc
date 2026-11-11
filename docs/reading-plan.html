@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Read through the whole King James Bible in a year with Faithway Bible Baptist Church: three or four chapters a day.">
+<title>Bible Reading Plan</title>
+<meta property="og:site_name" content="Faithway Bible Baptist Church">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Bible Reading Plan">
+<meta property="og:description" content="Palawan Faithway Bible Baptist Church, Inc. Purok Matapat, San Jose, Puerto Princesa City. Passion for God. Compassion to People.">
+<meta property="og:url" content="https://thorskii92.github.io/faithway-bbc/reading-plan.html">
+<meta property="og:image" content="https://thorskii92.github.io/faithway-bbc/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" sizes="48x48" href="img/icons/favicon-48.png">
+<link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#086288">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Montserrat:wght@400;500;600&display=swap">
+<style>
+:root {
+  --deep: #086288; --deep-2: #05445F; --mid: #4D8DBA; --sky: #97D7FF; --cream: #FFEFC4;
+  --paper: #FFFCF5; --white: #fff; --ink: #1F2D3A; --muted: #5B6B78; --line: #DCE5EC; --ocean: #EEF7FD;
+  --f-display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --f-body: "Montserrat", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.6; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 600; color: var(--deep-2); margin: 0; line-height: 1.15; }
+a { color: var(--deep); }
+.wrap { width: min(900px, 100% - 32px); margin-inline: auto; }
+.top { background: var(--deep-2); padding: 14px 0; }
+.top a { color: var(--white); text-decoration: none; font-weight: 600; font-size: .9rem; }
+.hero { background: linear-gradient(160deg, var(--deep), var(--deep-2)); color: var(--white); padding: clamp(40px, 7vw, 72px) 0 clamp(32px, 5vw, 52px); }
+.hero h1 { color: var(--white); font-size: clamp(2.3rem, 6vw, 3.4rem); }
+.hero p { color: #CFEBFF; max-width: 58ch; margin: 12px 0 0; }
+.eyebrow { font: 600 .72rem/1.3 var(--f-body); letter-spacing: .18em; text-transform: uppercase; color: var(--mid); }
+.hero .eyebrow { color: var(--cream); }
+.today { margin-top: 26px; background: var(--cream); color: var(--deep-2); border-radius: 14px; padding: 20px 22px; display: grid; gap: 6px; max-width: 520px; }
+.today b { font-family: var(--f-display); font-size: 1.9rem; font-weight: 600; line-height: 1.1; }
+.today .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 10px 18px; border-radius: 999px; font-weight: 600; font-size: .88rem; text-decoration: none; border: 0; cursor: pointer; font-family: inherit; }
+.btn--deep { background: var(--deep); color: var(--white); }
+.btn--line { background: transparent; color: var(--deep-2); border: 1.5px solid var(--deep-2); }
+.progress { margin-top: 14px; font-size: .85rem; color: #CFEBFF; }
+.bar { height: 6px; border-radius: 999px; background: rgba(255,255,255,.18); margin-top: 6px; max-width: 520px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--cream); width: 0; }
+.month { padding: 30px 0 4px; }
+.month h2 { font-size: 1.8rem; margin-bottom: 10px; }
+.days { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.day { display: grid; grid-template-columns: auto 64px 1fr auto; align-items: center; gap: 12px; padding: 9px 4px; border-bottom: 1px solid var(--line); }
+.day.is-today { background: var(--ocean); border-radius: 8px; box-shadow: inset 3px 0 0 var(--deep); }
+.day input { width: 20px; height: 20px; accent-color: var(--deep); margin: 0; }
+.day time { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.day .ref { font-weight: 500; }
+.day.is-done .ref { color: var(--muted); text-decoration: line-through; text-decoration-color: rgba(91,107,120,.5); }
+.day a.read { font-size: .8rem; font-weight: 600; text-decoration: none; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); }
+.note { color: var(--muted); font-size: .85rem; margin: 26px 0 0; }
+footer { padding: 36px 0 48px; color: var(--muted); font-size: .85rem; }
+@media (max-width: 520px) { .day { grid-template-columns: auto 52px 1fr; } .day a.read { grid-column: 3; justify-self: start; } }
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap"><a href="./">← Faithway Bible Baptist Church</a></div></div>
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Bible reading plan · King James Bible</span>
+    <h1>Through the Bible in a year</h1>
+    <p>Genesis to Revelation in order, three or four chapters a day. Read along with the church family: “Thy word is a lamp unto my feet, and a light unto my path.” Psalm 119:105</p>
+    <div class="today" id="today"></div>
+    <div class="progress"><span id="progText"></span><div class="bar"><i id="progBar"></i></div></div>
+  </div>
+</header>
+<main class="wrap" id="plan"></main>
+<footer class="wrap">
+  <p class="note">Tick each day as you read. Your ticks are saved on this phone or computer only. “Read” opens the chapters in the King James Version on BibleGateway.</p>
+  <p>Faithway Bible Baptist Church · Purok Matapat, San Jose, Puerto Princesa City</p>
+</footer>
+<script src="reading-plan.js"></script>
+<script>
+(() => {
+  const P = window.READING_PLAN;
+  const t = P.todayInfo();
+  const KEY = 'faithway-reading-' + t.year;
+  let done = new Set();
+  try { done = new Set(JSON.parse(localStorage.getItem(KEY) || '[]')); } catch { /* private browsing: ticks just aren't remembered */ }
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify([...done])); } catch { /* ignore */ } };
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const fmt = (d, o) => new Intl.DateTimeFormat('en-PH', { timeZone: 'UTC', ...o }).format(d);
+
+  const r = P.reading(t.day);
+  document.getElementById('today').innerHTML = `<span class="eyebrow" style="color:var(--deep)">${t.catchUp ? 'February 29 · catch-up day' : 'Today · ' + fmt(P.dateOf(t.day, t.year), { weekday: 'long', month: 'long', day: 'numeric' })} · day ${t.day} of ${P.DAYS}</span>
+    <b>${esc(r.label)}</b>
+    <div class="row"><a class="btn btn--deep" href="${r.url}" target="_blank" rel="noopener">Read today’s chapters</a><a class="btn btn--line" href="#d${t.day}">Find today in the plan</a></div>`;
+
+  const months = {};
+  for (let day = 1; day <= P.DAYS; day++) {
+    const date = P.dateOf(day, t.year), key = date.getUTCMonth();
+    (months[key] = months[key] || []).push({ day, date, ...P.reading(day) });
+  }
+  document.getElementById('plan').innerHTML = Object.values(months).map((list) => `<section class="month">
+      <h2>${fmt(list[0].date, { month: 'long' })}</h2>
+      <ul class="days">${list.map((x) => `<li class="day${x.day === t.day ? ' is-today' : ''}${done.has(x.day) ? ' is-done' : ''}" id="d${x.day}">
+          <input type="checkbox" data-day="${x.day}" ${done.has(x.day) ? 'checked' : ''} aria-label="Read ${esc(x.label)}">
+          <time>${fmt(x.date, { month: 'short', day: 'numeric' })}</time>
+          <span class="ref">${esc(x.label)}</span>
+          <a class="read" href="${x.url}" target="_blank" rel="noopener">Read</a></li>`).join('')}</ul>
+    </section>`).join('');
+
+  const progress = () => {
+    document.getElementById('progText').textContent = `${done.size} of ${P.DAYS} days read this year`;
+    document.getElementById('progBar').style.width = (done.size / P.DAYS * 100).toFixed(1) + '%';
+  };
+  document.getElementById('plan').addEventListener('change', (e) => {
+    const box = e.target.closest('[data-day]'); if (!box) return;
+    const d = +box.dataset.day;
+    if (box.checked) done.add(d); else done.delete(d);
+    box.closest('.day').classList.toggle('is-done', box.checked);
+    save(); progress();
+  });
+  progress();
+})();
+</script>
+</body>
+</html>
