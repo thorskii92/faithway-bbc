@@ -74,5 +74,18 @@
   "photos": "img/events/evangelistic-musical-2026",
   "count": 1,
   "invitation": "img/events/evangelistic-musical-2026/invitation.jpg"
+ },
+ {
+  "id": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
+  "title": "Eyes on the Prize - An Evangelistic Musical | November 2025",
+  "cat": "cantata",
+  "date": "2025-11-08",
+  "place": "Faithway Bible Baptist Church, Puerto Princesa City",
+  "sum": "Faithway Bible Baptist Church Invites you to An Evangelistic Musical: Eyes on the Prize",
+  "time": "5:30 PM",
+  "font": "script",
+  "photos": "img/events/eyes-on-the-prize-an-evangelistic-musical-november-2025",
+  "count": 1,
+  "invitation": "img/events/eyes-on-the-prize-an-evangelistic-musical-november-2025/invitation.jpg"
  }
 ]
