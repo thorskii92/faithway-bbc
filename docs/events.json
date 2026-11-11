@@ -8,7 +8,8 @@
   "sum": "The church family gathered to celebrate Pastor Sonny and Ma’am Mila’s wedding anniversary. “O give thanks unto the LORD; for he is good: because his mercy endureth for ever.” (Psalm 118:1)",
   "dateLabel": "June 2025",
   "photos": "img/events/2025-06-pastor-sonny-and-maam-milas-wedding-anniversary",
-  "count": 4
+  "count": 4,
+  "gcal": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Pastor+Sonny+and+Ma%E2%80%99am+Mila%E2%80%99s+Wedding+Anniversary&dates=20250601%2F20250602&location=Faithway+Bible+Baptist+Church%2C+Puerto+Princesa+City&details=The+church+family+gathered+to+celebrate+Pastor+Sonny+and+Ma%E2%80%99am+Mila%E2%80%99s+wedding+anniversary.+%E2%80%9CO+give+thanks+unto+the+LORD%3B+for+he+is+good%3A+because+his+mercy+endureth+for+ever.%E2%80%9D+%28Psalm+118%3A1%29%0A%0Ahttps%3A%2F%2Fthorskii92.github.io%2Ffaithway-bbc%2Fe%2F2025-06-pastor-sonny-and-maam-milas-wedding-anniversary.html"
  },
  {
   "id": "2025-09-1st-anniversary-of-the-new-building",
@@ -19,7 +20,8 @@
   "sum": "Celebrating one year of worship in our new church building, with thanksgiving to God for His faithfulness.",
   "dateLabel": "September 2025",
   "photos": "img/events/2025-09-1st-anniversary-of-the-new-building",
-  "count": 4
+  "count": 4,
+  "gcal": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=1st+Anniversary+of+the+New+Building&dates=20250901%2F20250902&location=Faithway+Bible+Baptist+Church%2C+Puerto+Princesa+City&details=Celebrating+one+year+of+worship+in+our+new+church+building%2C+with+thanksgiving+to+God+for+His+faithfulness.%0A%0Ahttps%3A%2F%2Fthorskii92.github.io%2Ffaithway-bbc%2Fe%2F2025-09-1st-anniversary-of-the-new-building.html"
  },
  {
   "id": "2025-11-12th-church-anniversary",
@@ -30,7 +32,8 @@
   "sum": "Twelve years of God’s faithfulness since 2013, celebrated together with the theme “Eyes on the Prize.”",
   "dateLabel": "November 2025",
   "photos": "img/events/2025-11-12th-church-anniversary",
-  "count": 3
+  "count": 3,
+  "gcal": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=12th+Church+Anniversary&dates=20251101%2F20251102&location=Faithway+Bible+Baptist+Church%2C+Puerto+Princesa+City&details=Twelve+years+of+God%E2%80%99s+faithfulness+since+2013%2C+celebrated+together+with+the+theme+%E2%80%9CEyes+on+the+Prize.%E2%80%9D%0A%0Ahttps%3A%2F%2Fthorskii92.github.io%2Ffaithway-bbc%2Fe%2F2025-11-12th-church-anniversary.html"
  },
  {
   "id": "2026-06-ceiling-project",
@@ -40,7 +43,8 @@
   "place": "Faithway Bible Baptist Church, Puerto Princesa City",
   "sum": "The new ceiling of our sanctuary is finished. We praise the Lord for His provision and thank everyone who helped make it possible.",
   "photos": "img/events/2026-06-ceiling-project",
-  "count": 7
+  "count": 7,
+  "gcal": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Finished+Ceiling+Project&dates=20260607%2F20260608&location=Faithway+Bible+Baptist+Church%2C+Puerto+Princesa+City&details=The+new+ceiling+of+our+sanctuary+is+finished.+We+praise+the+Lord+for+His+provision+and+thank+everyone+who+helped+make+it+possible.%0A%0Ahttps%3A%2F%2Fthorskii92.github.io%2Ffaithway-bbc%2Fe%2F2026-06-ceiling-project.html"
  },
  {
   "id": "2026-11-13th-church-anniversary",
@@ -49,7 +53,8 @@
   "date": "2026-11-15",
   "place": "FBBC Main Sanctuary",
   "sum": "Thirteen years of God’s faithfulness since 2013. Thanksgiving service and fellowship lunch.",
-  "time": "9:00 AM"
+  "time": "9:00 AM",
+  "gcal": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=13th+Church+Anniversary&dates=20261115T010000Z%2F20261115T030000Z&location=FBBC+Main+Sanctuary&details=Thirteen+years+of+God%E2%80%99s+faithfulness+since+2013.+Thanksgiving+service+and+fellowship+lunch.%0A%0Ahttps%3A%2F%2Fthorskii92.github.io%2Ffaithway-bbc%2Fe%2F2026-11-13th-church-anniversary.html&ctz=Asia%2FManila"
  },
  {
   "id": "easter-cantata-2026",
@@ -61,7 +66,8 @@
   "details": "A Resurrection Sunday Cantata. Join us as we celebrate the risen Christ through music",
   "photos": "img/events/easter-cantata-2026",
   "count": 1,
-  "invitation": "img/events/easter-cantata-2026/invitation.jpg"
+  "invitation": "img/events/easter-cantata-2026/invitation.jpg",
+  "gcal": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=He%27s+Alive%21+A+Resurrection+Sunday+Cantata&dates=20260405%2F20260406&location=Faithway+Bible+Baptist+Church%2C+Puerto+Princesa+City&details=We+Shall+Behold+Him%0A%0Ahttps%3A%2F%2Fthorskii92.github.io%2Ffaithway-bbc%2Fe%2Feaster-cantata-2026.html"
  },
  {
   "id": "evangelistic-musical-2026",
@@ -73,7 +79,8 @@
   "time": "5:30 PM",
   "photos": "img/events/evangelistic-musical-2026",
   "count": 1,
-  "invitation": "img/events/evangelistic-musical-2026/invitation.jpg"
+  "invitation": "img/events/evangelistic-musical-2026/invitation.jpg",
+  "gcal": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Evangelistic+Musical+2026&dates=20261114T093000Z%2F20261114T113000Z&location=Faithway+Bible+Baptist+Church%2C+Puerto+Princesa+City&details=Palawan+Faithway+Bible+Baptist+Church+invites+you+to+%E2%80%9CBy+Faith%2C%E2%80%9D+an+evangelistic+musical%2C+on+November+14%2C+2026%2C+at+5%3A30+PM+in+Prk.+Matapat%2C+Brgy.+San+Jose%2C+Puerto+Princesa.+Everyone+is+welcome%21%0A%0Ahttps%3A%2F%2Fthorskii92.github.io%2Ffaithway-bbc%2Fe%2Fevangelistic-musical-2026.html&ctz=Asia%2FManila"
  },
  {
   "id": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
@@ -86,6 +93,7 @@
   "font": "script",
   "photos": "img/events/eyes-on-the-prize-an-evangelistic-musical-november-2025",
   "count": 1,
-  "invitation": "img/events/eyes-on-the-prize-an-evangelistic-musical-november-2025/invitation.jpg"
+  "invitation": "img/events/eyes-on-the-prize-an-evangelistic-musical-november-2025/invitation.jpg",
+  "gcal": "https://calendar.google.com/calendar/render?action=TEMPLATE&text=Eyes+on+the+Prize+-+An+Evangelistic+Musical+%7C+November+2025&dates=20251108T093000Z%2F20251108T113000Z&location=Faithway+Bible+Baptist+Church%2C+Puerto+Princesa+City&details=Faithway+Bible+Baptist+Church+Invites+you+to+An+Evangelistic+Musical%3A+Eyes+on+the+Prize%0A%0Ahttps%3A%2F%2Fthorskii92.github.io%2Ffaithway-bbc%2Fe%2Feyes-on-the-prize-an-evangelistic-musical-november-2025.html&ctz=Asia%2FManila"
  }
 ]

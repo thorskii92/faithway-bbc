@@ -7,6 +7,7 @@
 // Usage: node scripts/build-docs.mjs [prototypeDir] [docsDir]
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync, rmSync, existsSync, cpSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { ogTags, DESCRIPTION } from './site.mjs';
 
 const [src = 'prototype', dst = 'docs'] = process.argv.slice(2);
 
@@ -20,7 +21,8 @@ const head = `<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Palawan Faithway Bible Baptist Church, Inc. Purok Matapat, San Jose, Puerto Princesa City. Passion for God. Compassion to People.">
+<meta name="description" content="${DESCRIPTION}">
+${ogTags({ title: 'Faithway Bible Baptist Church · Puerto Princesa City' })}
 <link rel="icon" href="logo.jpg">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 `;
@@ -30,7 +32,13 @@ writeFileSync(join(dst, 'index.html'), `${head}${body.slice(0, cut)}\n</head>\n<
 
 for (const f of ['map.js', 'missionaries.js', 'thumbs.jpg', 'logo.jpg']) copyFileSync(join(src, f), join(dst, f));
 // extra standalone pages (complete HTML documents), e.g. kings-and-prophets.html
-for (const f of readdirSync(src).filter((n) => n.endsWith('.html') && n !== 'index.html')) copyFileSync(join(src, f), join(dst, f));
+// each gets the share-preview tags (title from its <title>) unless it already has them
+for (const f of readdirSync(src).filter((n) => n.endsWith('.html') && n !== 'index.html')) {
+  let page = readFileSync(join(src, f), 'utf8');
+  const title = (/<title>([^<]*)<\/title>/.exec(page) || [])[1] || 'Faithway Bible Baptist Church';
+  if (!page.includes('og:title')) page = page.replace('</title>', `</title>\n${ogTags({ title, url: f })}`);
+  writeFileSync(join(dst, f), page);
+}
 
 rmSync(join(dst, 'img'), { recursive: true, force: true });
 cpSync(join(src, 'img'), join(dst, 'img'), { recursive: true });   // church photos + img/events/<slug>/
@@ -42,6 +50,9 @@ for (const card of visible) {
   const p = join(src, 'photos', `${card}.jpg`);
   if (existsSync(p)) copyFileSync(p, join(dst, 'photos', `${card}.jpg`));
 }
-if (!existsSync(join(dst, 'robots.txt'))) writeFileSync(join(dst, 'robots.txt'), 'User-agent: *\nDisallow: /\n');
+// hidden from search engines while under review, but link-preview bots (Facebook, Messenger, Viber...) may read pages.
+// When the church goes public, replace this with an empty robots.txt (see README).
+writeFileSync(join(dst, 'robots.txt'), ['facebookexternalhit', 'Facebot', 'Twitterbot', 'WhatsApp', 'TelegramBot', 'Viber', 'Discordbot']
+  .map((b) => `User-agent: ${b}`).join('\n') + '\nAllow: /\n\nUser-agent: *\nDisallow: /\n');
 if (!existsSync(join(dst, '.nojekyll'))) writeFileSync(join(dst, '.nojekyll'), '');
 console.log(`built ${dst}/ from ${src}/ (${visible.length} missionary photos)`);

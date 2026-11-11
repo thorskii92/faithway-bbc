@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="description" content="Palawan Faithway Bible Baptist Church, Inc. Purok Matapat, San Jose, Puerto Princesa City. Passion for God. Compassion to People.">
+<meta property="og:site_name" content="Faithway Bible Baptist Church">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Faithway Bible Baptist Church · Puerto Princesa City">
+<meta property="og:description" content="Palawan Faithway Bible Baptist Church, Inc. Purok Matapat, San Jose, Puerto Princesa City. Passion for God. Compassion to People.">
+<meta property="og:url" content="https://thorskii92.github.io/faithway-bbc/">
+<meta property="og:image" content="https://thorskii92.github.io/faithway-bbc/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="logo.jpg">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Faithway Bible Baptist Church</title>
@@ -439,7 +446,7 @@ a { color: var(--deep); }
 .letter-btn small { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; }
 .letter-btn .kind { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; font-weight: 600; color: var(--deep); background: var(--cream); padding: 4px 8px; border-radius: 999px; white-space: nowrap; }
 .reader { margin-top: 28px; background: var(--cream); border-radius: 4px; padding: clamp(24px, 5vw, 56px); box-shadow: 0 30px 60px -40px rgba(5,68,95,.45); }
-.reader__head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid rgba(5,68,95,.25); padding-bottom: 14px; }
+.reader__head { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; border-bottom: 1px solid rgba(5,68,95,.25); padding-bottom: 14px; }
 .reader h3 { font-size: 2rem; }
 .reader__body { font-family: var(--f-display); font-size: 1.25rem; line-height: 1.65; display: grid; gap: 14px; margin-top: 20px; max-width: 62ch; color: #2A3A48; }
 .reader__nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 28px; }
@@ -454,13 +461,41 @@ a { color: var(--deep); }
     @keyframes rise { from { opacity: .2; transform: translateY(28px); } }
   }
 }
+/* announcements ("This week at Faithway") */
+.notices { padding-block: clamp(40px, 6vw, 64px) 0; }
+.notices__box { background: var(--cream); border-radius: var(--radius); padding: clamp(22px, 4vw, 36px) clamp(20px, 4vw, 44px); display: grid; gap: 14px; border: 1px solid #F0DFAE; }
+.notices__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.notice { display: grid; gap: 4px; padding-block: 14px; border-top: 1px solid rgba(5,68,95,.16); }
+.notice:first-child { border-top: 0; padding-top: 4px; }
+.notice h3 { font-size: 1.45rem; color: var(--deep-2); }
+.notice p { color: #3A4A58; max-width: 70ch; }
+.notice a { font-weight: 600; color: var(--deep); justify-self: start; }
+/* share + add to calendar (event pages) */
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; align-items: flex-start; }
+.act { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 999px; border: 1.5px solid var(--deep); color: var(--deep); font: 600 .85rem/1 var(--f-body); background: var(--white); }
+.act:hover, .act:focus-visible { background: var(--ocean); }
+.act svg { width: 16px; height: 16px; }
+.calmenu { position: relative; }
+.calmenu summary { list-style: none; }
+.calmenu summary::-webkit-details-marker { display: none; }
+.calmenu__pop { position: absolute; z-index: 5; top: calc(100% + 6px); left: 0; min-width: 260px; background: var(--white); border: 1px solid var(--line); border-radius: 12px; box-shadow: 0 18px 40px -20px rgba(5,68,95,.45); display: grid; padding: 6px; }
+.calmenu__pop a { padding: 10px 12px; border-radius: 8px; color: var(--deep-2); text-decoration: none; font-size: .9rem; }
+.calmenu__pop a:hover { background: var(--ocean); }
+.calmenu__pop small { display: block; color: var(--muted); font-size: .75rem; }
+/* real prayer letters */
+.reader__pages { display: grid; gap: 14px; margin-top: 20px; }
+.reader__pages button { all: unset; cursor: zoom-in; display: block; border-radius: 4px; overflow: hidden; box-shadow: 0 10px 30px -18px rgba(5,68,95,.5); }
+.reader__pages img { display: block; width: 100%; height: auto; background: var(--white); }
+.reader__pdf { width: 100%; height: 80vh; border: 1px solid rgba(5,68,95,.2); border-radius: 4px; background: var(--white); margin-top: 18px; }
+@media (max-width: 700px) { .reader__pdf { display: none; } }
+.letters__none { color: var(--muted); margin-top: 12px; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } html { scroll-behavior: auto; } }
 </style>
 </head>
 <body>
 
 
-<div class="ribbon">Design preview · sections marked “Draft” await the pastor’s review, and the prayer letters are <b>samples</b></div>
+<div class="ribbon">Design preview · sections marked “Draft” await the pastor’s review</div>
 
 <header class="header">
   <div class="wrap header__in">
@@ -508,6 +543,15 @@ a { color: var(--deep); }
       <div class="svc"><div class="svc__day">Saturday</div><div class="svc__name">Prayer Meeting</div><div class="svc__time">7:00 AM</div></div>
     </div>
   </div>
+
+  <section class="notices" id="notices" hidden aria-labelledby="noticesLabel">
+    <div class="wrap">
+      <div class="notices__box">
+        <span class="eyebrow" id="noticesLabel">This week at Faithway</span>
+        <ul class="notices__list" id="noticeList"></ul>
+      </div>
+    </div>
+  </section>
 
   <section class="section mverse" id="memory-verse" hidden aria-labelledby="mvRef">
     <div class="wrap mverse__in">
@@ -741,7 +785,7 @@ a { color: var(--deep); }
         <div class="visit__map">
           <iframe title="Map: Faithway Bible Baptist Church, Purok Matapat, San Jose, Puerto Princesa City" src="https://www.google.com/maps?q=9.7883332,118.7585032&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <div class="visit__item"><span class="eyebrow">Connect</span><h3>Phone &amp; email</h3><p>Church phone number and email to be supplied.</p></div>
+        <div class="visit__item"><span class="eyebrow">Connect</span><h3>Phone &amp; email</h3><div id="contactInfo"><p>Church phone number and email to be supplied.</p></div></div>
       </div>
     </div>
   </section>
@@ -1127,6 +1171,7 @@ a { color: var(--deep); }
         <div>
           <span class="eyebrow">${LABEL[e.cat]}${isUp(e) ? ' · Upcoming' : ''}${e.sample ? ' · Sample' : ''}</span>
           <h1 id="sheetTitle" class="${fontCls(e.font)}" style="margin-top:10px">${esc(e.title)}</h1>
+          ${eventActions(e)}
           <div class="prose"><p>${esc(e.sum)}</p>
             ${e.details ? e.details.split(/\n\s*\n/).map((p) => '<p>' + esc(p.trim()) + '</p>').join('') : ''}
             ${e.sample && !e.details ? '<p>Sample details: this is where the full write-up goes, with the program, who is speaking or singing, what to bring, and a short report with photos after the event.</p>' : ''}</div>
@@ -1145,11 +1190,40 @@ a { color: var(--deep); }
       </div></article>`;
   }
 
-  const letterKinds = ['Typed letter', 'Scanned letter', 'PDF'];
-  function lettersFor(m) {
-    const months = ['2026-10-05', '2026-07-12', '2026-04-03', '2026-01-15'];
-    return months.map((d, i) => ({ d, kind: letterKinds[(m.id + i) % 3], title: i === 0 ? 'Praise report and prayer requests' : i === 1 ? 'News from the field' : i === 2 ? 'Quarterly prayer letter' : 'New year update' }));
-  }
+  /* share (phone share sheet, or copy the link) and add to calendar. The share link is a small page per event
+     (e/<id>.html, made by build-events) so Facebook and Messenger show the event's poster in the preview. */
+  const SHARE_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>';
+  const CAL_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>';
+  const eventActions = (e) => `<div class="actions">
+      <button class="act" type="button" data-share="${esc(e.id)}">${SHARE_ICON}<span>Share</span></button>
+      ${isUp(e) && e.gcal ? `<details class="calmenu"><summary class="act">${CAL_ICON}<span>Add to calendar</span></summary><div class="calmenu__pop">
+        <a href="${esc(e.gcal)}" target="_blank" rel="noopener">Google Calendar<small>Android phones and Gmail</small></a>
+        <a href="e/${esc(e.id)}.ics" download="${esc(e.id)}.ics">iPhone, Outlook and others<small>Downloads a calendar file</small></a>
+      </div></details>` : ''}
+    </div>`;
+  document.addEventListener('click', async (ev) => {
+    const b = ev.target.closest('[data-share]'); if (!b) return;
+    const e = EVENTS.find((x) => x.id === b.dataset.share); if (!e) return;
+    const url = new URL(`e/${e.id}.html`, location.href).href;
+    const label = b.querySelector('span');
+    try {
+      if (navigator.share) { await navigator.share({ title: e.title, text: `${e.title} · ${dateText(e, true)}`, url }); return; }
+      await navigator.clipboard.writeText(url);
+      label.textContent = 'Link copied';
+    } catch (err) {
+      if (err && err.name === 'AbortError') return;   // closed the share sheet
+      prompt('Copy this link:', url);
+    }
+    setTimeout(() => { label.textContent = 'Share'; }, 2500);
+  });
+  document.addEventListener('click', (ev) => {   // close the calendar menu when tapping elsewhere
+    document.querySelectorAll('.calmenu[open]').forEach((d) => { if (!d.contains(ev.target)) d.open = false; });
+  });
+
+  /* prayer letters: letters.json is built from content/letters/*.yml (the /admin editor), newest first */
+  let LETTERS = [];
+  const letterKind = (l) => (l.pdf ? 'PDF' : l.pages ? 'Scanned letter' : 'Letter');
+  const lettersFor = (m) => LETTERS.filter((l) => l.card === m.card);
   /* Faithway missionary card: our own design, rebuilt from the card data + a cut-out photo */
   function mcard(m) {
     const c = WORLD.countries[m.ci];
@@ -1203,12 +1277,10 @@ a { color: var(--deep); }
     const [x, y] = m.pt, vw = 240, vh = 140;
     const mini = `<svg viewBox="${(x - vw / 2).toFixed(1)} ${(y - vh / 2).toFixed(1)} ${vw} ${vh}" role="img" aria-label="Map of ${esc(m.place)}"><rect x="-500" y="-500" width="2000" height="1600" fill="#EEF7FD"/><use href="#landG"/><circle cx="${x}" cy="${y}" r="9" fill="none" stroke="#086288" stroke-width="1.2" opacity=".5"/><circle cx="${x}" cy="${y}" r="3.4" fill="#086288" stroke="#fff" stroke-width="1.2"/></svg>`;
     const reader = cur ? `<article class="reader" id="reader" aria-live="polite">
-      <div class="reader__head"><div><span class="eyebrow">${fmt(cur.d)} · sample</span><h3>${esc(cur.title)}</h3></div><span class="tag">${cur.kind}</span></div>
-      <div class="reader__body">
-        <p>Dear Pastor and Faithway church family,</p>
-        <p>This is a sample prayer letter. When real letters from ${esc(m.family)} family arrive they will appear here: typed letters as easy-to-read text, scanned letters as images you can zoom, and PDFs shown on the page with a download link.</p>
-        <p style="font-style:italic">In His service,<br>${esc(m.name)}</p>
-      </div>
+      <div class="reader__head"><div><span class="eyebrow">${fmt(cur.date)}</span><h3>${esc(cur.title)}</h3></div><span class="tag">${letterKind(cur)}</span></div>
+      ${cur.body ? `<div class="reader__body">${cur.body.split(/\n\s*\n/).map((p) => '<p>' + esc(p.trim()).replace(/\n/g, '<br>') + '</p>').join('')}</div>` : ''}
+      ${cur.pages ? `<div class="reader__pages">${cur.pages.map((src, i) => `<button type="button" data-full="${src}" aria-label="Enlarge page ${i + 1}"><img src="${src}" alt="${esc(cur.title)}, page ${i + 1} of ${cur.pages.length}" loading="lazy"></button>`).join('')}</div>` : ''}
+      ${cur.pdf ? `<iframe class="reader__pdf" src="${cur.pdf}" title="${esc(cur.title)} (PDF)" loading="lazy"></iframe><p style="margin-top:14px"><a class="btn btn--deep" href="${cur.pdf}" target="_blank" rel="noopener">Open the PDF</a></p>` : ''}
       <div class="reader__nav"><button type="button" data-l="${li + 1}" ${li + 1 >= L.length ? 'disabled' : ''}>← Older letter</button><button type="button" data-l="${li - 1}" ${li - 1 < 0 ? 'disabled' : ''}>Newer letter →</button></div>
     </article>` : '';
     const review = m.issue ? `<div class="review" role="note"><b>⚑ Card needs review</b><p>${esc(m.issue)}</p></div>` : '';
@@ -1222,8 +1294,9 @@ a { color: var(--deep); }
       <div class="detail__grid">
         <div>
           ${mcard(m)}
-          <span class="eyebrow" style="display:block;margin-top:36px">Prayer letters · samples until real letters are added</span>
-          <div class="letters">${L.map((l, i) => `<button class="letter-btn" type="button" data-l="${i}" aria-current="${i === li}"><span><b>${esc(l.title)}</b><small>${fmt(l.d)}</small></span><span class="kind">${l.kind}</span></button>`).join('')}</div>
+          <span class="eyebrow" style="display:block;margin-top:36px">Prayer letters${L.length ? ' · ' + L.length : ''}</span>
+          ${L.length ? `<div class="letters">${L.map((l, i) => `<button class="letter-btn" type="button" data-l="${i}" aria-current="${i === li}"><span><b>${esc(l.title)}</b><small>${fmt(l.date)}</small></span><span class="kind">${letterKind(l)}</span></button>`).join('')}</div>`
+            : `<p class="letters__none">No prayer letters yet. When the church receives one from the ${esc(m.short)} family, it will appear here.</p>`}
           ${reader}
         </div>
         <aside style="display:grid;gap:16px;align-content:start">
@@ -1338,10 +1411,40 @@ function route() {
       if (/^#e-/.test(location.hash)) route();
     });
   }
+  const getJSON = (u) => fetch(u, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
+  /* announcements: notices.json (content/notices/*.yml); each shows from its "show from" day through its "show until" day */
+  function loadNotices() {
+    getJSON('notices.json').then((list) => {
+      const pad = (n) => String(n).padStart(2, '0');
+      const t = `${today.getFullYear()}-${pad(today.getMonth() + 1)}-${pad(today.getDate())}`;
+      const now = (Array.isArray(list) ? list : []).filter((n) => n.from <= t && t <= n.until);
+      if (!now.length) return;
+      $('#noticeList').innerHTML = now.map((n) => `<li class="notice"><h3>${esc(n.title)}</h3>${n.text ? `<p>${esc(n.text)}</p>` : ''}${/^https?:\/\//.test(n.link || '') ? `<a href="${esc(n.link)}" target="_blank" rel="noopener">${esc(n.linkLabel || 'Learn more')} →</a>` : ''}</li>`).join('');
+      $('#notices').hidden = false;
+    });
+  }
+  /* phone and email: church.json (content/settings/church.yml, "Church Info" in /admin) */
+  function loadChurch() {
+    getJSON('church.json').then((c) => {
+      if (!c || !(c.phone || c.email)) return;
+      $('#contactInfo').innerHTML = (c.phone ? `<p><a href="tel:${esc(c.phone.replace(/[^\d+]/g, ''))}">${esc(c.phone)}</a></p>` : '')
+        + (c.email ? `<p><a href="mailto:${esc(c.email)}">${esc(c.email)}</a></p>` : '')
+        + (c.note ? `<p>${esc(c.note)}</p>` : '');
+    });
+  }
+  function loadLetters() {
+    getJSON('letters.json').then((list) => {
+      LETTERS = Array.isArray(list) ? list : [];
+      if (/^#m-/.test(location.hash)) route();
+    });
+  }
   route();
   loadEvents();
   loadVerses();
   loadVideos();
+  loadNotices();
+  loadChurch();
+  loadLetters();
 })();
 </script>
 

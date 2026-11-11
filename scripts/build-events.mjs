@@ -1,10 +1,13 @@
 // Builds the site's events from content/events/*.yml (the files the /admin editor saves).
 // Writes <out>/events.json and resized photos to <out>/img/events/<id>/ (01.jpg + 01-sm.jpg ..., invitation.jpg).
+// Also writes, for each event, a share page <out>/e/<id>.html (so Facebook/Messenger previews show the
+// event's poster or cover photo) and a calendar file <out>/e/<id>.ics ("Add to calendar").
 // Usage: node scripts/build-events.mjs [outDir=docs]
 import { readFileSync, writeFileSync, readdirSync, mkdirSync, rmSync, existsSync } from 'node:fs';
 import { join, basename } from 'node:path';
 import YAML from 'yaml';
 import sharp from 'sharp';
+import { SITE, CHURCH, ogTags, escAttr } from './site.mjs';
 
 const out = process.argv[2] || 'docs';
 const SRC = 'content/events';
@@ -63,6 +66,67 @@ for (const file of readdirSync(SRC).filter((f) => /\.ya?ml$/i.test(f)).sort()) {
     } else problems.push(`${file}: invitation not found: ${d.invitation}`);
   }
   events.push(ev);
+}
+
+/* ---------- calendar: times are Philippine time (UTC+8, no daylight saving) ---------- */
+function parseTime(t) {
+  const m = /^\s*(\d{1,2})(?::(\d{2}))?\s*([ap])?/i.exec(String(t || ''));
+  if (!m) return null;
+  let h = +m[1]; const min = +(m[2] || 0), ap = (m[3] || '').toLowerCase();
+  if (ap === 'p' && h < 12) h += 12;
+  if (ap === 'a' && h === 12) h = 0;
+  return h < 24 && min < 60 ? [h, min] : null;
+}
+const stamp = (d) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');   // 20251108T093000Z
+function calTimes(ev) {
+  const t = ev.dateLabel ? null : parseTime(ev.time);
+  if (!t) {   // all-day
+    const next = new Date(ev.date + 'T00:00:00Z'); next.setUTCDate(next.getUTCDate() + 1);
+    return { allDay: true, start: ev.date.replace(/-/g, ''), end: next.toISOString().slice(0, 10).replace(/-/g, '') };
+  }
+  const start = new Date(Date.UTC(+ev.date.slice(0, 4), +ev.date.slice(5, 7) - 1, +ev.date.slice(8, 10), t[0] - 8, t[1]));
+  return { allDay: false, start: stamp(start), end: stamp(new Date(start.getTime() + 2 * 3600e3)) };   // assume 2 hours
+}
+const icsText = (s) => String(s).replace(/\\/g, '\\\\').replace(/([,;])/g, '\\$1').replace(/\r?\n/g, '\\n');
+const fold = (line) => line.match(/.{1,70}/gu).join('\r\n ');
+function ics(ev, url) {
+  const c = calTimes(ev);
+  const when = (k, v) => (c.allDay ? `${k};VALUE=DATE:${v}` : `${k}:${v}`);
+  return ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Faithway Bible Baptist Church//Website//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH',
+    'BEGIN:VEVENT', `UID:${ev.id}@faithway-bbc`, `DTSTAMP:${ev.date.replace(/-/g, '')}T000000Z`, when('DTSTART', c.start), when('DTEND', c.end),
+    `SUMMARY:${icsText(ev.title)}`, `LOCATION:${icsText(ev.place)}`, `DESCRIPTION:${icsText(`${ev.sum}\n\n${url}`)}`, `URL:${url}`,
+    'END:VEVENT', 'END:VCALENDAR'].map(fold).join('\r\n') + '\r\n';
+}
+function googleCal(ev, url) {
+  const c = calTimes(ev);
+  const q = new URLSearchParams({ action: 'TEMPLATE', text: ev.title, dates: `${c.start}/${c.end}`, location: ev.place, details: `${ev.sum}\n\n${url}` });
+  if (!c.allDay) q.set('ctz', 'Asia/Manila');
+  return 'https://calendar.google.com/calendar/render?' + q;
+}
+
+/* ---------- share pages: Facebook reads these tags, then visitors are sent on to the event ---------- */
+const longDate = (ev) => ev.dateLabel || new Intl.DateTimeFormat('en-PH', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(ev.date + 'T00:00:00Z'));
+rmSync(join(out, 'e'), { recursive: true, force: true });
+mkdirSync(join(out, 'e'), { recursive: true });
+for (const ev of events) {
+  const page = `${SITE}e/${ev.id}.html`;
+  const image = ev.invitation || (ev.photos ? `${ev.photos}/01.jpg` : 'img/og.jpg');
+  const desc = [longDate(ev) + (ev.time ? ' · ' + ev.time : ''), ev.place].join(' · ') + (ev.sum ? '. ' + ev.sum : '');
+  writeFileSync(join(out, 'e', `${ev.id}.html`), `<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>${escAttr(ev.title)} · ${CHURCH}</title>
+${ogTags({ title: ev.title, description: desc, image, url: page, type: 'article' })}
+<meta http-equiv="refresh" content="0; url=../#e-${ev.id}">
+<script>location.replace('../#e-${ev.id}')</script>
+</head><body style="font-family:system-ui,sans-serif;padding:24px">
+<p><a href="../#e-${ev.id}">${escAttr(ev.title)}</a> · ${CHURCH}</p>
+</body></html>
+`);
+  writeFileSync(join(out, 'e', `${ev.id}.ics`), ics(ev, page));
+  ev.gcal = googleCal(ev, page);
 }
 
 mkdirSync(out, { recursive: true });

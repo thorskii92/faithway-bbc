@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Faithway Bible Baptist Church//Website//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2025-06-pastor-sonny-and-maam-milas-wedding-anniversary@faithway-b
+ bc
+DTSTAMP:20250601T000000Z
+DTSTART;VALUE=DATE:20250601
+DTEND;VALUE=DATE:20250602
+SUMMARY:Pastor Sonny and Ma’am Mila’s Wedding Anniversary
+LOCATION:Faithway Bible Baptist Church\, Puerto Princesa City
+DESCRIPTION:The church family gathered to celebrate Pastor Sonny and M
+ a’am Mila’s wedding anniversary. “O give thanks unto the LORD\; for he
+  is good: because his mercy endureth for ever.” (Psalm 118:1)\n\nhttps
+ ://thorskii92.github.io/faithway-bbc/e/2025-06-pastor-sonny-and-maam-m
+ ilas-wedding-anniversary.html
+URL:https://thorskii92.github.io/faithway-bbc/e/2025-06-pastor-sonny-a
+ nd-maam-milas-wedding-anniversary.html
+END:VEVENT
+END:VCALENDAR

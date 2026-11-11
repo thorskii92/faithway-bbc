@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Faithway Bible Baptist Church//Website//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-06-ceiling-project@faithway-bbc
+DTSTAMP:20260607T000000Z
+DTSTART;VALUE=DATE:20260607
+DTEND;VALUE=DATE:20260608
+SUMMARY:Finished Ceiling Project
+LOCATION:Faithway Bible Baptist Church\, Puerto Princesa City
+DESCRIPTION:The new ceiling of our sanctuary is finished. We praise th
+ e Lord for His provision and thank everyone who helped make it possibl
+ e.\n\nhttps://thorskii92.github.io/faithway-bbc/e/2026-06-ceiling-proj
+ ect.html
+URL:https://thorskii92.github.io/faithway-bbc/e/2026-06-ceiling-projec
+ t.html
+END:VEVENT
+END:VCALENDAR

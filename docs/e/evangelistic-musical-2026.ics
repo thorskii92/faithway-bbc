@@ -1,0 +1,21 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Faithway Bible Baptist Church//Website//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:evangelistic-musical-2026@faithway-bbc
+DTSTAMP:20261114T000000Z
+DTSTART:20261114T093000Z
+DTEND:20261114T113000Z
+SUMMARY:Evangelistic Musical 2026
+LOCATION:Faithway Bible Baptist Church\, Puerto Princesa City
+DESCRIPTION:Palawan Faithway Bible Baptist Church invites you to “By F
+ aith\,” an evangelistic musical\, on November 14\, 2026\, at 5:30 PM i
+ n Prk. Matapat\, Brgy. San Jose\, Puerto Princesa. Everyone is welcome
+ !\n\nhttps://thorskii92.github.io/faithway-bbc/e/evangelistic-musical-
+ 2026.html
+URL:https://thorskii92.github.io/faithway-bbc/e/evangelistic-musical-2
+ 026.html
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Faithway Bible Baptist Church//Website//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2025-11-12th-church-anniversary@faithway-bbc
+DTSTAMP:20251101T000000Z
+DTSTART;VALUE=DATE:20251101
+DTEND;VALUE=DATE:20251102
+SUMMARY:12th Church Anniversary
+LOCATION:Faithway Bible Baptist Church\, Puerto Princesa City
+DESCRIPTION:Twelve years of God’s faithfulness since 2013\, celebrated
+  together with the theme “Eyes on the Prize.”\n\nhttps://thorskii92.gi
+ thub.io/faithway-bbc/e/2025-11-12th-church-anniversary.html
+URL:https://thorskii92.github.io/faithway-bbc/e/2025-11-12th-church-an
+ niversary.html
+END:VEVENT
+END:VCALENDAR

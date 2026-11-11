@@ -1,2 +1,11 @@
+User-agent: facebookexternalhit
+User-agent: Facebot
+User-agent: Twitterbot
+User-agent: WhatsApp
+User-agent: TelegramBot
+User-agent: Viber
+User-agent: Discordbot
+Allow: /
+
 User-agent: *
 Disallow: /

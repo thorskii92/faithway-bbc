@@ -132,3 +132,218 @@ collections:
       - { name: description, label: 'Description (optional)', widget: text, required: false }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
       - { name: added, label: 'Added on', widget: hidden, required: false }   # set automatically (publish-site fills it from GitHub history)
+
+  - name: notices
+    label: Announcements
+    label_singular: Announcement
+    description: >-
+      Short notices for the "This week at Faithway" box on the home page, e.g. a schedule change,
+      a fellowship lunch or a prayer request. Each one shows only between its "Show from" and "Show until" dates.
+    folder: content/notices
+    format: yml
+    extension: yml
+    create: true
+    delete: true
+    slug: '{{slug}}'
+    identifier_field: title
+    summary: 'Added {{added}}  ·  {{show_from}} → {{show_until}} · {{title}}'
+    sortable_fields:
+      fields: [added, show_from, title]
+      default: { field: show_from, direction: descending }
+    fields:
+      - { name: title, label: Title, widget: string, hint: 'e.g. "No afternoon service this Sunday" or "Fellowship lunch after worship"' }
+      - { name: text, label: 'Details (optional)', widget: text, required: false, hint: 'One or two sentences.' }
+      - { name: show_from, label: 'Show from', widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, picker_utc: true }
+      - { name: show_until, label: 'Show until', widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, picker_utc: true, hint: 'The last day it should appear, e.g. the day of the event.' }
+      - { name: link, label: 'Link (optional)', widget: string, required: false, hint: 'A web address to open, e.g. a Google Form or a video.' }
+      - { name: link_label, label: 'Link text (optional)', widget: string, required: false, hint: 'e.g. "Sign up" (default: "Learn more")' }
+      - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
+      - { name: added, label: 'Added on', widget: hidden, required: false }   # set automatically from GitHub history
+
+  - name: letters
+    label: Prayer Letters
+    label_singular: Prayer Letter
+    description: >-
+      Letters from our missionaries, shown on their page on the missions board. Type the letter, upload photos of
+      the printed pages, or attach the PDF. Letters are public: leave out anything sensitive (security details, home addresses).
+    folder: content/letters
+    format: yml
+    extension: yml
+    create: true
+    delete: true
+    slug: '{{missionary}}-{{date}}-{{slug}}'
+    identifier_field: title
+    summary: 'Added {{added}}  ·  {{date}} · No. {{missionary}} · {{title}}'
+    sortable_fields:
+      fields: [added, date, missionary, title]
+      default: { field: date, direction: descending }
+    fields:
+      - name: missionary
+        label: Missionary
+        widget: select
+        hint: 'Listed by country. Missionaries hidden for their safety are not listed.'
+        options:
+          # BEGIN missionary options (written by scripts/letter-options.mjs, run: npm run data)
+          - { label: 'Algeria · Francis Arcenal (No. 13)', value: 13 }
+          - { label: 'Argentina · Raymundo Zacal Jr. (No. 12)', value: 12 }
+          - { label: 'Armenia · Rachel Anne Clavio (No. 11)', value: 11 }
+          - { label: 'Armenia · Christopher Fabroa (No. 10)', value: 10 }
+          - { label: 'Armenia · Eduardo Pamintuan (No. 9)', value: 9 }
+          - { label: 'Armenia · Limuel Ponce (No. 8)', value: 8 }
+          - { label: 'Australia · The Dinauto (No. 151)', value: 151 }
+          - { label: 'Bangladesh · Joseph Biswas (No. 6)', value: 6 }
+          - { label: 'Bangladesh · Joel Macasling (No. 3)', value: 3 }
+          - { label: 'Bangladesh · Juanito Manuel Jr. (No. 4)', value: 4 }
+          - { label: 'Bangladesh · German Ponce (No. 7)', value: 7 }
+          - { label: 'Bangladesh · Sudipto Sangma (No. 5)', value: 5 }
+          - { label: 'Bolivia · Peter De Jesus (No. 146)', value: 146 }
+          - { label: 'Botswana · Lloyd Dellosa (No. 2)', value: 2 }
+          - { label: 'Brunei · Rex Colinares (No. 88)', value: 88 }
+          - { label: 'Brunei · Marvin Lebria (No. 89)', value: 89 }
+          - { label: 'Brunei · Raul Ruiz (No. 90)', value: 90 }
+          - { label: 'Cambodia · Chanroeurn Bean (No. 65)', value: 65 }
+          - { label: 'Cambodia · Junifer Cabanillas (No. 62)', value: 62 }
+          - { label: 'Cambodia · Lomer Hope Dela Cruz (No. 67)', value: 67 }
+          - { label: 'Cambodia · Joselito Jurolan (No. 63)', value: 63 }
+          - { label: 'Cambodia · Ratha Nonn (No. 64)', value: 64 }
+          - { label: 'Cambodia · Marlon Paguntalan (No. 66)', value: 66 }
+          - { label: 'Cambodia · Raul Tabanao (No. 61)', value: 61 }
+          - { label: 'Canada · Ron Daniel Camua (No. 71)', value: 71 }
+          - { label: 'Canada · Romeo Cerico (No. 72)', value: 72 }
+          - { label: 'Canada · Ricky Orias (No. 73)', value: 73 }
+          - { label: 'Canada · Julius Benjamin Penas (No. 74)', value: 74 }
+          - { label: 'Chile · Vince Louie Callos (No. 122)', value: 122 }
+          - { label: 'Colombia · Rodcelle Unay (No. 121)', value: 121 }
+          - { label: 'Costa Rica · Dean Aljim Medrano (No. 109)', value: 109 }
+          - { label: 'DR Congo · Felicidad Felicilda (No. 93)', value: 93 }
+          - { label: 'DR Congo · Jean Luc Kasonggo (No. 96)', value: 96 }
+          - { label: 'DR Congo · Deal Umba Lenge (No. 94)', value: 94 }
+          - { label: 'DR Congo · Lubangi Junior Mpiana (No. 95)', value: 95 }
+          - { label: 'DR Congo · Jude Pokopia (No. 97)', value: 97 }
+          - { label: 'East Timor · Nelson Fernandez (No. 98)', value: 98 }
+          - { label: 'East Timor · Ferdie Flores (No. 99)', value: 99 }
+          - { label: 'East Timor · Lili Marie Mendoza (No. 100)', value: 100 }
+          - { label: 'El Salvador · Aivan Suficiencia (No. 134)', value: 134 }
+          - { label: 'Ethiopia · Elias Bancale (No. 113)', value: 113 }
+          - { label: 'Ethiopia · Apollos Cutamora (No. 115)', value: 115 }
+          - { label: 'Ethiopia · Mathewos Kenea (No. 114)', value: 114 }
+          - { label: 'Fiji · Ian Jaycarlo Sapida (No. 132)', value: 132 }
+          - { label: 'France · Ronel Corsiga (No. 1)', value: 1 }
+          - { label: 'Ghana · Felix Armah (No. 116)', value: 116 }
+          - { label: 'Ghana · Jeremiah Honk (No. 117)', value: 117 }
+          - { label: 'Guatemala · Aaron Fortin (No. 101)', value: 101 }
+          - { label: 'Haiti · Leny Funtecha (No. 136)', value: 136 }
+          - { label: 'Indonesia · Joseph Apellanes (No. 39)', value: 39 }
+          - { label: 'Indonesia · Harry Araña (No. 40)', value: 40 }
+          - { label: 'Indonesia · Peter Ayon (No. 43)', value: 43 }
+          - { label: 'Indonesia · Leonides Balonzo (No. 42)', value: 42 }
+          - { label: 'Indonesia · Sony Cahuan (No. 41)', value: 41 }
+          - { label: 'Indonesia · Roy Lesigues (No. 44)', value: 44 }
+          - { label: 'Indonesia · Leonardo Rafales (No. 45)', value: 45 }
+          - { label: 'Israel · Joseph Marfel Soriano (No. 133)', value: 133 }
+          - { label: 'Italy · Reynaldo Monderin (No. 110)', value: 110 }
+          - { label: 'Italy · Omar Monte (No. 111)', value: 111 }
+          - { label: 'Japan · Jess Japeth Baran (No. 75)', value: 75 }
+          - { label: 'Japan · Nadame John Cartoneros (No. 76)', value: 76 }
+          - { label: 'Japan · Mark Emmanuel Evasco (No. 80)', value: 80 }
+          - { label: 'Japan · Erwin Minque (No. 77)', value: 77 }
+          - { label: 'Japan · Flordiliza Solomon (No. 79)', value: 79 }
+          - { label: 'Japan · Ferdinand Taguiang (No. 78)', value: 78 }
+          - { label: 'Kazakhstan · Roberto Cruz (No. 118)', value: 118 }
+          - { label: 'Kazakhstan · The Garcia (No. 149)', value: 149 }
+          - { label: 'Kazakhstan · Rhandy Pasion (No. 119)', value: 119 }
+          - { label: 'Kenya · James Thuku Njung''e (No. 130)', value: 130 }
+          - { label: 'Liberia · Joel Marie Niepes (No. 129)', value: 129 }
+          - { label: 'Madagascar · Venancio Mampay Jr. (No. 126)', value: 126 }
+          - { label: 'Malawi · Robin Cabasan (No. 68)', value: 68 }
+          - { label: 'Mexico · Mae Lastra (No. 105)', value: 105 }
+          - { label: 'Mexico · Ramon Rufo Lukban (No. 106)', value: 106 }
+          - { label: 'Mongolia · Michael Dan Lingcoran (No. 125)', value: 125 }
+          - { label: 'Mozambique · Moises Escaro (No. 120)', value: 120 }
+          - { label: 'Nepal · Stephen Jay Araña (No. 58)', value: 58 }
+          - { label: 'Nepal · Roy Arteta (No. 55)', value: 55 }
+          - { label: 'Nepal · Lindsey Caoili (No. 56)', value: 56 }
+          - { label: 'Nepal · Rolando Manrique (No. 57)', value: 57 }
+          - { label: 'Nepal · Hilton Soloriano (No. 59)', value: 59 }
+          - { label: 'Norway · Braham Arizabal (No. 46)', value: 46 }
+          - { label: 'Pakistan · Anise Irfan (No. 123)', value: 123 }
+          - { label: 'Pakistan · Elisio Pistin Jr. (No. 124)', value: 124 }
+          - { label: 'Papua New Guinea · Bobby Kipoi (No. 102)', value: 102 }
+          - { label: 'Papua New Guinea · Zandro Montealto (No. 103)', value: 103 }
+          - { label: 'Papua New Guinea · Elijah Rapada (No. 104)', value: 104 }
+          - { label: 'Philippines · Mark Harold Abegonia (No. 143)', value: 143 }
+          - { label: 'Philippines · Ptr. Noel N. Calvadores (No. 142)', value: 142 }
+          - { label: 'Philippines · Joshua Dayto (No. 139)', value: 139 }
+          - { label: 'Philippines · Zuriel Dayto (No. 140)', value: 140 }
+          - { label: 'Philippines · Roman Dayto (No. 141)', value: 141 }
+          - { label: 'Philippines · Christopher Decalan (No. 144)', value: 144 }
+          - { label: 'Rwanda · Gershon Ponce (No. 112)', value: 112 }
+          - { label: 'Sierra Leone · John Martin Congson (No. 145)', value: 145 }
+          - { label: 'Sierra Leone · The Delos Reyes (No. 152)', value: 152 }
+          - { label: 'South Africa · Ricky Cuaterno (No. 91)', value: 91 }
+          - { label: 'South Africa · Yon Srey Yan (No. 92)', value: 92 }
+          - { label: 'South Korea · Rufo Paclibar (No. 107)', value: 107 }
+          - { label: 'Spain · James Felipe (No. 138)', value: 138 }
+          - { label: 'Spain · Salvador Paredes (No. 137)', value: 137 }
+          - { label: 'Taiwan · Joel Basilan (No. 16)', value: 16 }
+          - { label: 'Taiwan · Jowie Calimbahin (No. 15)', value: 15 }
+          - { label: 'Taiwan · Jiar Villanueva (No. 14)', value: 14 }
+          - { label: 'Tanzania · Peter Rivera (No. 131)', value: 131 }
+          - { label: 'Tanzania · Jessie Tingson (No. 135)', value: 135 }
+          - { label: 'Thailand · Cunard Lloyd Abiva (No. 28)', value: 28 }
+          - { label: 'Thailand · Aguinaldo Angeles (No. 29)', value: 29 }
+          - { label: 'Thailand · Enrile Badua (No. 35)', value: 35 }
+          - { label: 'Thailand · Roy De La Cruz (No. 31)', value: 31 }
+          - { label: 'Thailand · Dante Elupre (No. 32)', value: 32 }
+          - { label: 'Thailand · Chansiha Hak (No. 30)', value: 30 }
+          - { label: 'Thailand · An Kien (No. 36)', value: 36 }
+          - { label: 'Thailand · Luke Lepago (No. 33)', value: 33 }
+          - { label: 'Thailand · Ricky Mabazza (No. 34)', value: 34 }
+          - { label: 'Thailand · Emmanuel Sinoy (No. 38)', value: 38 }
+          - { label: 'Thailand · Shirley Tagarda (No. 37)', value: 37 }
+          - { label: 'Uganda · Aida Masancay (No. 127)', value: 127 }
+          - { label: 'Uganda · Josue Satunero (No. 128)', value: 128 }
+          - { label: 'Ukraine · Edgar Asuncion (No. 60)', value: 60 }
+          - { label: 'Vietnam · Lito Dave (No. 25)', value: 25 }
+          - { label: 'Vietnam · Marlon Dela Cruz (No. 24)', value: 24 }
+          - { label: 'Vietnam · Juan Empleo (No. 18)', value: 18 }
+          - { label: 'Vietnam · Arnold Espino (No. 19)', value: 19 }
+          - { label: 'Vietnam · Saturnino Garcinez Jr. (No. 20)', value: 20 }
+          - { label: 'Vietnam · Jonathan Guinarez (No. 17)', value: 17 }
+          - { label: 'Vietnam · Le Thanh Tuan (No. 27)', value: 27 }
+          - { label: 'Vietnam · The Malvar (No. 153)', value: 153 }
+          - { label: 'Vietnam · Nguyen Ba Qui (No. 21)', value: 21 }
+          - { label: 'Vietnam · Enrico Nierves (No. 26)', value: 26 }
+          - { label: 'Vietnam · Arlene Torillo (No. 23)', value: 23 }
+          - { label: 'Vietnam · Duc My Tran (No. 148)', value: 148 }
+          - { label: 'Vietnam · Nelson Uñada (No. 22)', value: 22 }
+          - { label: 'Zambia · Eduard Calibayan (No. 70)', value: 70 }
+          - { label: 'Zambia · Mario Genada (No. 69)', value: 69 }
+          - { label: 'Zimbabwe · Allen Joshua Maravilla (No. 108)', value: 108 }
+          # END missionary options
+      - { name: title, label: Title, widget: string, hint: 'e.g. "Praise report, October 2026"' }
+      - { name: date, label: 'Date of the letter', widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, picker_utc: true }
+      - { name: body, label: 'Letter text (optional)', widget: text, required: false, hint: 'Type or paste the letter. Leave a blank line between paragraphs.' }
+      - name: pages
+        label: 'Scanned pages (optional)'
+        label_singular: Page
+        widget: list
+        required: false
+        hint: 'Photos of a printed letter, in page order.'
+        field: { name: image, label: Page, widget: image }
+      - { name: pdf, label: 'PDF (optional)', widget: file, required: false, accept: '.pdf,application/pdf' }
+      - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
+      - { name: added, label: 'Added on', widget: hidden, required: false }   # set automatically from GitHub history
+
+  - name: settings
+    label: Church Info
+    description: Contact details shown in the Visit section of the website.
+    editor: { preview: false }
+    files:
+      - name: church
+        label: Phone and email
+        file: content/settings/church.yml
+        fields:
+          - { name: phone, label: 'Phone number', widget: string, required: false, hint: 'e.g. "0917 123 4567". Leave empty to hide.' }
+          - { name: email, label: Email, widget: string, required: false, hint: 'Leave empty to hide.' }
+          - { name: contact_note, label: 'Note (optional)', widget: string, required: false, hint: 'e.g. "Text or call Pastor Sonny"' }

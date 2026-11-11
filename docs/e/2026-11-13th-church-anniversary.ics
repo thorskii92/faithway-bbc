@@ -1,0 +1,19 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Faithway Bible Baptist Church//Website//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2026-11-13th-church-anniversary@faithway-bbc
+DTSTAMP:20261115T000000Z
+DTSTART:20261115T010000Z
+DTEND:20261115T030000Z
+SUMMARY:13th Church Anniversary
+LOCATION:FBBC Main Sanctuary
+DESCRIPTION:Thirteen years of God’s faithfulness since 2013. Thanksgiv
+ ing service and fellowship lunch.\n\nhttps://thorskii92.github.io/fait
+ hway-bbc/e/2026-11-13th-church-anniversary.html
+URL:https://thorskii92.github.io/faithway-bbc/e/2026-11-13th-church-an
+ niversary.html
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Faithway Bible Baptist Church//Website//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:easter-cantata-2026@faithway-bbc
+DTSTAMP:20260405T000000Z
+DTSTART;VALUE=DATE:20260405
+DTEND;VALUE=DATE:20260406
+SUMMARY:He's Alive! A Resurrection Sunday Cantata
+LOCATION:Faithway Bible Baptist Church\, Puerto Princesa City
+DESCRIPTION:We Shall Behold Him\n\nhttps://thorskii92.github.io/faithw
+ ay-bbc/e/easter-cantata-2026.html
+URL:https://thorskii92.github.io/faithway-bbc/e/easter-cantata-2026.ht
+ ml
+END:VEVENT
+END:VCALENDAR

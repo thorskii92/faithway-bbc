@@ -75,6 +75,20 @@ Open **https://thorskii92.github.io/faithway-bbc/admin/**. You can do this from 
 
 **Volunteers:** add each one under the repo's **Settings → Collaborators**. They accept the invite and make their own token the same way.
 
+### Other things you can edit in the admin page
+
+- **Announcements:** short notices for the "This week at Faithway" box on the home page. Each one shows only from its *Show from* day through its *Show until* day, then disappears by itself.
+- **Prayer Letters:** pick the missionary, then type the letter, upload photos of the printed pages, or attach the PDF. It appears on that missionary's page on the missions board. Letters are public, so leave out anything sensitive. Missionaries hidden for their safety aren't in the list, and the build refuses any letter for them.
+- **Church Info:** the church phone number and email shown in the Visit section. Leave a field empty to hide it.
+
+### Sharing events
+
+Every event page has a **Share** button. On a phone it opens the share menu (Messenger, Facebook, Viber...); on a computer it copies the link. The link points to a small page (`e/<event>.html`) that gives Facebook the event's poster or cover photo, so the preview shows the picture. Upcoming events also have **Add to calendar** (Google Calendar, or a calendar file for iPhone and Outlook).
+
+The preview picture for the whole site is `img/og.jpg`. To remake it, run `npm run og-image`, then `npm run build`. If the site moves to its own domain, change the address in `scripts/site.mjs` and `site_url` in `docs/admin/config.yml`.
+
+Facebook remembers previews for a while. If an old preview keeps showing, paste the link into Facebook's [Sharing Debugger](https://developers.facebook.com/tools/debug/) and click **Scrape Again**.
+
 
 ## Publishing editor saves
 
@@ -145,5 +159,5 @@ While the site is under review, it asks search engines not to list it, using a `
 
 When the church is ready to go public:
 - Remove the `noindex` line in `scripts/build-docs.mjs`.
-- Delete `docs/robots.txt`.
+- In `scripts/build-docs.mjs`, change the `robots.txt` it writes to allow everyone (link-preview bots such as Facebook's are already allowed).
 - Run `npm run build` and push.

@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Faithway Bible Baptist Church//Website//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:eyes-on-the-prize-an-evangelistic-musical-november-2025@faithway-b
+ bc
+DTSTAMP:20251108T000000Z
+DTSTART:20251108T093000Z
+DTEND:20251108T113000Z
+SUMMARY:Eyes on the Prize - An Evangelistic Musical | November 2025
+LOCATION:Faithway Bible Baptist Church\, Puerto Princesa City
+DESCRIPTION:Faithway Bible Baptist Church Invites you to An Evangelist
+ ic Musical: Eyes on the Prize\n\nhttps://thorskii92.github.io/faithway
+ -bbc/e/eyes-on-the-prize-an-evangelistic-musical-november-2025.html
+URL:https://thorskii92.github.io/faithway-bbc/e/eyes-on-the-prize-an-e
+ vangelistic-musical-november-2025.html
+END:VEVENT
+END:VCALENDAR

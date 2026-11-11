@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Faithway Bible Baptist Church//Website//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:2025-09-1st-anniversary-of-the-new-building@faithway-bbc
+DTSTAMP:20250901T000000Z
+DTSTART;VALUE=DATE:20250901
+DTEND;VALUE=DATE:20250902
+SUMMARY:1st Anniversary of the New Building
+LOCATION:Faithway Bible Baptist Church\, Puerto Princesa City
+DESCRIPTION:Celebrating one year of worship in our new church building
+ \, with thanksgiving to God for His faithfulness.\n\nhttps://thorskii9
+ 2.github.io/faithway-bbc/e/2025-09-1st-anniversary-of-the-new-building
+ .html
+URL:https://thorskii92.github.io/faithway-bbc/e/2025-09-1st-anniversar
+ y-of-the-new-building.html
+END:VEVENT
+END:VCALENDAR
