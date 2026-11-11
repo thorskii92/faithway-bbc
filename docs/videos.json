@@ -131,6 +131,16 @@
   "thumb": "img/videos/written-in-red.jpg"
  },
  {
+  "id": "we-are-his-church",
+  "title": "We Are His Church",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/25016294048034482",
+  "date": "2025-11-08",
+  "by": "Faithway Youth Group",
+  "event": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
+  "thumb": "img/videos/we-are-his-church.jpg"
+ },
+ {
   "id": "a-few-good-men",
   "title": "A Few Good Men",
   "type": "special",
