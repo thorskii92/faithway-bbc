@@ -1,45 +1,5 @@
 [
  {
-  "id": "all-around-the-world",
-  "title": "All around the world",
-  "type": "cantata",
-  "fb": "https://www.facebook.com/reel/2081412315730144",
-  "date": "2026-11-08",
-  "by": "Ladies",
-  "event": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
-  "thumb": "img/videos/all-around-the-world.jpg"
- },
- {
-  "id": "hallelujah-amen",
-  "title": "Hallelujah Amen",
-  "type": "cantata",
-  "fb": "https://www.facebook.com/reel/4262233350657877",
-  "date": "2026-11-08",
-  "by": "ESIARP",
-  "event": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
-  "thumb": "img/videos/hallelujah-amen.jpg"
- },
- {
-  "id": "i-want-jesus-more-than-anything",
-  "title": "I want Jesus more than anything",
-  "type": "cantata",
-  "fb": "https://www.facebook.com/reel/24901889872829226",
-  "date": "2026-11-08",
-  "by": "Pastors",
-  "event": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
-  "thumb": "img/videos/i-want-jesus-more-than-anything.jpg"
- },
- {
-  "id": "ordinary-people",
-  "title": "Ordinary People",
-  "type": "cantata",
-  "fb": "https://www.facebook.com/reel/847891584873136",
-  "date": "2026-11-08",
-  "by": "ESIARP",
-  "event": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
-  "thumb": "img/videos/ordinary-people.jpg"
- },
- {
   "id": "behold-the-lamb",
   "title": "Behold the Lamb",
   "type": "cantata",
@@ -171,6 +131,26 @@
   "thumb": "img/videos/a-heart-to-change-the-world.jpg"
  },
  {
+  "id": "all-around-the-world",
+  "title": "All around the world",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/2081412315730144",
+  "date": "2025-11-08",
+  "by": "Ladies",
+  "event": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
+  "thumb": "img/videos/all-around-the-world.jpg"
+ },
+ {
+  "id": "hallelujah-amen",
+  "title": "Hallelujah Amen",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/4262233350657877",
+  "date": "2025-11-08",
+  "by": "ESIARP",
+  "event": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
+  "thumb": "img/videos/hallelujah-amen.jpg"
+ },
+ {
   "id": "i-love-to-tell-the-story",
   "title": "I love to tell the story",
   "type": "cantata",
@@ -181,6 +161,16 @@
   "thumb": "img/videos/i-love-to-tell-the-story.jpg"
  },
  {
+  "id": "i-want-jesus-more-than-anything",
+  "title": "I want Jesus more than anything",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/24901889872829226",
+  "date": "2025-11-08",
+  "by": "Pastors",
+  "event": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
+  "thumb": "img/videos/i-want-jesus-more-than-anything.jpg"
+ },
+ {
   "id": "lord-build-your-church",
   "title": "Lord, Build Your Church",
   "type": "cantata",
@@ -189,6 +179,16 @@
   "by": "Juniors Choir",
   "event": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
   "thumb": "img/videos/lord-build-your-church.jpg"
+ },
+ {
+  "id": "ordinary-people",
+  "title": "Ordinary People",
+  "type": "cantata",
+  "fb": "https://www.facebook.com/reel/847891584873136",
+  "date": "2025-11-08",
+  "by": "ESIARP",
+  "event": "eyes-on-the-prize-an-evangelistic-musical-november-2025",
+  "thumb": "img/videos/ordinary-people.jpg"
  },
  {
   "id": "we-are-his-church",
