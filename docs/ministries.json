@@ -1,0 +1,45 @@
+[
+ {
+  "title": "Sunday School",
+  "when": "Sundays · 8:30 AM",
+  "sum": "Bible classes for every age, from the youngest children to adults, before the worship service."
+ },
+ {
+  "title": "Music Ministry",
+  "contact": "Sir Jean Macolor",
+  "sum": "The choir, cantatas and special numbers that lift up the Lord in song.",
+  "link": "music.html",
+  "linkLabel": "Watch and listen"
+ },
+ {
+  "title": "Worship & Preaching",
+  "when": "Sundays · 10:00 AM & 4:00 PM",
+  "sum": "Sound preaching from the King James Bible and congregational singing from the hymnal, with special numbers from our choir."
+ },
+ {
+  "title": "Prayer Meetings",
+  "when": "Wednesdays 6:00 PM · Saturdays 7:00 AM",
+  "sum": "The church gathers to pray for one another, for the lost, and for the missionaries we support."
+ },
+ {
+  "title": "Saturation",
+  "when": "Throughout the year",
+  "sum": "Teams go house to house in the barangays around us, sharing the Gospel and inviting families to church."
+ },
+ {
+  "title": "Extension Classes",
+  "when": "Weekly",
+  "sum": "Bible classes held in nearby communities, teaching children and families the Word of God where they live."
+ },
+ {
+  "title": "Youth",
+  "who": "Our young people",
+  "sum": "Fellowship, Bible study and camps that help our young people grow in the Lord and serve Him."
+ },
+ {
+  "title": "Missions",
+  "sum": "Through prayer and faithful giving, the church supports missionaries in the Philippines and around the world.",
+  "link": "#missions",
+  "linkLabel": "See our missions board"
+ }
+]

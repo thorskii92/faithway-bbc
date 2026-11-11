@@ -1,6 +1,7 @@
 // Builds the smaller editor collections:
 //   content/notices/*.yml       → <out>/notices.json   (the "This week at Faithway" announcements)
-//   content/settings/church.yml → <out>/church.json    (phone and email on the Visit section)
+//   content/settings/church.yml → <out>/church.json    (phone, email and prayer request form: Visit section and footer)
+//   content/ministries/*.yml    → <out>/ministries.json (the Ministries section)
 //   content/letters/*.yml       → <out>/letters.json   (missionary prayer letters), scanned pages resized to
 //                                 <out>/img/letters/<id>/, PDFs copied to <out>/letters/<id>.pdf
 // PRIVACY: a letter is only published if its missionary is on the public board (<out>/missionaries.js lists
@@ -43,9 +44,25 @@ writeFileSync(join(out, 'notices.json'), JSON.stringify(notices, null, 1));
 let church = {};
 if (existsSync('content/settings/church.yml')) {
   const d = YAML.parse(readFileSync('content/settings/church.yml', 'utf8')) || {};
-  for (const k of ['phone', 'email', 'contact_note']) if (d[k]) church[k === 'contact_note' ? 'note' : k] = String(d[k]).trim();
+  const KEYS = { phone: 'phone', email: 'email', contact_note: 'note', prayer_form: 'prayerForm' };
+  for (const [k, to] of Object.entries(KEYS)) if (d[k]) church[to] = String(d[k]).trim();
+  if (church.prayerForm && !/^https:\/\//.test(church.prayerForm)) { problems.push('church.yml: the prayer request form link must start with https://'); delete church.prayerForm; }
 }
 writeFileSync(join(out, 'church.json'), JSON.stringify(church, null, 1));
+
+/* ---------- ministries (the Ministries section), in the order set in the editor ---------- */
+const ministries = [];
+for (const { file, d } of readAll('content/ministries')) {
+  if (!d.title) { problems.push(`ministries/${file}: needs a name`); continue; }
+  const m = { title: String(d.title).trim(), order: Number(d.order) || 99 };
+  for (const [k, to] of Object.entries({ schedule: 'when', audience: 'who', contact: 'contact', summary: 'sum', link: 'link', link_label: 'linkLabel' })) {
+    if (d[k]) m[to] = String(d[k]).trim();
+  }
+  ministries.push(m);
+}
+ministries.sort((a, b) => a.order - b.order || a.title.localeCompare(b.title));
+ministries.forEach((m) => delete m.order);
+writeFileSync(join(out, 'ministries.json'), JSON.stringify(ministries, null, 1));
 
 /* ---------- prayer letters ---------- */
 const visible = new Set();
@@ -87,5 +104,5 @@ for (const { id, file, d } of readAll('content/letters')) {
 letters.sort((a, b) => b.date.localeCompare(a.date));
 writeFileSync(join(out, 'letters.json'), JSON.stringify(letters, null, 1));
 
-console.log(`extras: ${notices.length} announcements, ${letters.length} prayer letters, church info ${Object.keys(church).length ? 'set' : 'empty'} → ${out}/`);
+console.log(`extras: ${ministries.length} ministries, ${notices.length} announcements, ${letters.length} prayer letters, church info ${Object.keys(church).length ? 'set' : 'empty'} → ${out}/`);
 for (const p of problems) console.warn('warning:', p);

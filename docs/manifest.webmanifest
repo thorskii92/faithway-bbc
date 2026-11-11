@@ -1,0 +1,24 @@
+{
+ "name": "Faithway Bible Baptist Church",
+ "short_name": "Faithway",
+ "description": "Palawan Faithway Bible Baptist Church, Inc. Purok Matapat, San Jose, Puerto Princesa City. Passion for God. Compassion to People.",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#FFFCF5",
+ "theme_color": "#086288",
+ "icons": [
+  {
+   "src": "img/icons/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png",
+   "purpose": "any maskable"
+  },
+  {
+   "src": "img/icons/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "any maskable"
+  }
+ ]
+}

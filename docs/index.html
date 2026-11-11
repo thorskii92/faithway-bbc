@@ -12,7 +12,11 @@
 <meta property="og:url" content="https://thorskii92.github.io/faithway-bbc/">
 <meta property="og:image" content="https://thorskii92.github.io/faithway-bbc/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="logo.jpg">
+<link rel="icon" type="image/png" sizes="48x48" href="img/icons/favicon-48.png">
+<link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#086288">
+
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Faithway Bible Baptist Church</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -79,7 +83,15 @@ a { color: var(--deep); }
 .nav { display: flex; gap: 4px; }
 .nav a { text-decoration: none; color: var(--ink); font-size: .86rem; font-weight: 500; padding: 8px 12px; border-radius: 999px; }
 .nav a:hover { background: var(--ocean); color: var(--deep); }
-@media (max-width: 760px) { .nav { display: none; } }
+.menu-btn { display: none; }
+@media (max-width: 760px) {
+  .menu-btn { all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; border: 1.5px solid var(--line); color: var(--deep-2); font: 600 .85rem/1 var(--f-body); background: var(--white); }
+  .menu-btn svg { width: 18px; height: 18px; }
+  .nav { display: none; }
+  .nav.is-open { display: grid; position: absolute; top: 100%; right: 0; left: 0; background: var(--paper); border-bottom: 1px solid var(--line); box-shadow: 0 24px 40px -24px rgba(5,68,95,.4); padding: 8px 16px 16px; gap: 0; }
+  .nav.is-open a { padding: 13px 8px; border-radius: 8px; font-size: 1rem; border-bottom: 1px solid var(--line); }
+  .nav.is-open a:last-child { border-bottom: 0; }
+}
 
 /* hero */
 .hero { position: relative; overflow: hidden; color: var(--white); background:
@@ -192,7 +204,11 @@ a { color: var(--deep); }
 .ministry { display: grid; gap: 8px; align-content: start; padding: 22px 24px; border-radius: var(--radius); background: var(--white); border: 1px solid var(--line); border-top: 3px solid var(--deep); }
 .ministry h3 { font-size: 1.45rem; }
 .ministry p { color: var(--muted); font-size: .92rem; }
-.ministry__when { font: 600 .7rem/1.3 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--mid); }
+.ministry__facts { display: grid; gap: 4px; margin: 6px 0 0; padding-top: 10px; border-top: 1px solid var(--line); font-size: .85rem; }
+.ministry__facts div { display: flex; gap: 8px; }
+.ministry__facts dt { font: 600 .66rem/1.9 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--mid); min-width: 58px; }
+.ministry__facts dd { margin: 0; color: var(--ink, #1F2D3A); }
+.ministry__when {font: 600 .7rem/1.3 var(--f-body); letter-spacing: .12em; text-transform: uppercase; color: var(--mid); }
 .pastor { background: var(--cream); }
 .pastor__grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
 @media (max-width: 860px) { .pastor__grid { grid-template-columns: 1fr; } }
@@ -390,9 +406,22 @@ a { color: var(--deep); }
 .visit__item p { color: var(--muted); }
 
 /* footer */
-.footer { background: var(--deep-2); color: var(--sky); padding-block: 48px; font-size: .85rem; }
-.footer__in { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 18px; }
-.footer b { font-family: var(--f-display); font-size: 1.4rem; color: var(--white); font-weight: 500; display: block; }
+.footer { background: var(--deep-2); color: var(--sky); padding-block: 48px 28px; font-size: .88rem; line-height: 1.6; }
+.footer__grid { display: grid; grid-template-columns: 1.4fr 1fr 1.2fr 1.2fr; gap: 32px 28px; }
+@media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .footer__grid { grid-template-columns: 1fr; } }
+.footer b { font-family: var(--f-display); font-size: 1.4rem; color: var(--white); font-weight: 500; display: block; line-height: 1.2; margin-bottom: 6px; }
+.footer h3 { font: 600 .7rem/1.3 var(--f-body); letter-spacing: .14em; text-transform: uppercase; color: var(--cream); margin: 0 0 10px; }
+.footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.footer a { color: var(--white); text-decoration: none; }
+.footer ul a { display: inline-block; padding-block: 4px; }   /* comfortable tap targets on phones */
+.footer ul { gap: 2px; }
+.footer a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.footer__svc span { color: var(--sky); opacity: .8; }
+.footer__pray { display: inline-flex; margin-top: 14px; padding: 10px 18px; border-radius: 999px; background: var(--cream); color: var(--deep-2) !important; font-weight: 600; }
+.footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 24px; margin-top: 36px; padding-top: 20px; border-top: 1px solid rgba(151,215,255,.18); font-size: .78rem; color: var(--sky); opacity: .85; }
+.footer__bottom a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.btn--pray { margin-top: 10px; justify-self: start; }
 
 /* detail sheet */
 .sheet { position: fixed; inset: 0; z-index: 40; background: var(--paper); overflow-y: auto; overscroll-behavior: contain; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); animation: sheetIn .35s ease; }
@@ -503,7 +532,8 @@ a { color: var(--deep); }
       <img class="brand__logo" src="img/logo-mark.gif?v=loop1" alt="" width="176" height="150">
       <span class="brand__name">Faithway<small>Bible Baptist Church</small></span>
     </a>
-    <nav class="nav" aria-label="Sections">
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="siteNav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Menu</button>
+    <nav class="nav" id="siteNav" aria-label="Sections">
       <a href="#updates">Updates</a><a href="#about">About</a><a href="#beliefs">Beliefs</a><a href="#pastor">Pastor</a><a href="#ministries">Ministries</a><a href="music.html">Music</a><a href="#missions">Missions</a><a href="#visit">Visit</a>
     </nav>
   </div>
@@ -727,7 +757,7 @@ a { color: var(--deep); }
         <p>Every member and visitor is welcome to take part.</p>
         <span class="tag tag--sample">Draft for the pastor’s review</span>
       </div>
-      <div class="ministries__grid">
+      <div class="ministries__grid" id="ministryGrid">
         <article class="ministry reveal"><span class="ministry__when">Sundays · 8:30 AM</span><h3>Sunday School</h3><p>Bible classes for every age, from the youngest children to adults, before the worship service.</p></article>
         <article class="ministry reveal"><span class="ministry__when">Led by Sir Jean Macolor</span><h3>Music Ministry</h3><p>The choir, cantatas and special numbers that lift up the Lord in song. <a href="music.html">Watch and listen →</a></p></article>
         <article class="ministry reveal"><span class="ministry__when">Sundays · 10:00 AM &amp; 4:00 PM</span><h3>Worship &amp; Preaching</h3><p>Sound preaching from the King James Bible and congregational singing from the hymnal, with special numbers from our choir.</p></article>
@@ -785,17 +815,52 @@ a { color: var(--deep); }
         <div class="visit__map">
           <iframe title="Map: Faithway Bible Baptist Church, Purok Matapat, San Jose, Puerto Princesa City" src="https://www.google.com/maps?q=9.7883332,118.7585032&amp;z=16&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
-        <div class="visit__item"><span class="eyebrow">Connect</span><h3>Phone &amp; email</h3><div id="contactInfo"><p>Church phone number and email to be supplied.</p></div></div>
+        <div class="visit__item"><span class="eyebrow">Connect</span><h3>Phone &amp; email</h3><div id="contactInfo"><p>Church phone number and email to be supplied.</p></div><a class="btn btn--deep btn--pray" id="visitPray" href="#" target="_blank" rel="noopener" hidden>Send a prayer request</a></div>
       </div>
     </div>
   </section>
 </main>
 
 <footer class="footer">
-  <div class="wrap footer__logo"><img src="img/logo-full-white.png" alt="Palawan Faithway Bible Baptist Church, Inc. Est. 2013. Passion for God. Compassion to People." width="1424" height="1560" loading="lazy"></div>
-  <div class="wrap footer__in">
-    <div><b>Palawan Faithway Bible Baptist Church, Inc.</b>Purok Matapat, San Jose, Puerto Princesa City · Est. 2013<br>Sound Preaching · Independent · Hymnal · King James Bible</div>
-    <div>© 2026 · Design preview</div>
+  <div class="wrap footer__logo"><img src="img/logo-full-white-760.png" alt="Palawan Faithway Bible Baptist Church, Inc. Est. 2013. Passion for God. Compassion to People." width="760" height="833" loading="lazy"></div>
+  <div class="wrap footer__grid">
+    <div>
+      <b>Palawan Faithway Bible Baptist Church, Inc.</b>
+      <p>Purok Matapat, San Jose, Puerto Princesa City, Palawan · Est. 2013</p>
+      <p style="margin-top:8px">Sound Preaching · Independent · Hymnal · King James Bible</p>
+      <p style="margin-top:8px"><a href="https://www.google.com/maps/place/Faithway+Bible+Baptist+Church/@9.7883332,118.7585032,17z" target="_blank" rel="noopener">Open in Google Maps →</a></p>
+    </div>
+    <nav aria-label="Footer">
+      <h3>Explore</h3>
+      <ul>
+        <li><a href="#updates">Latest updates</a></li>
+        <li><a href="#about">About us</a></li>
+        <li><a href="#beliefs">What we believe</a></li>
+        <li><a href="#ministries">Ministries</a></li>
+        <li><a href="music.html">Music Ministry</a></li>
+        <li><a href="#missions">Missions board</a></li>
+        <li><a href="kings-and-prophets.html">Kings and Prophets</a></li>
+      </ul>
+    </nav>
+    <div>
+      <h3>Services</h3>
+      <ul class="footer__svc">
+        <li>Sunday School <span>· Sun 8:30 AM</span></li>
+        <li>Worship Service <span>· Sun 10:00 AM</span></li>
+        <li>Afternoon Service <span>· Sun 4:00 PM</span></li>
+        <li>Midweek Prayer <span>· Wed 6:00 PM</span></li>
+        <li>Prayer Meeting <span>· Sat 7:00 AM</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Connect</h3>
+      <div id="footerContact"><p>Phone and email coming soon.</p></div>
+      <a class="footer__pray" id="footerPray" href="#" target="_blank" rel="noopener" hidden>Send a prayer request</a>
+    </div>
+  </div>
+  <div class="wrap footer__bottom">
+    <span>© 2026 Palawan Faithway Bible Baptist Church, Inc. · Design preview</span>
+    <span>Photos are shared with permission. To have a photo removed, <a href="#visit">contact the church</a>.</span>
   </div>
 </footer>
 
@@ -1411,6 +1476,14 @@ function route() {
       if (/^#e-/.test(location.hash)) route();
     });
   }
+  /* phone menu */
+  const menuBtn = $('.menu-btn'), siteNav = $('#siteNav');
+  const setMenu = (open) => { siteNav.classList.toggle('is-open', open); menuBtn.setAttribute('aria-expanded', String(open)); };
+  menuBtn.addEventListener('click', () => setMenu(!siteNav.classList.contains('is-open')));
+  siteNav.addEventListener('click', (e) => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('click', (e) => { if (!e.target.closest('.header')) setMenu(false); });
+  addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
   const getJSON = (u) => fetch(u, { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
   /* announcements: notices.json (content/notices/*.yml); each shows from its "show from" day through its "show until" day */
   function loadNotices() {
@@ -1426,10 +1499,30 @@ function route() {
   /* phone and email: church.json (content/settings/church.yml, "Church Info" in /admin) */
   function loadChurch() {
     getJSON('church.json').then((c) => {
-      if (!c || !(c.phone || c.email)) return;
-      $('#contactInfo').innerHTML = (c.phone ? `<p><a href="tel:${esc(c.phone.replace(/[^\d+]/g, ''))}">${esc(c.phone)}</a></p>` : '')
+      if (!c) return;
+      if (/^https:\/\//.test(c.prayerForm || '')) ['#visitPray', '#footerPray'].forEach((s) => { $(s).href = c.prayerForm; $(s).hidden = false; });
+      if (!(c.phone || c.email)) return;
+      const html = (c.phone ? `<p><a href="tel:${esc(c.phone.replace(/[^\d+]/g, ''))}">${esc(c.phone)}</a></p>` : '')
         + (c.email ? `<p><a href="mailto:${esc(c.email)}">${esc(c.email)}</a></p>` : '')
         + (c.note ? `<p>${esc(c.note)}</p>` : '');
+      $('#contactInfo').innerHTML = html;
+      $('#footerContact').innerHTML = html;
+    });
+  }
+  /* ministries: ministries.json (content/ministries/*.yml); the cards written in the page are the fallback */
+  function loadMinistries() {
+    getJSON('ministries.json').then((list) => {
+      if (!Array.isArray(list) || !list.length) return;
+      const linkHtml = (m) => {
+        if (!m.link || !/^(https?:\/\/|#|[\w-]+\.html)/.test(m.link)) return '';
+        const ext = /^https?:/.test(m.link);
+        return ` <a href="${esc(m.link)}"${ext ? ' target="_blank" rel="noopener"' : ''}>${esc(m.linkLabel || 'Learn more')} →</a>`;
+      };
+      $('#ministryGrid').innerHTML = list.map((m) => `<article class="ministry">
+          ${m.when ? `<span class="ministry__when">${esc(m.when)}</span>` : ''}<h3>${esc(m.title)}</h3>
+          <p>${esc(m.sum || '')}${linkHtml(m)}</p>
+          ${m.who || m.contact ? `<dl class="ministry__facts">${m.who ? `<div><dt>For</dt><dd>${esc(m.who)}</dd></div>` : ''}${m.contact ? `<div><dt>Contact</dt><dd>${esc(m.contact)}</dd></div>` : ''}</dl>` : ''}
+        </article>`).join('');
     });
   }
   function loadLetters() {
@@ -1445,6 +1538,7 @@ function route() {
   loadNotices();
   loadChurch();
   loadLetters();
+  loadMinistries();
 })();
 </script>
 

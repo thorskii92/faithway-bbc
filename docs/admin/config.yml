@@ -347,3 +347,32 @@ collections:
           - { name: phone, label: 'Phone number', widget: string, required: false, hint: 'e.g. "0917 123 4567". Leave empty to hide.' }
           - { name: email, label: Email, widget: string, required: false, hint: 'Leave empty to hide.' }
           - { name: contact_note, label: 'Note (optional)', widget: string, required: false, hint: 'e.g. "Text or call Pastor Sonny"' }
+          - { name: prayer_form, label: 'Prayer request form link', widget: string, required: false, hint: 'The "Send a prayer request" button opens this form (Tally or Google Forms). Leave empty to hide the button.' }
+
+  - name: ministries
+    label: Ministries
+    label_singular: Ministry
+    description: >-
+      The Ministries section of the home page. Say who each ministry is for, when it meets and who to ask.
+      Use "Order" to arrange them (1 shows first).
+    folder: content/ministries
+    format: yml
+    extension: yml
+    create: true
+    delete: true
+    slug: '{{slug}}'
+    identifier_field: title
+    summary: '{{order}} · {{title}}'
+    sortable_fields:
+      fields: [order, title]
+      default: { field: order, direction: ascending }
+    fields:
+      - { name: title, label: Name, widget: string, hint: 'e.g. "Sunday School" or "Ladies Fellowship"' }
+      - { name: order, label: Order, widget: number, value_type: int, default: 9, hint: '1 shows first.' }
+      - { name: schedule, label: 'When (optional)', widget: string, required: false, hint: 'e.g. "Sundays · 8:30 AM" or "Every 2nd Saturday"' }
+      - { name: audience, label: 'Who it is for (optional)', widget: string, required: false, hint: 'e.g. "Children 4–12" or "All ladies of the church"' }
+      - { name: contact, label: 'Who to ask (optional)', widget: string, required: false, hint: 'e.g. "Sis. Ana Cruz" or "Pastor Sonny"' }
+      - { name: summary, label: Description, widget: text, hint: 'One or two sentences.' }
+      - { name: link, label: 'Link (optional)', widget: string, required: false, hint: 'e.g. music.html, or a web address' }
+      - { name: link_label, label: 'Link text (optional)', widget: string, required: false, hint: 'e.g. "Watch and listen"' }
+      - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
