@@ -189,6 +189,20 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
 .distinctives__list p { color: #DCEBF5; font-size: .9rem; }
 .distinctives__list cite { display: block; margin-top: 4px; font: italic 500 .98rem var(--f-display); color: var(--sky); }
 /* video cards (event pages) */
+/* featured video (a video ticked "Feature on the home page" in the editor) */
+.featured { background: linear-gradient(160deg, var(--deep-2), #032F42); color: var(--sky); }
+.featured__in { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); align-items: center; }
+@media (max-width: 900px) { .featured__in { grid-template-columns: 1fr; } }
+.featured__video .video__frame { border-radius: 16px; box-shadow: 0 40px 80px -40px rgba(0,0,0,.8); outline: 1px solid rgba(151,215,255,.18); }
+.featured__video .video__play::after { width: 84px; height: 84px; background-size: 36px; }
+.featured__text { display: grid; gap: 14px; align-content: center; }
+.featured__text .eyebrow { color: var(--cream); }
+.featured__text h2 { color: var(--white); font-size: clamp(2rem, 4vw, 3rem); }
+.featured__by { color: var(--sky); font-weight: 600; font-size: .9rem; }
+.featured__note { color: #CFEBFF; display: grid; gap: 10px; max-width: 52ch; }
+.featured__note p:first-child { font: italic 500 1.3rem/1.45 var(--f-display); color: var(--cream); }
+.featured__more { color: var(--white); font-weight: 600; font-size: .88rem; text-decoration: none; justify-self: start; border-bottom: 1px solid rgba(255,255,255,.4); padding-bottom: 2px; }
+.featured__more:hover { border-color: var(--white); }
 .videos { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; }
 .video { display: grid; gap: 10px; align-content: start; min-width: 0; }
 .video__frame { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: var(--deep-2); max-width: 100%; }
@@ -676,6 +690,19 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
         <p>Upcoming events with an invitation appear here. Share them with family and friends.</p>
       </div>
       <div class="invite-row" id="inviteRow"></div>
+    </div>
+  </section>
+
+  <section class="section featured" id="featured" hidden aria-labelledby="featuredTitle">
+    <div class="wrap featured__in">
+      <div class="featured__video" id="featuredVideo"></div>
+      <div class="featured__text">
+        <span class="eyebrow" id="featuredEyebrow">Featured video</span>
+        <h2 id="featuredTitle"></h2>
+        <p class="featured__by" id="featuredBy" hidden></p>
+        <div class="featured__note" id="featuredNote"></div>
+        <a class="featured__more" href="music.html">More videos from our Music Ministry →</a>
+      </div>
     </div>
   </section>
 
@@ -1566,6 +1593,26 @@ function route() {
       <h3>${esc(v.title)}</h3>
       ${v.by ? `<p>${esc(v.by)}</p>` : ''}${v.desc ? `<p>${esc(v.desc)}</p>` : ''}
     </article>`;
+  /* featured video: the newest video ticked "Feature on the home page" (videos.json is newest first) */
+  function showFeatured() {
+    const v = VIDEOS.find((x) => x.featured);
+    if (!v) return;
+    const frame = videoCard(v).match(/<div class="video__frame">[\s\S]*?<\/button><\/div>/);
+    if (!frame) return;
+    $('#featuredVideo').innerHTML = frame[0];
+    const img = $('#featuredVideo img');
+    if (img && v.yt) {   // big slot: use YouTube's HD picture when the video has one
+      img.onerror = () => { img.onerror = null; img.src = `https://i.ytimg.com/vi/${v.yt}/hqdefault.jpg`; };
+      img.src = `https://i.ytimg.com/vi/${v.yt}/maxresdefault.jpg`;
+    }
+    $('#featuredEyebrow').textContent = v.featuredHeading || 'Featured video';
+    $('#featuredTitle').textContent = v.title;
+    const by = [v.by, v.date ? fmt(v.date) : ''].filter(Boolean).join(' · ');
+    $('#featuredBy').textContent = by; $('#featuredBy').hidden = !by;
+    const note = v.featuredNote || v.desc || '';
+    $('#featuredNote').innerHTML = note.split(/\n\s*\n/).filter((p) => p.trim()).map((p) => `<p>${esc(p.trim()).replace(/\n/g, '<br>')}</p>`).join('');
+    $('#featured').hidden = false;
+  }
   function eventVideos(e) {
     const list = VIDEOS.filter((v) => v.event === e.id);
     return list.length ? `<span class="eyebrow" style="display:block;margin-top:32px">Videos · ${list.length}</span><div class="videos">${list.map(videoCard).join('')}</div>` : '';
@@ -1584,6 +1631,7 @@ function route() {
   function loadVideos() {
     fetch('videos.json', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : [])).catch(() => []).then((list) => {
       VIDEOS = Array.isArray(list) ? list : [];
+      showFeatured();
       if (/^#e-/.test(location.hash)) route();
     });
   }

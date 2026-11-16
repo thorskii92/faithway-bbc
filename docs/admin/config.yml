@@ -130,6 +130,9 @@ collections:
       - { name: performers, label: 'Sung by (optional)', widget: string, required: false, hint: 'e.g. "FBBC Choir" or "Youth Ladies Trio"' }
       - { name: event, label: 'Event (optional)', widget: relation, collection: events, value_field: '{{slug}}', search_fields: [title], display_fields: [title], required: false, hint: 'Show this video on an event page, e.g. the cantata.' }
       - { name: description, label: 'Description (optional)', widget: text, required: false }
+      - { name: featured, label: 'Feature on the home page', widget: boolean, default: false, required: false, hint: 'Shows this video big in a "Featured video" section on the home page. If several are ticked, the newest date is shown.' }
+      - { name: featured_heading, label: 'Featured: small heading (optional)', widget: string, required: false, hint: 'Shown above the title, e.g. "With gratitude" or "Pastor Appreciation". Default: "Featured video".' }
+      - { name: featured_note, label: 'Featured: message (optional)', widget: text, required: false, hint: 'A few sentences beside the video, e.g. a thank-you message from the church.' }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
       - { name: added, label: 'Added on', widget: hidden, required: false }   # set automatically (publish-site fills it from GitHub history)
 

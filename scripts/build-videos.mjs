@@ -52,6 +52,11 @@ async function main() {
       if (d.performers) v.by = String(d.performers);
       if (d.event) v.event = String(d.event);
       if (d.description) v.desc = String(d.description).trim();
+      if (d.featured) {   // shown big in the "Featured video" section of the home page
+        v.featured = true;
+        if (d.featured_heading) v.featuredHeading = String(d.featured_heading).trim();
+        if (d.featured_note) v.featuredNote = String(d.featured_note).trim();
+      }
       const thumb = d.thumbnail && String(d.thumbnail).replace(/^\/+/, '');
       if (thumb && existsSync(thumb)) {
         mkdirSync(join(out, 'img', 'videos'), { recursive: true });

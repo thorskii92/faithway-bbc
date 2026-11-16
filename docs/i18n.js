@@ -26,6 +26,8 @@
     "You're invited": 'Inaanyayahan ka', 'Come and celebrate with us': 'Makipagdiwang ka sa amin',
     'Upcoming events with an invitation appear here. Share them with family and friends.':
       'Narito ang mga paparating na okasyon. Ibahagi ito sa iyong pamilya at mga kaibigan.',
+    // featured video
+    'Featured video': 'Tampok na video', 'More videos from our Music Ministry →': 'Iba pang video ng aming Music Ministry →',
     // ministries
     'There is a place for you': 'May lugar para sa iyo',
     'Every member and visitor is welcome to take part.': 'Malugod na inaanyayahang makibahagi ang bawat miyembro at bisita.',
@@ -67,7 +69,7 @@
       reading: (d, n) => `Pagbasa ng Biblia ngayong araw · ika-${d} ng ${n} araw`, catchUp: 'Araw ng paghabol · Pagbasa ng Biblia',
     },
   };
-  const SCOPES = '.nav, .menu-btn, .hero, .services, #notices .eyebrow, #reading, #updates .section__head, #invited .section__head, #ministries .section__head, #visit, .footer';
+  const SCOPES = '.nav, .menu-btn, .hero, .services, #notices .eyebrow, #reading, #updates .section__head, #invited .section__head, .featured__more,#ministries .section__head, #visit, .footer';
   const original = new WeakMap();
   let lang = 'en';
   try { if (localStorage.getItem('faithway-lang') === 'fil') lang = 'fil'; } catch { /* storage blocked */ }
