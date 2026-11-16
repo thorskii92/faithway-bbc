@@ -71,11 +71,12 @@ for (const file of readdirSync(SRC).filter((f) => /\.ya?ml$/i.test(f)).sort()) {
   // big photo albums stay in Google Drive: only the list of photos is read, nothing is copied to the website
   if (d.album) {
     try {
-      ev.album = await readAlbum(d.album);
+      const { url, ...album } = await readAlbum(d.album);   // the folder link itself is not published
+      ev.album = album;
       if (!ev.album.photos && !ev.album.videos) problems.push(`${file}: the Google Drive album looks empty. Is it shared with "Anyone with the link"?`);
     } catch (e) {
-      problems.push(`${file}: could not read the Google Drive album (${e.message}). The website shows a link to it instead.`);
-      ev.album = { url: String(d.album).trim(), photos: 0, videos: 0, sections: [] };
+      problems.push(`${file}: could not read the Google Drive album (${e.message}). The album is left off the event page until it can be read.`);
+      ev.album = { photos: 0, sections: [] };
     }
   }
   events.push(ev);

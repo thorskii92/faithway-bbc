@@ -44,25 +44,29 @@ function when(name, firstDay) {
   return ((d - firstDay + 7) % 7) * 3 + part;
 }
 
-// → { url, photos: total, videos: total, sections: [{ name, photos: [fileId...], videos: n, videosUrl }] }
+// Videos stay private to the church: "Videos" subfolders are skipped and video files are not counted or linked.
+const SKIP_VIDEOS = true;
+
+// → { url, photos: total, sections: [{ name, photos: [fileId...] }] }
 export async function readAlbum(url) {
   const root = folderId(url);
   if (!root) throw new Error('not a Google Drive folder link');
   const sections = [];
   async function walk(id, name, parent, leaf = '') {
+    if (SKIP_VIDEOS && /^videos?$/i.test(leaf.trim())) return;   // "Videos" subfolders are for the church's own use
     const list = await entries(id);
     const isVideoFolder = /^videos?$/i.test(leaf.trim()) && parent;
     const sec = isVideoFolder ? parent : { name, folder: id, photos: [], videos: 0, videosUrl: null };
     for (const e of list) {
       if (e.type === 'file' && PHOTO.test(e.name)) sec.photos.push(e.id);
-      else if (e.type === 'file' && VIDEO.test(e.name)) { sec.videos += 1; sec.videosUrl = sec.videosUrl || folderUrl(id); }
+      else if (!SKIP_VIDEOS && e.type === 'file' && VIDEO.test(e.name)) { sec.videos += 1; sec.videosUrl = sec.videosUrl || folderUrl(id); }
     }
     if (!isVideoFolder) sections.push(sec);
     for (const e of list) if (e.type === 'folder') await walk(e.id, isVideoFolder ? name : (name ? `${name} / ${e.name}` : e.name), sec, e.name);
   }
   await walk(root, '', null);
-  const kept = sections.filter((s) => s.photos.length || s.videos)
-    .map((s) => ({ name: s.name ? title(s.name) : (s.photos.length ? 'Photos' : 'More videos'), photos: s.photos, videos: s.videos, videosUrl: s.videosUrl }));
+  const kept = sections.filter((s) => s.photos.length)
+    .map((s) => ({ name: s.name ? title(s.name) : 'Photos', photos: s.photos }));
   // order day-named sections in time; the week "starts" on whichever day keeps them closest together (Fri–Sun, not Sun–Fri)
   const days = [...new Set(kept.map((s) => DAYS.findIndex((x) => s.name.toLowerCase().includes(x))).filter((d) => d >= 0))];
   if (days.length > 1) {
@@ -74,7 +78,6 @@ export async function readAlbum(url) {
   return {
     url: folderUrl(root),
     photos: kept.reduce((n, s) => n + s.photos.length, 0),
-    videos: kept.reduce((n, s) => n + s.videos, 0),
     sections: kept,
   };
 }

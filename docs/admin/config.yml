@@ -67,7 +67,7 @@ collections:
         required: false
         hint: 'The first photo is the cover. Drag to reorder.'
         field: { name: image, label: Photo, widget: image }
-      - { name: album, label: 'Google Drive photo album (optional)', widget: string, required: false, hint: 'For big albums: paste the link to a Google Drive folder shared with "Anyone with the link". Its photos show on the event page straight from Drive (subfolders become sections, "Videos" subfolders become links), so they use no website storage.', pattern: ['^$|drive\.google\.com/', 'Please paste a Google Drive folder link'] }
+      - { name: album, label: 'Google Drive photo album (optional)', widget: string, required: false, hint: 'For big albums: paste the link to a Google Drive folder shared with "Anyone with the link". Its photos show on the event page straight from Drive (subfolders become sections; videos and "Videos" subfolders are not shown), so they use no website storage.', pattern: ['^$|drive\.google\.com/', 'Please paste a Google Drive folder link'] }
       - { name: sample, label: 'Sample (placeholder) event', widget: boolean, default: false, required: false, hint: 'Shows a grey "Sample" tag. Turn off for real events.' }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
       - { name: added, label: 'Added on', widget: hidden, required: false }   # set automatically (publish-site fills it from GitHub history)

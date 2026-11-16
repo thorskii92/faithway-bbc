@@ -1415,19 +1415,17 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
   let albumState = { id: null, sec: 0, shown: ALBUM_STEP };
   function renderAlbum(e) {
     const box = $('#album', sheet); if (!box || !e.album) return;
+    if (!(e.album.sections || []).length) { box.remove(); return; }   // album couldn't be read: show nothing
     if (albumState.id !== e.id) albumState = { id: e.id, sec: 0, shown: ALBUM_STEP };
     const A = e.album, secs = A.sections || [];
     const n = (x, one, many) => `${x.toLocaleString('en-PH')} ${x === 1 ? one : many}`;
-    const counts = [A.photos ? n(A.photos, 'photo', 'photos') : '', A.videos ? n(A.videos, 'video', 'videos') : ''].filter(Boolean).join(' · ');
+    const counts = A.photos ? n(A.photos, 'photo', 'photos') : '';
     const s = secs[albumState.sec];
     const photos = s ? s.photos.slice(0, albumState.shown) : [];
-    box.innerHTML = `<div class="album__head"><span class="eyebrow">Photo album${counts ? ' · ' + counts : ''}</span>
-        <a class="act" href="${esc(A.url)}" target="_blank" rel="noopener">Open the full album in Google Drive</a></div>
+    box.innerHTML = `<div class="album__head"><span class="eyebrow">Photo album${counts ? ' · ' + counts : ''}</span></div>
       ${secs.length > 1 ? `<div class="chips" role="group" aria-label="Album sections">${secs.map((x, i) => `<button class="chip" type="button" data-asec="${i}" aria-pressed="${i === albumState.sec}">${esc(x.name)}${x.photos.length ? ` · ${x.photos.length}` : ''}</button>`).join('')}</div>` : ''}
       ${photos.length ? `<div class="gallery gallery--photos">${photos.map((id, i) => `<button type="button" data-full="${driveThumb(id, 1600)}" aria-label="View photo ${i + 1} of ${s.photos.length}, ${esc(s.name)}"><img src="${driveThumb(id, 400)}" alt="${esc(e.title)}, ${esc(s.name)}, photo ${i + 1}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></button>`).join('')}</div>` : ''}
-      ${s && s.photos.length > albumState.shown ? `<button class="act album__more" type="button" data-amore>Show more photos (${s.photos.length - albumState.shown} more)</button>` : ''}
-      ${s && s.videos ? `<a class="album__videos" href="${esc(s.videosUrl || A.url)}" target="_blank" rel="noopener">▶ Watch ${n(s.videos, 'video', 'videos')} from ${esc(s.name)} in Google Drive →</a>` : ''}
-      ${!secs.length ? '<p class="album__note">The photos are in Google Drive. Open the album to see them.</p>' : '<p class="album__note">Photos load from Google Drive. If some don’t appear, open the full album.</p>'}`;
+      ${s && s.photos.length > albumState.shown ? `<button class="act album__more" type="button" data-amore>Show more photos (${s.photos.length - albumState.shown} more)</button>` : ''}`;
   }
   sheet.addEventListener('click', (ev) => {
     const sec = ev.target.closest('[data-asec]'), more = ev.target.closest('[data-amore]');
