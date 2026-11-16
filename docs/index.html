@@ -529,10 +529,29 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
 .gallery--photos button:focus-visible { outline: 3px solid var(--mid); outline-offset: 2px; }
 .gallery--photos img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
 .gallery--photos button:hover img { transform: scale(1.05); }
-.lightbox { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 94vh; cursor: zoom-out; outline: none; }
-.lightbox::backdrop { background: rgba(3, 25, 36, .88); }
-.lightbox img { display: block; max-width: 96vw; max-height: 88vh; border-radius: 8px; }
-.lightbox__hint { display: block; text-align: center; color: var(--sky); font-size: .78rem; margin-top: 8px; }
+.lightbox { border: 0; padding: 0; background: transparent; width: 100vw; height: 100dvh; max-width: none; max-height: none; outline: none; overflow: hidden; }
+.lightbox[open] { display: grid; grid-template-rows: 1fr auto; }
+.lightbox::backdrop { background: rgba(3, 25, 36, .92); }
+.lightbox__stage { display: grid; place-items: center; min-height: 0; padding: 56px 72px 0; cursor: zoom-out; }
+.lightbox__stage img { display: block; max-width: 100%; max-height: calc(100dvh - 120px); border-radius: 8px; cursor: default; touch-action: pan-y pinch-zoom; user-select: none; -webkit-user-drag: none; }
+.lightbox__bar { display: flex; justify-content: center; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px 16px 18px; color: var(--sky); font-size: .8rem; }
+.lightbox__count { color: var(--white); font-weight: 600; font-variant-numeric: tabular-nums; }
+.lightbox__count:empty, .lightbox__hint:empty { display: none; }
+.lb-btn { all: unset; box-sizing: border-box; cursor: pointer; position: fixed; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: rgba(5, 68, 95, .78); color: var(--white); box-shadow: 0 8px 24px -10px rgba(0,0,0,.6); transition: background .2s, transform .2s; }
+.lb-btn svg { width: 26px; height: 26px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.lb-btn:hover, .lb-btn:focus-visible { background: var(--deep); transform: scale(1.06); }
+.lb-btn:focus-visible { outline: 3px solid var(--sky); outline-offset: 2px; }
+.lb-btn[hidden] { display: none; }
+.lb-prev { left: 16px; top: 50%; translate: 0 -50%; }
+.lb-next { right: 16px; top: 50%; translate: 0 -50%; }
+.lb-close { right: 16px; top: 12px; width: 44px; height: 44px; }
+.lb-close svg { width: 22px; height: 22px; }
+@media (max-width: 640px) {
+  .lightbox__stage { padding: 56px 8px 0; }
+  .lb-prev, .lb-next { top: auto; bottom: 14px; translate: none; width: 46px; height: 46px; }
+  .lightbox__bar { padding: 12px 74px 26px; min-height: 74px; gap: 4px 10px; text-align: center; }
+  .lightbox__stage img { max-height: calc(100dvh - 150px); }
+}
 .person { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 40px; align-items: center; }
 @media (max-width: 700px) { .person { grid-template-columns: 1fr; justify-items: start; gap: 24px; } }
 .person__photo { width: 220px; height: 220px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 6px var(--white), 0 0 0 7px var(--line), 0 30px 50px -30px rgba(5,68,95,.6); max-width: 100%; }
@@ -986,7 +1005,13 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
     <button class="act" type="button" id="qrClose">Close</button>
   </div>
 </dialog>
-<dialog class="lightbox" id="lightbox" aria-label="Photo viewer"><img src="" alt=""><span class="lightbox__hint">Tap anywhere or press Esc to close</span></dialog>
+<dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+  <div class="lightbox__stage"><img src="" alt="" referrerpolicy="no-referrer"></div>
+  <button class="lb-btn lb-prev" type="button" aria-label="Previous photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+  <button class="lb-btn lb-next" type="button" aria-label="Next photo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+  <button class="lb-btn lb-close" type="button" aria-label="Close photo viewer"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="lightbox__bar"><span class="lightbox__count" id="lbCount" aria-live="polite"></span><span class="lightbox__hint" id="lbHint"></span></div>
+</dialog>
 
 <script src="map.js"></script>
 <script src="missionaries.js" charset="utf-8"></script>
@@ -1424,7 +1449,7 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
     const photos = s ? s.photos.slice(0, albumState.shown) : [];
     box.innerHTML = `<div class="album__head"><span class="eyebrow">Photo album${counts ? ' · ' + counts : ''}</span></div>
       ${secs.length > 1 ? `<div class="chips" role="group" aria-label="Album sections">${secs.map((x, i) => `<button class="chip" type="button" data-asec="${i}" aria-pressed="${i === albumState.sec}">${esc(x.name)}${x.photos.length ? ` · ${x.photos.length}` : ''}</button>`).join('')}</div>` : ''}
-      ${photos.length ? `<div class="gallery gallery--photos">${photos.map((id, i) => `<button type="button" data-full="${driveThumb(id, 1600)}" aria-label="View photo ${i + 1} of ${s.photos.length}, ${esc(s.name)}"><img src="${driveThumb(id, 400)}" alt="${esc(e.title)}, ${esc(s.name)}, photo ${i + 1}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></button>`).join('')}</div>` : ''}
+      ${photos.length ? `<div class="gallery gallery--photos">${photos.map((id, i) => `<button type="button" data-ai="${i}" data-full="${driveThumb(id, 1600)}" aria-label="View photo ${i + 1} of ${s.photos.length}, ${esc(s.name)}"><img src="${driveThumb(id, 400)}" alt="${esc(e.title)}, ${esc(s.name)}, photo ${i + 1}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></button>`).join('')}</div>` : ''}
       ${s && s.photos.length > albumState.shown ? `<button class="act album__more" type="button" data-amore>Show more photos (${s.photos.length - albumState.shown} more)</button>` : ''}`;
   }
   sheet.addEventListener('click', (ev) => {
@@ -1579,15 +1604,59 @@ function route() {
     if (l && !l.disabled) { const id = sheet.dataset.view.slice(2); location.hash = `m-${id}-l${l.dataset.l}`; }
   });
   /* photo viewer for event galleries */
-  const lightbox = $('#lightbox');
+  // Previous / Next buttons, arrow keys and swiping step through the photos of the same gallery.
+  // In a Google Drive album it steps through the whole section, including photos not yet shown by "Show more".
+  const lightbox = $('#lightbox'), lbImg = lightbox.querySelector('img');
+  const lbPrev = lightbox.querySelector('.lb-prev'), lbNext = lightbox.querySelector('.lb-next');
+  let LB = { list: [], i: 0, label: '' };
+  const preload = (src) => { if (src) { const p = new Image(); p.referrerPolicy = 'no-referrer'; p.src = src; } };
+  function lbShow(i) {
+    const n = LB.list.length;
+    LB.i = Math.max(0, Math.min(n - 1, i));
+    const item = LB.list[LB.i];
+    lbImg.src = item.src; lbImg.alt = item.alt || '';
+    lbPrev.hidden = lbNext.hidden = n < 2;
+    lbPrev.disabled = LB.i === 0; lbNext.disabled = LB.i === n - 1;
+    lbPrev.style.opacity = LB.i === 0 ? .35 : ''; lbNext.style.opacity = LB.i === n - 1 ? .35 : '';
+    $('#lbCount').textContent = n > 1 ? `${LB.i + 1} / ${n}${LB.label ? ' · ' + LB.label : ''}` : '';
+    preload(LB.list[LB.i + 1] && LB.list[LB.i + 1].src); preload(LB.list[LB.i - 1] && LB.list[LB.i - 1].src);
+  }
   sheet.addEventListener('click', (e) => {
     const b = e.target.closest('[data-full]');
     if (!b) return;
-    lightbox.querySelector('img').src = b.dataset.full;
-    lightbox.querySelector('img').alt = b.querySelector('img').alt;
+    LB = { list: [], i: 0, label: '' };
+    const albumEvent = b.dataset.ai !== undefined && EVENTS.find((x) => x.id === albumState.id);
+    const sec = albumEvent && albumEvent.album.sections[albumState.sec];
+    if (sec) {   // whole album section
+      LB.list = sec.photos.map((id, i) => ({ src: driveThumb(id, 1600), alt: `${albumEvent.title}, ${sec.name}, photo ${i + 1}` }));
+      LB.label = sec.name; LB.i = +b.dataset.ai;
+    } else {     // the other photos in the same gallery (or just this one, e.g. an invitation)
+      const group = b.closest('.gallery') ? [...b.closest('.gallery').querySelectorAll('[data-full]')] : [b];
+      LB.list = group.map((x) => ({ src: x.dataset.full, alt: (x.querySelector('img') || {}).alt || '' }));
+      LB.i = group.indexOf(b);
+    }
+    $('#lbHint').textContent = LB.list.length > 1 ? (matchMedia('(hover: none)').matches ? 'Swipe to browse' : 'Use ← → to browse · Esc to close') : '';
+    lbShow(LB.i);
     lightbox.showModal();
+    lbImg.focus?.();
   });
-  lightbox.addEventListener('click', () => lightbox.close());
+  lbPrev.addEventListener('click', () => lbShow(LB.i - 1));
+  lbNext.addEventListener('click', () => lbShow(LB.i + 1));
+  lightbox.querySelector('.lb-close').addEventListener('click', () => lightbox.close());
+  lightbox.addEventListener('click', (e) => {   // tap outside the photo (not on a button) closes
+    if (e.target === lightbox || e.target.classList.contains('lightbox__stage') || e.target.classList.contains('lightbox__bar')) lightbox.close();
+  });
+  lightbox.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { e.preventDefault(); lbShow(LB.i - 1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); lbShow(LB.i + 1); }
+  });
+  let touchX = null;
+  lightbox.addEventListener('touchstart', (e) => { touchX = e.touches.length === 1 ? e.touches[0].clientX : null; }, { passive: true });
+  lightbox.addEventListener('touchend', (e) => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX; touchX = null;
+    if (Math.abs(dx) > 50) lbShow(LB.i + (dx < 0 ? 1 : -1));
+  }, { passive: true });
   addEventListener('keydown', (e) => { if (e.key === 'Escape' && !sheet.hidden && !lightbox.open && !qrDialog.open) location.hash = returnTo; });
   addEventListener('hashchange', route);
   /* ---------- memory verse: verses.json is built from content/verses/*.yml (the /admin editor) ---------- */
