@@ -516,6 +516,15 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
 .facts__invite img { display: block; width: 100%; height: auto; }
 .tag--sample { background: var(--line); color: var(--muted); }
 .gallery--photos { margin-top: 12px; }
+/* Google Drive photo albums (big albums stay in Drive) */
+.album { margin-top: 36px; display: grid; gap: 14px; }
+.album__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; }
+.album .chips { margin: 0; }
+.album .gallery--photos { margin-top: 0; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 8px; }
+.album__videos { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 12px; background: var(--ocean); color: var(--deep-2); text-decoration: none; font-weight: 600; font-size: .9rem; }
+.album__videos:hover { background: #E2F1FB; }
+.album__more { justify-self: center; }
+.album__note { color: var(--muted); font-size: .8rem; }
 .gallery--photos button { all: unset; cursor: zoom-in; display: block; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: var(--line); }
 .gallery--photos button:focus-visible { outline: 3px solid var(--mid); outline-offset: 2px; }
 .gallery--photos img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
@@ -1002,9 +1011,13 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
   };
   const LABEL = { cantata: 'Cantata', anniversary: 'Anniversary', camp: 'Camp', family: 'Family', saturation: 'Saturation', 'extension-class': 'Extension Class', building: 'Church Building' };
   const icon = (k, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICON[k]}</svg>`;
+  const driveThumb = (id, w) => `https://drive.google.com/thumbnail?id=${encodeURIComponent(id)}&sz=w${w}`;
+  const albumPhotos = (e) => (e.album && e.album.sections ? e.album.sections.flatMap((s) => s.photos) : []);
   /* events with photos (folder in img/events/<slug>/: 01.jpg is the cover) show the photo; others get category art */
   const cover = (k, e, big) => e && e.photos
     ? `<div class="cover cover--photo"><img src="${e.photos}/01${big ? '' : '-sm'}.jpg" alt="" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight>1.9)this.classList.add('is-wide')"></div>`
+    : e && e.album && albumPhotos(e)[0]   // big albums live in Google Drive: use the album's first photo
+      ? `<div class="cover cover--photo"><img src="${driveThumb(albumPhotos(e)[0], big ? 1600 : 720)}" alt="" loading="lazy" referrerpolicy="no-referrer"></div>`
     : e && e.invitation   // no photos yet: use the invitation poster as the cover
       ? `<div class="cover cover--photo"><img src="${e.invitation}" alt="" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight>1.9)this.classList.add('is-wide')"></div>`
     : `<div class="cover cover--${k}">${icon(k, 'big')}<div class="cover__badge">${icon(k)}<span>${LABEL[k]}</span></div></div>`;
@@ -1358,6 +1371,7 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
             ? `<span class="eyebrow" style="display:block;margin-top:32px">Photos · ${e.count}</span>
                <div class="gallery gallery--photos">${Array.from({ length: e.count }, (_, i) => { const n = String(i + 1).padStart(2, '0'); return `<button type="button" data-full="${e.photos}/${n}.jpg" aria-label="View photo ${i + 1} of ${e.count}"><img src="${e.photos}/${n}-sm.jpg" alt="${esc(e.title)}, photo ${i + 1}" loading="lazy"></button>`; }).join('')}</div>`
             : (e.sample ? `<div class="gallery">${[0, 1, 2].map(() => cover(e.cat)).join('')}</div>` : '')}
+          ${e.album ? '<div class="album" id="album"></div>' : ''}
           ${eventVideos(e)}
         </div>
         <aside><dl class="facts">
@@ -1396,6 +1410,34 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
     }
     setTimeout(() => { label.textContent = 'Share'; }, 2500);
   });
+  /* Google Drive album on an event page: one section at a time, 24 photos at a time, straight from Drive */
+  const ALBUM_STEP = 24;
+  let albumState = { id: null, sec: 0, shown: ALBUM_STEP };
+  function renderAlbum(e) {
+    const box = $('#album', sheet); if (!box || !e.album) return;
+    if (albumState.id !== e.id) albumState = { id: e.id, sec: 0, shown: ALBUM_STEP };
+    const A = e.album, secs = A.sections || [];
+    const n = (x, one, many) => `${x.toLocaleString('en-PH')} ${x === 1 ? one : many}`;
+    const counts = [A.photos ? n(A.photos, 'photo', 'photos') : '', A.videos ? n(A.videos, 'video', 'videos') : ''].filter(Boolean).join(' · ');
+    const s = secs[albumState.sec];
+    const photos = s ? s.photos.slice(0, albumState.shown) : [];
+    box.innerHTML = `<div class="album__head"><span class="eyebrow">Photo album${counts ? ' · ' + counts : ''}</span>
+        <a class="act" href="${esc(A.url)}" target="_blank" rel="noopener">Open the full album in Google Drive</a></div>
+      ${secs.length > 1 ? `<div class="chips" role="group" aria-label="Album sections">${secs.map((x, i) => `<button class="chip" type="button" data-asec="${i}" aria-pressed="${i === albumState.sec}">${esc(x.name)}${x.photos.length ? ` · ${x.photos.length}` : ''}</button>`).join('')}</div>` : ''}
+      ${photos.length ? `<div class="gallery gallery--photos">${photos.map((id, i) => `<button type="button" data-full="${driveThumb(id, 1600)}" aria-label="View photo ${i + 1} of ${s.photos.length}, ${esc(s.name)}"><img src="${driveThumb(id, 400)}" alt="${esc(e.title)}, ${esc(s.name)}, photo ${i + 1}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentElement.remove()"></button>`).join('')}</div>` : ''}
+      ${s && s.photos.length > albumState.shown ? `<button class="act album__more" type="button" data-amore>Show more photos (${s.photos.length - albumState.shown} more)</button>` : ''}
+      ${s && s.videos ? `<a class="album__videos" href="${esc(s.videosUrl || A.url)}" target="_blank" rel="noopener">▶ Watch ${n(s.videos, 'video', 'videos')} from ${esc(s.name)} in Google Drive →</a>` : ''}
+      ${!secs.length ? '<p class="album__note">The photos are in Google Drive. Open the album to see them.</p>' : '<p class="album__note">Photos load from Google Drive. If some don’t appear, open the full album.</p>'}`;
+  }
+  sheet.addEventListener('click', (ev) => {
+    const sec = ev.target.closest('[data-asec]'), more = ev.target.closest('[data-amore]');
+    if (!sec && !more) return;
+    const e = EVENTS.find((x) => x.id === albumState.id); if (!e) return;
+    if (sec) albumState = { id: e.id, sec: +sec.dataset.asec, shown: ALBUM_STEP };
+    else albumState.shown += ALBUM_STEP * 2;
+    renderAlbum(e);
+  });
+
   /* QR code for printed invitations and tarpaulins (e/<id>-qr.svg, made by build-events): scanning opens the event */
   const QR_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 20h1M20 14h1"/></svg>';
   const qrDialog = $('#qrDialog');
@@ -1525,6 +1567,7 @@ function route() {
       if (sheet.hidden) { sheet.hidden = false; document.documentElement.style.overflow = 'hidden'; sheet.scrollTop = 0; $('.back', sheet).focus({ preventScroll: true }); }
       else if (!sameM) sheet.scrollTop = 0;
       fitLand(sheet);
+      if (ee) { const ev = EVENTS.find((x) => x.id === ee[1]); if (ev && ev.album) renderAlbum(ev); }
       if (me && me[2]) { const r = $('#reader', sheet); if (r) r.scrollIntoView({ behavior: reduce.matches ? 'auto' : 'smooth', block: 'start' }); }
       clearLine();
     } else if (!sheet.hidden) {
@@ -1588,7 +1631,7 @@ function route() {
   const VTYPE = { cantata: 'Cantata', choir: 'Sunday Choir', special: 'Special Number', congregational: 'Congregational', other: 'Music' };
   // shows a thumbnail; the player (YouTube no-cookie, Google Drive's preview player, or Facebook's video plugin) loads only when someone taps play
   const videoCard = (v) => `<article class="video">
-      <div class="video__frame">${v.yt ? `<img src="https://i.ytimg.com/vi/${v.yt}/hqdefault.jpg" alt="" loading="lazy">` : v.thumb ? `<img src="${v.thumb}" alt="" loading="lazy">` : v.gd ? `<span class="video__fbart" aria-hidden="true"></span><img src="https://drive.google.com/thumbnail?id=${v.gd}&sz=w960" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : '<span class="video__fbart" aria-hidden="true"></span>'}${v.fb ? '<span class="video__src">Facebook</span>' : v.gd ? '<span class="video__src video__src--gd">Google Drive</span>' : ''}<button class="video__play" type="button" ${v.yt ? `data-yt="${v.yt}"` : v.gd ? `data-gd="${v.gd}"` : `data-fb="${esc(v.fb)}"`} aria-label="Play: ${esc(v.title)}"></button></div>
+      <div class="video__frame">${v.yt ? `<img src="https://i.ytimg.com/vi/${v.yt}/hqdefault.jpg" alt="" loading="lazy">` : v.thumb ? `<img src="${v.thumb}" alt="" loading="lazy">` : v.gd ? `<span class="video__fbart" aria-hidden="true"></span><img src="https://drive.google.com/thumbnail?id=${v.gd}&sz=w960" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : '<span class="video__fbart" aria-hidden="true"></span>'}<button class="video__play" type="button" ${v.yt ? `data-yt="${v.yt}"` : v.gd ? `data-gd="${v.gd}"` : `data-fb="${esc(v.fb)}"`} aria-label="Play: ${esc(v.title)}"></button></div>
       <div class="video__meta"><span class="tag">${VTYPE[v.type]}</span>${v.date ? `<span>${fmt(v.date, { month: 'short', day: 'numeric', year: 'numeric' })}</span>` : ''}</div>
       <h3>${esc(v.title)}</h3>
       ${v.by ? `<p>${esc(v.by)}</p>` : ''}${v.desc ? `<p>${esc(v.desc)}</p>` : ''}

@@ -9,6 +9,7 @@ import { join, basename } from 'node:path';
 import YAML from 'yaml';
 import sharp from 'sharp';
 import QRCode from 'qrcode';
+import { readAlbum, thumbUrl } from './drive.mjs';
 import { SITE, CHURCH, ogTags, escAttr } from './site.mjs';
 
 const out = process.argv[2] || 'docs';
@@ -67,6 +68,16 @@ for (const file of readdirSync(SRC).filter((f) => /\.ya?ml$/i.test(f)).sort()) {
       ev.invitation = `img/events/${id}/invitation.jpg`;
     } else problems.push(`${file}: invitation not found: ${d.invitation}`);
   }
+  // big photo albums stay in Google Drive: only the list of photos is read, nothing is copied to the website
+  if (d.album) {
+    try {
+      ev.album = await readAlbum(d.album);
+      if (!ev.album.photos && !ev.album.videos) problems.push(`${file}: the Google Drive album looks empty. Is it shared with "Anyone with the link"?`);
+    } catch (e) {
+      problems.push(`${file}: could not read the Google Drive album (${e.message}). The website shows a link to it instead.`);
+      ev.album = { url: String(d.album).trim(), photos: 0, videos: 0, sections: [] };
+    }
+  }
   events.push(ev);
 }
 
@@ -112,7 +123,8 @@ rmSync(join(out, 'e'), { recursive: true, force: true });
 mkdirSync(join(out, 'e'), { recursive: true });
 for (const ev of events) {
   const page = `${SITE}e/${ev.id}.html`;
-  const image = ev.invitation || (ev.photos ? `${ev.photos}/01.jpg` : 'img/og.jpg');
+  const firstAlbumPhoto = ev.album && ev.album.sections.flatMap((s) => s.photos)[0];
+  const image = ev.invitation || (ev.photos ? `${ev.photos}/01.jpg` : firstAlbumPhoto ? thumbUrl(firstAlbumPhoto, 1200) : 'img/og.jpg');
   const desc = [longDate(ev) + (ev.time ? ' · ' + ev.time : ''), ev.place].join(' · ') + (ev.sum ? '. ' + ev.sum : '');
   writeFileSync(join(out, 'e', `${ev.id}.html`), `<!doctype html>
 <html lang="en"><head>
