@@ -100,8 +100,8 @@ collections:
     label: Videos (Music Ministry)
     label_singular: Video
     description: >-
-      Link YouTube or public Facebook videos of cantatas, the Sunday choir and special numbers. Videos stay on YouTube/Facebook,
-      so they use no storage. Pick an event to also show the video on that event's page.
+      Link YouTube, public Facebook or Google Drive ("Anyone with the link") videos of cantatas, the Sunday choir and
+      special numbers. Videos stay where they are, so they use no website storage. Pick an event to also show the video on that event's page.
     folder: content/videos
     format: yml
     extension: yml
@@ -115,8 +115,8 @@ collections:
       default: { field: date, direction: descending }   # latest event date on top
     fields:
       - { name: title, label: Title, widget: string, hint: 'e.g. "Easter Cantata – Full Program" or "How Great Thou Art"' }
-      - { name: link, label: 'Video link (YouTube or Facebook)', widget: string, hint: 'YouTube: Share → Copy link. Facebook: open the video, click ... → Copy link. Facebook videos must be Public.', pattern: ['(youtu\.be/|youtube\.com/|facebook\.com/|fb\.watch/)', 'Please paste a YouTube or Facebook video link'] }
-      - { name: thumbnail, label: 'Thumbnail (optional, for Facebook videos)', widget: image, required: false, hint: 'YouTube videos get their picture automatically. For Facebook, upload a screenshot or photo to show before playing.' }
+      - { name: link, label: 'Video link (YouTube, Facebook or Google Drive)', widget: string, hint: 'YouTube: Share → Copy link. Facebook: open the video, click ... → Copy link (the video must be Public). Google Drive: right-click the video → Share → set General access to "Anyone with the link" → Copy link.', pattern: ['(youtu\.be/|youtube\.com/|facebook\.com/|fb\.watch/|drive\.google\.com/|docs\.google\.com/)', 'Please paste a YouTube, Facebook or Google Drive video link'] }
+      - { name: thumbnail, label: 'Thumbnail (optional, for Facebook and Google Drive videos)', widget: image, required: false, hint: 'YouTube videos get their picture automatically, and Google Drive usually does too. For Facebook (or if a Drive video shows no picture), upload a screenshot or photo to show before playing.' }
       - name: type
         label: Type
         widget: select

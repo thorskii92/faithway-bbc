@@ -1,5 +1,6 @@
 // Builds <out>/videos.json from content/videos/*.yml (videos saved in the /admin editor).
-// A video is a YouTube link or a public Facebook video link; Facebook ones can have an uploaded thumbnail.
+// A video is a YouTube link, a public Facebook video link, or a Google Drive video shared with "Anyone with the link".
+// Facebook and Drive videos can have an uploaded thumbnail (Drive falls back to Drive's own preview picture).
 // Usage: node scripts/build-videos.mjs [outDir=docs]
 import { readFileSync, writeFileSync, readdirSync, existsSync, mkdirSync, rmSync } from 'node:fs';
 import { join, basename } from 'node:path';
@@ -25,6 +26,14 @@ export function facebookUrl(url) {
   return s.replace(/^https?:\/\/(m|web)\./i, 'https://www.');
 }
 
+// Google Drive: drive.google.com/file/d/ID/view, open?id=ID, uc?id=ID
+export function driveId(url) {
+  const s = String(url || '').trim();
+  if (!/^https?:\/\/(drive|docs)\.google\.com\//i.test(s)) return null;
+  const m = s.match(/\/file\/d\/([\w-]{20,})/) || s.match(/[?&]id=([\w-]{20,})/);
+  return m ? m[1] : null;
+}
+
 async function main() {
   rmSync(join(out, 'img', 'videos'), { recursive: true, force: true });
   const videos = [];
@@ -34,11 +43,11 @@ async function main() {
       try { d = YAML.parse(readFileSync(join(SRC, f), 'utf8')) || {}; } catch { console.warn(`warning: ${f}: not valid YAML`); continue; }
       if (d.draft) continue;
       const link = d.link || d.youtube;                 // older entries used the 'youtube' field
-      const yt = youtubeId(link), fb = yt ? null : facebookUrl(link);
-      if (!d.title || !(yt || fb)) { console.warn(`warning: ${f}: needs a title and a YouTube or Facebook link`); continue; }
+      const yt = youtubeId(link), gd = yt ? null : driveId(link), fb = yt || gd ? null : facebookUrl(link);
+      if (!d.title || !(yt || fb || gd)) { console.warn(`warning: ${f}: needs a title and a YouTube, Facebook or Google Drive link`); continue; }
       const date = d.date instanceof Date ? d.date.toISOString().slice(0, 10) : String(d.date || '').slice(0, 10);
       const v = { id: basename(f).replace(/\.ya?ml$/i, ''), title: String(d.title), type: TYPES.includes(d.type) ? d.type : 'other' };
-      if (yt) v.yt = yt; else v.fb = fb;
+      if (yt) v.yt = yt; else if (gd) v.gd = gd; else v.fb = fb;
       if (/^\d{4}-\d{2}-\d{2}$/.test(date)) v.date = date;
       if (d.performers) v.by = String(d.performers);
       if (d.event) v.event = String(d.event);
