@@ -24,6 +24,7 @@ function get(url, hops = 0) {
 async function entries(id) {
   const html = await get(`https://drive.google.com/embeddedfolderview?id=${id}`);
   const list = [];
+  list.title = ((/<title>([^<]*)/.exec(html) || [])[1] || '').replace(/&amp;/g, '&').replace(/&#39;/g, "'").trim();   // the folder's own name
   for (const m of html.matchAll(/<a href="([^"]+)"[^>]*>[\s\S]*?flip-entry-title">([^<]*)/g)) {
     const url = m[1].replace(/&amp;/g, '&');
     const name = m[2].replace(/&amp;/g, '&').replace(/&#39;/g, "'").replace(/&quot;/g, '"').trim();
@@ -47,14 +48,21 @@ function when(name, firstDay) {
 // Videos stay private to the church: "Videos" subfolders are skipped and video files are not counted or linked.
 const SKIP_VIDEOS = true;
 
+// every Drive folder link in the field (one per line, or a list)
+export const folderIds = (value) => [...new Set((Array.isArray(value) ? value : [value]).flatMap((v) => String(v || '').split(/[\s,]+/)).map(folderId).filter(Boolean))];
+
+// One link: its subfolders become the sections (photos loose in it are "Photos").
+// Several links (e.g. only some services of a weekend): each linked folder becomes a section under its own name.
 // → { url, photos: total, sections: [{ name, photos: [fileId...] }] }
-export async function readAlbum(url) {
-  const root = folderId(url);
-  if (!root) throw new Error('not a Google Drive folder link');
+export async function readAlbum(value) {
+  const roots = folderIds(value);
+  if (!roots.length) throw new Error('no Google Drive folder link found');
+  const root = roots[0];
   const sections = [];
-  async function walk(id, name, parent, leaf = '') {
+  async function walk(id, name, parent, leaf = '', isRoot = false) {
     if (SKIP_VIDEOS && /^videos?$/i.test(leaf.trim())) return;   // "Videos" subfolders are for the church's own use
     const list = await entries(id);
+    if (isRoot && roots.length > 1) name = list.title || name;
     const isVideoFolder = /^videos?$/i.test(leaf.trim()) && parent;
     const sec = isVideoFolder ? parent : { name, folder: id, photos: [], videos: 0, videosUrl: null };
     for (const e of list) {
@@ -64,7 +72,7 @@ export async function readAlbum(url) {
     if (!isVideoFolder) sections.push(sec);
     for (const e of list) if (e.type === 'folder') await walk(e.id, isVideoFolder ? name : (name ? `${name} / ${e.name}` : e.name), sec, e.name);
   }
-  await walk(root, '', null);
+  for (const r of roots) await walk(r, '', null, '', true);
   const kept = sections.filter((s) => s.photos.length)
     .map((s) => ({ name: s.name ? title(s.name) : 'Photos', photos: s.photos }));
   // order day-named sections in time; the week "starts" on whichever day keeps them closest together (Fri–Sun, not Sun–Fri)

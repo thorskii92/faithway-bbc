@@ -52,6 +52,7 @@ collections:
           - { label: Saturation, value: saturation }
           - { label: Extension Class, value: extension-class }
           - { label: Church Building, value: building }
+          - { label: Conference, value: conference }
           - { label: Other, value: other }
       - { name: date, label: Date, widget: datetime, time_format: false, date_format: YYYY-MM-DD, format: YYYY-MM-DD, picker_utc: true }
       - { name: date_label, label: 'Show date as (optional)', widget: string, required: false, hint: 'Only if the exact day is unknown, e.g. "November 2025". Still pick a date above for ordering.' }
@@ -67,7 +68,7 @@ collections:
         required: false
         hint: 'The first photo is the cover. Drag to reorder.'
         field: { name: image, label: Photo, widget: image }
-      - { name: album, label: 'Google Drive photo album (optional)', widget: string, required: false, hint: 'For big albums: paste the link to a Google Drive folder shared with "Anyone with the link". Its photos show on the event page straight from Drive (subfolders become sections; videos and "Videos" subfolders are not shown), so they use no website storage.', pattern: ['^$|drive\.google\.com/', 'Please paste a Google Drive folder link'] }
+      - { name: album, label: 'Google Drive photo album (optional)', widget: text, required: false, hint: 'For big albums: paste the link to a Google Drive folder shared with "Anyone with the link". Its photos show on the event page straight from Drive, so they use no website storage. One folder: its subfolders become sections. Several folders (e.g. only the Friday and Saturday services): put one link per line, and each folder becomes a section. Videos and "Videos" subfolders are not shown.' }
       - { name: sample, label: 'Sample (placeholder) event', widget: boolean, default: false, required: false, hint: 'Shows a grey "Sample" tag. Turn off for real events.' }
       - { name: draft, label: 'Hide from website (draft)', widget: boolean, default: false, required: false }
       - { name: added, label: 'Added on', widget: hidden, required: false }   # set automatically (publish-site fills it from GitHub history)

@@ -15,7 +15,7 @@ import { SITE, CHURCH, ogTags, escAttr } from './site.mjs';
 const out = process.argv[2] || 'docs';
 const SRC = 'content/events';
 const FONTS = ['elegant', 'classic', 'inscription', 'script', 'modern'];
-const CATEGORIES = ['cantata', 'anniversary', 'camp', 'family', 'saturation', 'extension-class', 'building', 'other'];
+const CATEGORIES = ['cantata', 'anniversary', 'camp', 'family', 'saturation', 'extension-class', 'building', 'conference', 'other'];
 
 // image paths saved by the editor look like "/content/uploads/x.jpg" (repo-root relative)
 const local = (p) => String(p).replace(/^\/+/, '');
