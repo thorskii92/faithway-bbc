@@ -508,6 +508,7 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
 .cover--photo { background: var(--deep-2); }
 .cover--photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .cover--photo img.is-wide { object-fit: contain; background: var(--cream); }  /* banners/posters: show whole, don't crop */
+.cover--photo img.is-tall { object-fit: contain; background: radial-gradient(circle at 50% 40%, #0B5B7E, var(--deep-2) 70%); }  /* tall posters on the event page */
 .cover--conference { background: linear-gradient(140deg, #05445F, #1F6E6A 60%, #8FC9B8); }
 .cover--other { background: linear-gradient(140deg, var(--deep-2), var(--mid)); }
 .cover--building { background: linear-gradient(140deg, #6B4E2E, #A7794A 60%, var(--cream)); }
@@ -1045,10 +1046,10 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
   /* events with photos (folder in img/events/<slug>/: 01.jpg is the cover) show the photo; others get category art */
   const cover = (k, e, big) => e && e.photos
     ? `<div class="cover cover--photo"><img src="${e.photos}/01${big ? '' : '-sm'}.jpg" alt="" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight>1.9)this.classList.add('is-wide')"></div>`
+    : e && e.invitation   // the invitation poster or event banner (shown whole on the event page if it's tall)
+      ? `<div class="cover cover--photo"><img src="${e.invitation}" alt="" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight>1.9)this.classList.add('is-wide');${big ? "if(this.naturalWidth/this.naturalHeight<1)this.classList.add('is-tall')" : ''}"></div>`
     : e && e.album && albumPhotos(e)[0]   // big albums live in Google Drive: use the album's first photo
       ? `<div class="cover cover--photo"><img src="${driveThumb(albumPhotos(e)[0], big ? 1600 : 720)}" alt="" loading="lazy" referrerpolicy="no-referrer"></div>`
-    : e && e.invitation   // no photos yet: use the invitation poster as the cover
-      ? `<div class="cover cover--photo"><img src="${e.invitation}" alt="" loading="lazy" onload="if(this.naturalWidth/this.naturalHeight>1.9)this.classList.add('is-wide')"></div>`
     : `<div class="cover cover--${k}">${icon(k, 'big')}<div class="cover__badge">${icon(k)}<span>${LABEL[k]}</span></div></div>`;
   const dateText = (e, long) => e.dateLabel || fmt(e.date, long ? { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' } : { month: 'short', day: 'numeric', year: 'numeric' });
 
@@ -1407,7 +1408,7 @@ html[lang="fil"] .svc.is-now .svc__day::after { content: " · ngayon"; }
           <div><dt>Date</dt><dd>${dateText(e, true)}</dd></div>
           ${e.time ? `<div><dt>Time</dt><dd>${esc(e.time)}</dd></div>` : ''}
           <div><dt>Place</dt><dd>${esc(e.place)}</dd></div>
-          ${e.invitation ? `<div><dt>Invitation</dt><dd><button class="facts__invite" type="button" data-full="${e.invitation}"><img src="${e.invitation}" alt="Invitation: ${esc(e.title)}" loading="lazy"></button></dd></div>` : ''}
+          ${e.invitation ? `<div><dt>${isUp(e) ? 'Invitation' : 'Event poster'}</dt><dd><button class="facts__invite" type="button" data-full="${e.invitation}"><img src="${e.invitation}" alt="Invitation: ${esc(e.title)}" loading="lazy"></button></dd></div>` : ''}
         </dl></aside>
       </div></article>`;
   }
